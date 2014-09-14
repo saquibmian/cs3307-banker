@@ -60,9 +60,8 @@ User* login( IData& data ) {
             user = new User( userName );
             break;
         } else {
-            char createUser;
             cout << "User " << userName << " does not exist; would you like to create this user? [y/n]";
-            createUser = getchar();
+            char createUser = getchar();
             if( createUser == 'y' ) {
                 user = new User( userName );
                 data.CreateUser( *user );

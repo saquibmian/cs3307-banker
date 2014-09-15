@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3829115C19C3661F0062440D /* StringUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829115B19C3661F0062440D /* StringUtils.cpp */; };
 		3829116C19C568610062440D /* Configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829116B19C568610062440D /* Configuration.cpp */; };
 		3829117319C629EA0062440D /* OptionContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829117119C629EA0062440D /* OptionContext.cpp */; };
 		3829117919C62C660062440D /* MenuOption.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829117719C62C660062440D /* MenuOption.cpp */; };
@@ -34,8 +33,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3829115A19C366000062440D /* StringUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
-		3829115B19C3661F0062440D /* StringUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StringUtils.cpp; sourceTree = "<group>"; };
 		3829116419C564190062440D /* Configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
 		3829116519C5645C0062440D /* Logger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		3829116B19C568610062440D /* Configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Configuration.cpp; sourceTree = "<group>"; };
@@ -127,15 +124,6 @@
 			name = Logger;
 			sourceTree = "<group>";
 		};
-		3829118619C633310062440D /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				3829115B19C3661F0062440D /* StringUtils.cpp */,
-				3829115A19C366000062440D /* StringUtils.h */,
-			);
-			name = Utils;
-			sourceTree = "<group>";
-		};
 		3829118A19C635770062440D /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,7 +174,6 @@
 				3829117619C62C480062440D /* Menu */,
 				3829117A19C62C7A0062440D /* Operations */,
 				3829117419C62C090062440D /* Options */,
-				3829118619C633310062440D /* Utils */,
 			);
 			path = Banker;
 			sourceTree = "<group>";
@@ -247,7 +234,6 @@
 				3829117319C629EA0062440D /* OptionContext.cpp in Sources */,
 				3829116C19C568610062440D /* Configuration.cpp in Sources */,
 				3829119619C641960062440D /* Definitions.cpp in Sources */,
-				3829115C19C3661F0062440D /* StringUtils.cpp in Sources */,
 				3829118819C6335F0062440D /* Logger.cpp in Sources */,
 				389F35F919C29F1600841892 /* User.cpp in Sources */,
 				389F35EF19C29BFB00841892 /* main.cpp in Sources */,

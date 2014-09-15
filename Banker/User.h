@@ -21,12 +21,12 @@ namespace Authentication {
     
     class User {
     private:
-        string& name;
+        string name;
         UserRole role;
         
     public:
-        User( string& name );
-        const string& GetName() const;
+        User( string name );
+        const string GetName() const;
         UserRole GetRole() const;
         friend ostream& operator<<( ostream& os, const User& user );
     };

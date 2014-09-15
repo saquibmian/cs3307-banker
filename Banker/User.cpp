@@ -10,9 +10,9 @@
 
 namespace Authentication {
     
-    User::User( string& name ) : name( name ) { }
+    User::User( string name ) : name( name ) { }
     
-    const string& User::GetName() const {
+    const string User::GetName() const {
         return name;
     };
 

@@ -11,5 +11,6 @@
 namespace Configuration {
     
     bool IsDebug = true;
+    string DataDirectory = "./data";
     
 }

@@ -9,9 +9,14 @@
 #ifndef Banker_Configuration_h
 #define Banker_Configuration_h
 
+#import <iostream>
+
+using namespace std;
+
 namespace Configuration {
     
     extern bool IsDebug;
+    extern string DataDirectory;
     
 }
 

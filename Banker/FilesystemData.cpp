@@ -16,10 +16,10 @@ namespace Data {
     }
     
     User& FilesystemData::GetUser( string& name ) {
+    User& FilesystemData::CreateUser( string& name ) {
         TODO;
     }
     
-    void FilesystemData::CreateUser( const Authentication::User &user ) {
         TODO;
     }
     

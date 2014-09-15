@@ -24,7 +24,7 @@ namespace Data {
         
         virtual bool DoesUserExist( string& name ) = 0;
         virtual User& GetUser( string& name ) = 0;
-        virtual void CreateUser( const User& user ) = 0;
+        virtual User& CreateUser( string& name ) = 0;
         
         virtual bool DoesAccountExist( const User& user, AccountType type ) = 0;
         virtual Account& GetAccount( const User& user, AccountType type ) = 0;

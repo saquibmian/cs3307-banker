@@ -16,7 +16,7 @@ namespace Data {
     class FilesystemData : public IData {
         virtual bool DoesUserExist( string& name );
         virtual User& GetUser( string& name );
-        virtual void CreateUser( const User& user );
+        virtual User& CreateUser( string& name );
         
         virtual bool DoesAccountExist( const User& user, AccountType type );
         virtual Account& GetAccount( const User& user, AccountType type );

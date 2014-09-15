@@ -63,8 +63,7 @@ User* login( IData& data ) {
             cout << "User " << userName << " does not exist; would you like to create this user? [y/n]";
             char createUser = getchar();
             if( createUser == 'y' ) {
-                user = new User( userName );
-                data.CreateUser( *user );
+                user = &data.CreateUser( userName );
             }
         }
     }

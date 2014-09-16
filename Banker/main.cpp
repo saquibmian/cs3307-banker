@@ -13,33 +13,28 @@
 #include "Logger.h"
 #include "FilesystemData.h"
 #include "MenuWindow.h"
+#include "AccountBalanceOperation.h"
+#include "Initializer.h"
 
 using namespace std;
 using namespace Authentication;
 using namespace Data;
 using namespace Menu;
-
-User* login( IData& data );
-void logout();
+using namespace Initialize;
 
 int main( int argc, const char * argv[] ) {
     ENTER( "main" );
     
-    FilesystemData data;
+    Initializer init;
     
-    User* user = login( data );
-    MenuWindow menu;
+    init.Intialize();
     
     while (true) {
-        MenuOption option = menu.GetNextOption( *user );
-        
-        if( option.IsLogout() ) {
-            logout();
-            user = login( data );
-            // NOTE: This makes it so that you can't quit until logged in ... we should fix this.
-        } else if( option.IsQuit() ) {
-            EXIT( "main" );
-            return 0;
+        MenuOption option = init.getMenu().GetNextOption( init.getUser() );
+        try {
+            option.GetOperation().Execute( init.getContext() );
+        } catch ( std::exception e ) {
+            Logger::Error() << "An error occured: " << e.what() << endl;;
         }
     }
 
@@ -48,29 +43,3 @@ int main( int argc, const char * argv[] ) {
     return 0;
 }
 
-User* login( IData& data ) {
-    string userName;
-    User* user = 0;
-    
-    while( user == 0 ) {
-        cout << "Please enter your username: ";
-        cin >> userName;
-        
-        if( data.DoesUserExist( userName ) ) {
-            user = new User( userName );
-            break;
-        } else {
-            cout << "User " << userName << " does not exist; would you like to create this user? [y/n]";
-            char createUser = getchar();
-            if( createUser == 'y' ) {
-                user = &data.CreateUser( userName );
-            }
-        }
-    }
-    
-    return user;
-}
-
-void logout() {
-    return;
-}

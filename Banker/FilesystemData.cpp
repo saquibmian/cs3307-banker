@@ -14,8 +14,8 @@ namespace Data {
     
     bool FilesystemData::DoesUserExist( string name ) {
         ENTER( "FilesystemData::DoesUserExist" );
-        string dirPath = Configuration::DataDirectory + "/" + name;
-        bool toReturn = dirExists( dirPath );
+        string path = getUserPath( name );
+        bool toReturn = fileExists( path );
         
         EXIT( "FilesystemData::DoesUserExist" );
         return toReturn;
@@ -29,19 +29,24 @@ namespace Data {
             throw std::exception();
         }
         
-        User toReturn( name );
+        string serRole;
+        initFromFile( getUserPath( name ), serRole );
+        
+        User toReturn( name, User::roleFromString(serRole) );
+        
         EXIT( "FilesystemData::GetUser" );
         return toReturn;
     }
     
-    void FilesystemData::CreateUser( string name ) {
+    void FilesystemData::CreateUser( string name, UserRole role ) {
         ENTER( "FilesystemData::CreateUser" );
         
         if( DoesUserExist( name ) ) {
             Logger::Error() << "User already exists!" <<endl;
             throw std::exception();
         }
-        createFile( getUserPath( name ), " ");
+        string serRole = User::roleToString( role );
+        createFile( getUserPath( name ), serRole );
         
         EXIT( "FilesystemData::CreateUser" );
     }
@@ -49,7 +54,7 @@ namespace Data {
     bool FilesystemData::DoesAccountExist( User user, AccountType type ) {
         ENTER( "FilesystemData::DoesAccountExist" );
         
-        bool toReturn = fileExists(getAccountPath(user.GetName(), type));
+        bool toReturn = fileExists(getAccountPath(user.Name, type));
         
         EXIT( "FilesystemData::DoesAccountExist" );
         return toReturn;
@@ -64,7 +69,7 @@ namespace Data {
         }
         
         Account account;
-        initFromFile(getAccountPath(user.GetName(), type), account.Balance);
+        initFromFile(getAccountPath(user.Name, type), account.Balance);
         
         return account;
     }
@@ -77,7 +82,7 @@ namespace Data {
             throw std::exception();
         }
         
-        createFile(getAccountPath(user.GetName(), account.Type), account.Balance);
+        createFile(getAccountPath(user.Name, account.Type), account.Balance);
         
         EXIT( "FilesystemData::StoreAccount" );
     }
@@ -88,33 +93,15 @@ namespace Data {
         string toReturn;
         switch ( type ) {
             case Accounts::Savings:
-                toReturn = getSavingsAccountPath(username);
+                toReturn = Configuration::DataDirectory + "/" + username + ".savings.dat";
                 break;
             case Accounts::Checking:
-                toReturn = getSavingsAccountPath(username);
+                toReturn = Configuration::DataDirectory + "/" + username + ".checking.dat";
                 break;
         }
         
         EXIT( "FilesystemData::getAccountPath" );
         return toReturn;
-    }
-    
-    inline string FilesystemData::getSavingsAccountPath( string userName ) {
-        ENTER( "FilesystemData::getSavingsAccountPath" );
-        
-        string path = Configuration::DataDirectory + "/" + userName + ".savings.dat";
-        
-        EXIT( "FilesystemData::getSavingsAccountPath" );
-        return path;
-    }
-    
-    inline string FilesystemData::getCheckingAccountPath( string userName ) {
-        ENTER( "FilesystemData::getSavingsAccountPath" );
-        
-        string path = Configuration::DataDirectory + "/" + userName + ".checking.dat";
-        
-        EXIT( "FilesystemData::getSavingsAccountPath" );
-        return path;
     }
     
     inline string FilesystemData::getUserPath( string userName ) {
@@ -161,8 +148,10 @@ namespace Data {
     template< class T> void FilesystemData::createFile( string path, T& data ) {
         ENTER( "FilesystemData::createFile" );
         
+        Logger::Debug() << "Writing " << data << " to file " << path << endl;
+        
         ofstream myfile;
-        myfile.open( path.c_str(), ios::out | ios::binary );
+        myfile.open( path.c_str(), ios::out );
         myfile << data;
         myfile.close();
         
@@ -171,11 +160,13 @@ namespace Data {
     
     template< class T> void FilesystemData::initFromFile( string path, T& data ) {
         ENTER( "FilesystemData::initFromFile" );
-        
+
         ifstream myfile;
-        myfile.open( path.c_str(), ios::in | ios::binary );
+        myfile.open( path.c_str(), ios::in );
         myfile >> data;
         myfile.close();
+        
+        Logger::Debug() << "Read " << data << " from file " << path << endl;
         
         EXIT( "FilesystemData::initFromFile" );
     }

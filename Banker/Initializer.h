@@ -21,18 +21,20 @@ using namespace Menu;
 namespace Initialize {
     class Initializer {
     private:
+        bool loggedIn = false;
         IData* data;
-        User* user;
+        User user;
         OptionContext* context;
         MainMenu* menu;
         vector<IOperation*>* mOperations;
         void login();
         void addMenuOptions();
+        void createDefaultUsers();
     public:
         Initializer();
         ~Initializer();
         void Intialize();
-        inline User& getUser() { return *user; }
+        inline User& getUser() { return user; }
         inline OptionContext& getContext() { return *context; }
         inline MainMenu& getMenu() { return *menu; }
     };

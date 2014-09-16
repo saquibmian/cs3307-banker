@@ -25,12 +25,10 @@ namespace Data {
         template< class T> void initFromFile( string path, T& data );
         inline string getUserPath( string userName );
         string getAccountPath( string username, AccountType type );
-        inline string getCheckingAccountPath( string userName );
-        inline string getSavingsAccountPath( string userName );
     public:
         virtual bool DoesUserExist( string name );
         virtual User GetUser( string name );
-        virtual void CreateUser( string name );
+        virtual void CreateUser( string name, UserRole role = Client );
         virtual bool DoesAccountExist( User user, AccountType type );
         virtual Account GetAccount( User user, AccountType type );
         virtual void StoreAccount( User user, Account account );

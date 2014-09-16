@@ -8,21 +8,20 @@
 
 #include "Initializer.h"
 #include "AccountBalanceOperation.h"
+#include "TraceOperation.h"
 
 using namespace Operations;
 
 namespace Initialize {
-    Initializer::Initializer() {
+    Initializer::Initializer() : user( "none" ) {
         mOperations = new vector<IOperation*>;
         data = new FilesystemData();
         menu = new MainMenu();
-        user = 0;
         context = 0;
     }
     
     Initializer::~Initializer() {
         delete data;
-        delete user;
         delete context;
         delete menu;
         for (int i = 0; i < mOperations->size(); i++) {
@@ -32,11 +31,22 @@ namespace Initialize {
     }
     
     void Initializer::Intialize() {
+        createDefaultUsers();
+        
         login();
         
         addMenuOptions();
         
-        context = new OptionContext( *user, *data );
+        context = new OptionContext( user, *data );
+    }
+    
+    void Initializer::createDefaultUsers() {
+        if( !data->DoesUserExist( "maintainer" ) ) {
+            data->CreateUser( "maintainer", Maintainer );
+        }
+        if( !data->DoesUserExist( "manager" ) ) {
+            data->CreateUser( "manager", Manager );
+        }
     }
     
     void Initializer::addMenuOptions() {
@@ -57,12 +67,12 @@ namespace Initialize {
         ENTER( "login" );
         
         string userName;
-        while( user == 0 ) {
+        while( !loggedIn ) {
             cout << "Please enter your username: ";
             cin >> userName;
             
             if( data->DoesUserExist( userName ) ) {
-                user = new User( userName );
+                user = data->GetUser(userName);
                 break;
             } else {
                 cout << "User " << userName << " does not exist; would you like to create this user? [y/n] ";
@@ -70,7 +80,7 @@ namespace Initialize {
                 cin >> createUser;
                 if( createUser == 'y' ) {
                     data->CreateUser( userName );
-                    user = new User( userName );
+                    user = data->GetUser(userName);
                 }
             }
         }

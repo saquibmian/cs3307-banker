@@ -20,15 +20,42 @@ namespace Authentication {
     };
     
     class User {
-    private:
-        string name;
-        UserRole role;
-        
     public:
-        User( string name );
-        const string GetName() const;
-        UserRole GetRole() const;
+        string Name;
+        UserRole Role;
+        User( string name, UserRole role = Client );
         friend ostream& operator<<( ostream& os, const User& user );
+        
+        static string roleToString( UserRole role ) {
+            
+            string toReturn;
+            switch ( role ) {
+                case Client:
+                    toReturn = "Client";
+                    break;
+                case Manager:
+                    toReturn = "Manager";
+                    break;
+                case Maintainer:
+                    toReturn = "Maintainer";
+                    break;
+            }
+            
+            return toReturn;
+        }
+        static UserRole roleFromString( string role ) {
+            
+            UserRole toReturn;
+            if( role.compare("Client") == 0 ) {
+                toReturn = Client;
+            } else if( role.compare("Manager") == 0 ) {
+                toReturn = Manager;
+            } else if( role.compare("Maintainer" ) == 0 ) {
+                toReturn = Maintainer;
+            }
+            
+            return toReturn;
+        }
     };
     
 }

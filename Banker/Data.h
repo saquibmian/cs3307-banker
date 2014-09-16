@@ -24,7 +24,7 @@ namespace Data {
         
         virtual bool DoesUserExist( string name ) = 0;
         virtual User GetUser( string name ) = 0;
-        virtual void CreateUser( string name ) = 0;
+        virtual void CreateUser( string name, UserRole role = Client ) = 0;
         
         virtual bool DoesAccountExist( User user, AccountType type ) = 0;
         virtual Account GetAccount( User user, AccountType type ) = 0;

@@ -10,18 +10,12 @@
 
 namespace Authentication {
     
-    User::User( string name ) : name( name ) { }
-    
-    const string User::GetName() const {
-        return name;
-    };
-
-    UserRole User::GetRole() const {
-        return role;
-    }
+    User::User( string name, UserRole role ) : Name( name ), Role( role ) { }
     
     ostream& operator<<( ostream &strm, const User &user ) {
-        return strm << user.GetName();
+        return strm << user.Name;
     }
+    
+    
     
 }

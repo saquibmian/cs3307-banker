@@ -15,7 +15,7 @@ namespace Initialize {
     Initializer::Initializer() {
         mOperations = new vector<IOperation*>;
         data = new FilesystemData();
-        menu = new MenuWindow();
+        menu = new MainMenu();
         user = 0;
         context = 0;
     }

@@ -12,7 +12,7 @@
 #include "Configuration.h"
 #include "Logger.h"
 #include "FilesystemData.h"
-#include "MenuWindow.h"
+#include "MainMenu.h"
 #include "AccountBalanceOperation.h"
 #include "Initializer.h"
 
@@ -24,7 +24,7 @@ using namespace Initialize;
 
 int main( int argc, const char * argv[] ) {
     ENTER( "main" );
-    
+        
     Initializer init;
     
     init.Intialize();

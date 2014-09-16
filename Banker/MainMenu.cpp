@@ -6,21 +6,21 @@
 //  Copyright (c) 2014 Saquib Mian. All rights reserved.
 //
 
-#include "MenuWindow.h"
+#include "MainMenu.h"
 #include "Definitions.h"
 #include "Logger.h"
 
 namespace Menu {
     
-    MenuWindow::MenuWindow() {
+    MainMenu::MainMenu() {
         options = new map<int,MenuOption>;
     }
     
-    MenuWindow::~MenuWindow() {
+    MainMenu::~MainMenu() {
         delete options;
     }
     
-    void MenuWindow::Display( User user ) {
+    void MainMenu::Display( User user ) {
         ENTER( "MenuWindow::Display" );
         
         for ( map<int,MenuOption>::iterator iter = options->begin(); iter != options->end(); iter++ ) {
@@ -33,7 +33,7 @@ namespace Menu {
         EXIT( "MenuWindow::Display" );
     }
     
-    void MenuWindow::AddMenuOption( MenuOption option ) {
+    void MainMenu::AddMenuOption( MenuOption option ) {
         ENTER( "MenuWindow::AddMenuOption" );
         
         options->insert( std::map< int, MenuOption >::value_type ( numOptions++, option ) );
@@ -42,7 +42,7 @@ namespace Menu {
         EXIT( "MenuWindow::AddMenuOption" );
     }
     
-    MenuOption MenuWindow::GetNextOption( User user ) {
+    MenuOption MainMenu::GetNextOption( User user ) {
         ENTER( "MenuWindow::GetNextOption" );
         Display( user );
         

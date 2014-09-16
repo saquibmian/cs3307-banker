@@ -12,7 +12,7 @@
 		3829116C19C568610062440D /* Configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829116B19C568610062440D /* Configuration.cpp */; };
 		3829117319C629EA0062440D /* OptionContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829117119C629EA0062440D /* OptionContext.cpp */; };
 		3829117919C62C660062440D /* MenuOption.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829117719C62C660062440D /* MenuOption.cpp */; };
-		3829118319C633050062440D /* MenuWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829118119C633050062440D /* MenuWindow.cpp */; };
+		3829118319C633050062440D /* MainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829118119C633050062440D /* MainMenu.cpp */; };
 		3829118819C6335F0062440D /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829118719C6335F0062440D /* Logger.cpp */; };
 		3829118D19C635920062440D /* Data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829118B19C635920062440D /* Data.cpp */; };
 		3829119119C6362D0062440D /* Account.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829118F19C6362D0062440D /* Account.cpp */; };
@@ -47,8 +47,8 @@
 		3829117719C62C660062440D /* MenuOption.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuOption.cpp; sourceTree = "<group>"; };
 		3829117819C62C660062440D /* MenuOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuOption.h; sourceTree = "<group>"; };
 		3829117C19C62C900062440D /* IOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOperation.h; sourceTree = "<group>"; };
-		3829118119C633050062440D /* MenuWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuWindow.cpp; sourceTree = "<group>"; };
-		3829118219C633050062440D /* MenuWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuWindow.h; sourceTree = "<group>"; };
+		3829118119C633050062440D /* MainMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainMenu.cpp; sourceTree = "<group>"; };
+		3829118219C633050062440D /* MainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenu.h; sourceTree = "<group>"; };
 		3829118719C6335F0062440D /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Logger.cpp; sourceTree = "<group>"; };
 		3829118919C633970062440D /* Definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
 		3829118B19C635920062440D /* Data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Data.cpp; sourceTree = "<group>"; };
@@ -100,8 +100,8 @@
 			children = (
 				3829117719C62C660062440D /* MenuOption.cpp */,
 				3829117819C62C660062440D /* MenuOption.h */,
-				3829118119C633050062440D /* MenuWindow.cpp */,
-				3829118219C633050062440D /* MenuWindow.h */,
+				3829118119C633050062440D /* MainMenu.cpp */,
+				3829118219C633050062440D /* MainMenu.h */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -253,7 +253,7 @@
 				389F35F919C29F1600841892 /* User.cpp in Sources */,
 				389F35EF19C29BFB00841892 /* main.cpp in Sources */,
 				389DDC5E19C781190063CA4B /* AccountBalanceOperation.cpp in Sources */,
-				3829118319C633050062440D /* MenuWindow.cpp in Sources */,
+				3829118319C633050062440D /* MainMenu.cpp in Sources */,
 				3829117919C62C660062440D /* MenuOption.cpp in Sources */,
 				3829119419C638F50062440D /* FilesystemData.cpp in Sources */,
 			);

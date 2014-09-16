@@ -12,7 +12,7 @@
 #include <iostream>
 #include "FilesystemData.h"
 #include "MenuOption.h"
-#include "MenuWindow.h"
+#include "MainMenu.h"
 #include "OptionContext.h"
 #include "Logger.h"
 
@@ -24,7 +24,7 @@ namespace Initialize {
         IData* data;
         User* user;
         OptionContext* context;
-        MenuWindow* menu;
+        MainMenu* menu;
         vector<IOperation*>* mOperations;
         void login();
         void addMenuOptions();
@@ -34,7 +34,7 @@ namespace Initialize {
         void Intialize();
         inline User& getUser() { return *user; }
         inline OptionContext& getContext() { return *context; }
-        inline MenuWindow& getMenu() { return *menu; }
+        inline MainMenu& getMenu() { return *menu; }
     };
 }
 

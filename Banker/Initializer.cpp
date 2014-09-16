@@ -45,6 +45,12 @@ namespace Initialize {
         MenuOption option1 ( "Display account balance", operation1, Client );
         mOperations->push_back( operation1 );
         menu->AddMenuOption( option1 );
+        
+        // Trace operation
+        IOperation* operation2 = new TraceOperation();
+        MenuOption option2 ( "Enable/disable trace", operation2, Maintainer );
+        mOperations->push_back( operation2 );
+        menu->AddMenuOption( option2 );
     }
     
     void Initializer::login() {

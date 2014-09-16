@@ -50,9 +50,9 @@ namespace Menu {
         cout << "Please choose an option: ";
         cin >> option;
         
-        cout << "numOptions is " << options->count(option) << endl;
         if( options->count(option) == 0 ) {
             Logger::Error() << "Invalid option!" << endl;
+            throw std::exception();
         }
         
         EXIT( "MenuWindow::GetNextOption" );

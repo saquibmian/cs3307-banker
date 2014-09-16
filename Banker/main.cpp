@@ -30,8 +30,8 @@ int main( int argc, const char * argv[] ) {
     init.Intialize();
     
     while (true) {
-        MenuOption option = init.getMenu().GetNextOption( init.getUser() );
         try {
+            MenuOption option = init.getMenu().GetNextOption( init.getUser() );
             option.GetOperation().Execute( init.getContext() );
         } catch ( std::exception e ) {
             Logger::Error() << "An error occured: " << e.what() << endl;;

@@ -19,15 +19,15 @@ namespace Menu {
     
     class MenuOption {
     private:
-        const string& display;
-        int key;
-        const IOperation& operation;
+        string display;
+        IOperation* operation;
+        UserRole validRole;
     public:
-        MenuOption( int key, const string& display, const IOperation& op );
-        const string& GetDisplay();
-        const IOperation& GetOperation();
+        MenuOption( string display, IOperation* op, UserRole role );
+        string GetDisplay();
+        IOperation& GetOperation();
+        bool IsValidForUser( User user );
         bool IsQuit();
-        bool IsLogout();
     };
     
 }

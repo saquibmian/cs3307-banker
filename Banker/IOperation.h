@@ -18,7 +18,8 @@ namespace Operations {
     class IOperation {
     public:
         virtual ~IOperation() {}
-        virtual void Execute( OptionContext const &context ) = 0;
+        virtual void Execute( OptionContext context ) = 0;
+        AccountType getAccountType();
     };
     
 }

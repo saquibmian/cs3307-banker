@@ -18,8 +18,8 @@ namespace Accounts {
     };
     class Account {
     public:
-        AccountType GetType();
-        double GetBalance();
+        AccountType Type;
+        double Balance;
     };
 }
 

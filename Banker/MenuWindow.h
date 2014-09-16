@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include "MenuOption.h"
 
 using namespace std;
@@ -18,12 +19,14 @@ using namespace std;
 namespace Menu {
     class MenuWindow {
     private:
-        vector<MenuOption> options;
-        void Display( const User& user );
+        int numOptions = 0;
+        map<int,MenuOption>* options;
+        void Display( User user );
     public:
         MenuWindow();
-        void AddMenuOption( MenuOption& option );
-        const MenuOption& GetNextOption( const User& user );
+        ~MenuWindow();
+        void AddMenuOption( MenuOption option );
+        MenuOption GetNextOption( User user );
     };
 }
 

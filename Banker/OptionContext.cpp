@@ -9,7 +9,10 @@
 #include "OptionContext.h"
 
 namespace Options {
-    const User& OptionContext::GetUser() {
+    User OptionContext::GetUser() {
         return user;
+    }
+    IData& OptionContext::GetData() {
+        return data;
     }
 }

@@ -11,16 +11,20 @@
 
 #include <iostream>
 #include "User.h"
+#include "Data.h"
 
 using namespace Authentication;
+using namespace Data;
 
 namespace Options {
     class OptionContext {
     private:
-        const User & user;
+        User user;
+        IData& data;
     public:
-        const User& GetUser();
-        OptionContext( User &usr ) : user( usr ) { }
+        User GetUser();
+        IData& GetData();
+        OptionContext( User usr, IData& d ) : user( usr ), data( d ) { }
     };
 }
 

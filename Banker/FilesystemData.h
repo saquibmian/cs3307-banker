@@ -10,18 +10,35 @@
 #define __Banker__FilesystemData__
 
 #include <iostream>
+#include <fstream>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "Data.h"
 
 namespace Data {
     class FilesystemData : public IData {
-        virtual bool DoesUserExist( string& name );
-        virtual User& GetUser( string& name );
-        virtual User& CreateUser( string& name );
-        
-        virtual bool DoesAccountExist( const User& user, AccountType type );
-        virtual Account& GetAccount( const User& user, AccountType type );
-        virtual void StoreAccount( const User& user, const Account& account );
+    private:
+        bool dirExists( string path );
+        bool fileExists( string path );
+        void createDirectory( string path );
+        template< class T> void createFile( string path, T& data );
+        template< class T> void initFromFile( string path, T& data );
+        inline string getUserPath( string userName );
+        string getAccountPath( string username, AccountType type );
+        inline string getCheckingAccountPath( string userName );
+        inline string getSavingsAccountPath( string userName );
+    public:
+        virtual bool DoesUserExist( string name );
+        virtual User GetUser( string name );
+        virtual void CreateUser( string name );
+        virtual bool DoesAccountExist( User user, AccountType type );
+        virtual Account GetAccount( User user, AccountType type );
+        virtual void StoreAccount( User user, Account account );
     };
 }
 
 #endif /* defined(__Banker__FilesystemData__) */
+
+
+
+

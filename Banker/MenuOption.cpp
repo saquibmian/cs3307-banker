@@ -27,7 +27,15 @@ namespace Menu {
     
     bool MenuOption::IsValidForUser( Authentication::User user ) {
         ENTER( "MenuOption::IsValidForUser" );
-        bool toReturn = user.GetRole() == validRole;
+        bool toReturn;
+        
+        if( user.Role == Maintainer ) {
+            toReturn = true;
+        } else if( validRole == Maintainer ) {
+            toReturn = false;
+        } else {
+            toReturn = user.Role == validRole;
+        }
         
         EXIT( "MenuOption::IsValidForUser" );
         return toReturn;

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		38251AAE19C7E05A0010C3D4 /* Initializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38251AAC19C7E05A0010C3D4 /* Initializer.cpp */; };
 		38251AB019C813460010C3D4 /* IOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38251AAF19C813460010C3D4 /* IOperation.cpp */; };
+		38251AB319C81A3F0010C3D4 /* TraceOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38251AB119C81A3F0010C3D4 /* TraceOperation.cpp */; };
 		3829116C19C568610062440D /* Configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829116B19C568610062440D /* Configuration.cpp */; };
 		3829117319C629EA0062440D /* OptionContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829117119C629EA0062440D /* OptionContext.cpp */; };
 		3829117919C62C660062440D /* MenuOption.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829117719C62C660062440D /* MenuOption.cpp */; };
@@ -39,6 +40,8 @@
 		38251AAC19C7E05A0010C3D4 /* Initializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Initializer.cpp; sourceTree = "<group>"; };
 		38251AAD19C7E05A0010C3D4 /* Initializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Initializer.h; sourceTree = "<group>"; };
 		38251AAF19C813460010C3D4 /* IOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOperation.cpp; sourceTree = "<group>"; };
+		38251AB119C81A3F0010C3D4 /* TraceOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TraceOperation.cpp; sourceTree = "<group>"; };
+		38251AB219C81A3F0010C3D4 /* TraceOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TraceOperation.h; sourceTree = "<group>"; };
 		3829116419C564190062440D /* Configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
 		3829116519C5645C0062440D /* Logger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		3829116B19C568610062440D /* Configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Configuration.cpp; sourceTree = "<group>"; };
@@ -113,6 +116,8 @@
 				38251AAF19C813460010C3D4 /* IOperation.cpp */,
 				389DDC5C19C781190063CA4B /* AccountBalanceOperation.cpp */,
 				389DDC5D19C781190063CA4B /* AccountBalanceOperation.h */,
+				38251AB119C81A3F0010C3D4 /* TraceOperation.cpp */,
+				38251AB219C81A3F0010C3D4 /* TraceOperation.h */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -255,6 +260,7 @@
 				389DDC5E19C781190063CA4B /* AccountBalanceOperation.cpp in Sources */,
 				3829118319C633050062440D /* MainMenu.cpp in Sources */,
 				3829117919C62C660062440D /* MenuOption.cpp in Sources */,
+				38251AB319C81A3F0010C3D4 /* TraceOperation.cpp in Sources */,
 				3829119419C638F50062440D /* FilesystemData.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

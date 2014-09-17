@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		38251AAE19C7E05A0010C3D4 /* Initializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38251AAC19C7E05A0010C3D4 /* Initializer.cpp */; };
+		38251AAE19C7E05A0010C3D4 /* Program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38251AAC19C7E05A0010C3D4 /* Program.cpp */; };
 		38251AB019C813460010C3D4 /* IOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38251AAF19C813460010C3D4 /* IOperation.cpp */; };
 		38251AB319C81A3F0010C3D4 /* TraceOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38251AB119C81A3F0010C3D4 /* TraceOperation.cpp */; };
 		38251AB919C92A540010C3D4 /* AllClientsBalanceOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38251AB719C92A540010C3D4 /* AllClientsBalanceOperation.cpp */; };
@@ -39,8 +39,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		38251AAC19C7E05A0010C3D4 /* Initializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Initializer.cpp; sourceTree = "<group>"; };
-		38251AAD19C7E05A0010C3D4 /* Initializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Initializer.h; sourceTree = "<group>"; };
+		38251AAC19C7E05A0010C3D4 /* Program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Program.cpp; sourceTree = "<group>"; };
+		38251AAD19C7E05A0010C3D4 /* Program.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Program.h; sourceTree = "<group>"; };
 		38251AAF19C813460010C3D4 /* IOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOperation.cpp; sourceTree = "<group>"; };
 		38251AB119C81A3F0010C3D4 /* TraceOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TraceOperation.cpp; sourceTree = "<group>"; };
 		38251AB219C81A3F0010C3D4 /* TraceOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TraceOperation.h; sourceTree = "<group>"; };
@@ -197,8 +197,8 @@
 				3829119519C641960062440D /* Definitions.cpp */,
 				3829118519C633250062440D /* Logger */,
 				389F35EE19C29BFB00841892 /* main.cpp */,
-				38251AAC19C7E05A0010C3D4 /* Initializer.cpp */,
-				38251AAD19C7E05A0010C3D4 /* Initializer.h */,
+				38251AAC19C7E05A0010C3D4 /* Program.cpp */,
+				38251AAD19C7E05A0010C3D4 /* Program.h */,
 				3829117619C62C480062440D /* Menu */,
 				3829117A19C62C7A0062440D /* Operations */,
 				3829117419C62C090062440D /* Options */,
@@ -263,7 +263,7 @@
 				38251AB019C813460010C3D4 /* IOperation.cpp in Sources */,
 				3829116C19C568610062440D /* Configuration.cpp in Sources */,
 				3829119619C641960062440D /* Definitions.cpp in Sources */,
-				38251AAE19C7E05A0010C3D4 /* Initializer.cpp in Sources */,
+				38251AAE19C7E05A0010C3D4 /* Program.cpp in Sources */,
 				3829118819C6335F0062440D /* Logger.cpp in Sources */,
 				389F35F919C29F1600841892 /* User.cpp in Sources */,
 				389F35EF19C29BFB00841892 /* main.cpp in Sources */,

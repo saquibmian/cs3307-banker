@@ -18,8 +18,7 @@
 
 using namespace Menu;
 
-namespace Initialize {
-    class Initializer {
+    class Program {
     private:
         bool loggedIn = false;
         IData* data;
@@ -31,13 +30,12 @@ namespace Initialize {
         void addMenuOptions();
         void createDefaultUsers();
     public:
-        Initializer();
-        ~Initializer();
+        Program();
+        ~Program();
         void Intialize();
         inline User& getUser() { return user; }
         inline OptionContext& getContext() { return *context; }
         inline MainMenu& getMenu() { return *menu; }
     };
-}
 
 #endif /* defined(__Banker__Initializer__) */

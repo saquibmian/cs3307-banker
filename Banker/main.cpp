@@ -14,18 +14,17 @@
 #include "FilesystemData.h"
 #include "MainMenu.h"
 #include "AccountBalanceOperation.h"
-#include "Initializer.h"
+#include "Program.h"
 
 using namespace std;
 using namespace Authentication;
 using namespace Data;
 using namespace Menu;
-using namespace Initialize;
 
 int main( int argc, const char * argv[] ) {
     ENTER( "main" );
         
-    Initializer init;
+    Program init;
     
     init.Intialize();
     

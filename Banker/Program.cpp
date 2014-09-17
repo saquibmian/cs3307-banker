@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Saquib Mian. All rights reserved.
 //
 
-#include "Initializer.h"
+#include "Program.h"
 #include "AccountBalanceOperation.h"
 #include "AllClientsBalanceOperation.h"
 #include "AggregateBalanceOperation.h"
@@ -14,15 +14,14 @@
 
 using namespace Operations;
 
-namespace Initialize {
-    Initializer::Initializer() : user( "none" ) {
+    Program::Program() : user( "none" ) {
         mOperations = new vector<IOperation*>;
         data = new FilesystemData();
         menu = new MainMenu();
         context = 0;
     }
     
-    Initializer::~Initializer() {
+    Program::~Program() {
         delete data;
         delete context;
         delete menu;
@@ -32,7 +31,7 @@ namespace Initialize {
         delete mOperations;
     }
     
-    void Initializer::Intialize() {
+    void Program::Intialize() {
         data->initialize();
         
         createDefaultUsers();
@@ -44,7 +43,7 @@ namespace Initialize {
         context = new OptionContext( user, *data );
     }
     
-    void Initializer::createDefaultUsers() {
+    void Program::createDefaultUsers() {
         if( !data->DoesUserExist( "maintainer" ) ) {
             data->CreateUser( "maintainer", Maintainer );
         }
@@ -53,7 +52,7 @@ namespace Initialize {
         }
     }
     
-    void Initializer::addMenuOptions() {
+    void Program::addMenuOptions() {
         // Account balance operation
         IOperation* accountBalanceOp = new AccountBalanceOperation();
         MenuOption accountBalanceMenuOp ( "Display account balance", accountBalanceOp, Client );
@@ -79,7 +78,7 @@ namespace Initialize {
         menu->AddMenuOption( traceMenuOp );
     }
     
-    void Initializer::login() {
+    void Program::login() {
         ENTER( "login" );
         
         string userName;
@@ -103,4 +102,3 @@ namespace Initialize {
         
         EXIT( "login" );
     }
-}

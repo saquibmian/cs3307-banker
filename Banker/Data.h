@@ -10,6 +10,7 @@
 #define __Banker__Data__
 
 #include <iostream>
+#include <vector>
 #include "User.h"
 #include "Account.h"
 
@@ -22,8 +23,11 @@ namespace Data {
     public:
         virtual ~IData() {}
         
+        virtual void initialize() = 0;
+        
         virtual bool DoesUserExist( string name ) = 0;
         virtual User GetUser( string name ) = 0;
+        virtual vector<User> getAllUsers() = 0;
         virtual void CreateUser( string name, UserRole role = Client ) = 0;
         
         virtual bool DoesAccountExist( User user, AccountType type ) = 0;

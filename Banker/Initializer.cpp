@@ -31,6 +31,8 @@ namespace Initialize {
     }
     
     void Initializer::Intialize() {
+        data->initialize();
+        
         createDefaultUsers();
         
         login();

@@ -12,6 +12,12 @@
 
 namespace Data {
     
+    void FilesystemData::initialize() {
+        if( !fileExists( getAccountListPath() ) ) {
+            createFile(getAccountListPath(), "" );
+        }
+    }
+    
     bool FilesystemData::DoesUserExist( string name ) {
         ENTER( "FilesystemData::DoesUserExist" );
         string path = getUserPath( name );
@@ -38,6 +44,19 @@ namespace Data {
         return toReturn;
     }
     
+    vector<User> FilesystemData::getAllUsers() {
+        vector<User> toReturn;
+        
+        vector<string> users = readAllLinesFromFile( getAccountListPath() );
+        for ( vector<string>::iterator iter = users.begin(); iter != users.end(); iter++ ) {
+            if( !iter.base()->empty() ) {
+                toReturn.push_back( GetUser( *iter.base() ) );
+            }
+        }
+        
+        return toReturn;
+    }
+    
     void FilesystemData::CreateUser( string name, UserRole role ) {
         ENTER( "FilesystemData::CreateUser" );
         
@@ -47,6 +66,7 @@ namespace Data {
         }
         string serRole = User::roleToString( role );
         createFile( getUserPath( name ), serRole );
+        appendLineToFile(getAccountListPath(), name);
         
         EXIT( "FilesystemData::CreateUser" );
     }
@@ -85,6 +105,10 @@ namespace Data {
         createFile(getAccountPath(user.Name, account.Type), account.Balance);
         
         EXIT( "FilesystemData::StoreAccount" );
+    }
+    
+    inline string FilesystemData::getAccountListPath() {
+        return Configuration::DataDirectory + "/accounts.dat";
     }
     
     string FilesystemData::getAccountPath( string username, AccountType type ) {
@@ -158,6 +182,19 @@ namespace Data {
         EXIT( "FilesystemData::createFile" );
     }
     
+    template< class T> void FilesystemData::appendLineToFile( string path, T& data ) {
+        ENTER( "FilesystemData::appendLineToFile" );
+        
+        Logger::Debug() << "Appending " << data << " to file " << path << endl;
+        
+        ofstream myfile;
+        myfile.open( path.c_str(), ios::out | ios::app );
+        myfile << endl << data;
+        myfile.close();
+        
+        EXIT( "FilesystemData::appendLineToFile" );
+    }
+    
     template< class T> void FilesystemData::initFromFile( string path, T& data ) {
         ENTER( "FilesystemData::initFromFile" );
 
@@ -169,5 +206,24 @@ namespace Data {
         Logger::Debug() << "Read " << data << " from file " << path << endl;
         
         EXIT( "FilesystemData::initFromFile" );
+    }
+    
+    vector<string> FilesystemData::readAllLinesFromFile( string path ) {
+        ENTER( "FilesystemData::readAllLinesFromFile" );
+
+        ifstream myfile;
+        myfile.open( path.c_str(), ios::in );
+        
+        vector<string> lines;
+        string line;
+        while ( myfile.good() ) {
+            getline ( myfile, line, '\n' );
+            lines.push_back( line );
+        }
+        
+        myfile.close();
+        
+        EXIT( "FilesystemData::readAllLinesFromFile" );
+        return lines;
     }
 }

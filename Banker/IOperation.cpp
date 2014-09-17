@@ -38,15 +38,15 @@ namespace Operations {
     
     void IOperation::DisplayAccountDetails( OptionContext& context, User& user ) {
         bool hasAtLeastOneAccount = false;
-        if( context.GetData().DoesAccountExist(context.GetUser(), Checking) ) {
+        if( context.GetData().DoesAccountExist(user, Checking) ) {
             hasAtLeastOneAccount = true;
             Account act = context.GetData().GetAccount( user, Checking );
-            cout << "Checking balance: $" << act.Balance;
+            cout << "Checking balance: $" << act.Balance <<endl;
         }
-        if( context.GetData().DoesAccountExist(context.GetUser(), Savings) ) {
+        if( context.GetData().DoesAccountExist(user, Savings) ) {
             hasAtLeastOneAccount = true;
             Account act = context.GetData().GetAccount( user, Savings );
-            cout << "Savings balance: $" << act.Balance;
+            cout << "Savings balance: $" << act.Balance << endl;
         }
         
         if( !hasAtLeastOneAccount) {

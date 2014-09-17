@@ -15,15 +15,24 @@ using namespace Accounts;
 namespace Operations {
     void AccountBalanceOperation::Execute( OptionContext context ) {
         ENTER( "AccountBalanceOperation::Execute" );
+        
+        User user = context.GetUser();
+        
+        if( context.GetUser().Role == Manager ) {
+            string username;
+            cout << "Please enter the username of the customer: ";
+            cin >> username;
 
-        AccountType accountType = getAccountType();
-
-        if( !context.GetData().DoesAccountExist(context.GetUser(), accountType) ) {
-            Logger::Error() << "The specified account does not exist!" << endl;
-        } else {
-            Account act = context.GetData().GetAccount( context.GetUser(), accountType );
-            cout << "Balance: " << act.Balance;
+            if ( context.GetData().DoesUserExist(username) ) {
+                user = context.GetData().GetUser( username );
+            } else {
+                Logger::Error() << "Client does not exist!" << endl;
+                EXIT( "AccountBalanceOperation::Execute" );
+                return;
+            }
         }
+        
+        DisplayAccountDetails( context, user );
         
         EXIT( "AccountBalanceOperation::Execute" );
     }

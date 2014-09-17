@@ -29,10 +29,12 @@ namespace Menu {
         ENTER( "MenuOption::IsValidForUser" );
         bool toReturn;
         
-        if( user.Role == Maintainer ) {
-            toReturn = true;
-        } else if( validRole == Maintainer ) {
-            toReturn = false;
+        if( user.Role == Manager ) {
+            if( validRole == Maintainer ) {
+                toReturn = false;
+            } else {
+                toReturn = true;
+            }
         } else {
             toReturn = user.Role == validRole;
         }

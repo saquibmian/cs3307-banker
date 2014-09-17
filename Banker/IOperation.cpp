@@ -35,4 +35,22 @@ namespace Operations {
         EXIT( "IOperation::getAccountType" );
         return accountType;
     }
+    
+    void IOperation::DisplayAccountDetails( OptionContext& context, User& user ) {
+        bool hasAtLeastOneAccount = false;
+        if( context.GetData().DoesAccountExist(context.GetUser(), Checking) ) {
+            hasAtLeastOneAccount = true;
+            Account act = context.GetData().GetAccount( user, Checking );
+            cout << "Checking balance: $" << act.Balance;
+        }
+        if( context.GetData().DoesAccountExist(context.GetUser(), Savings) ) {
+            hasAtLeastOneAccount = true;
+            Account act = context.GetData().GetAccount( user, Savings );
+            cout << "Savings balance: $" << act.Balance;
+        }
+        
+        if( !hasAtLeastOneAccount) {
+            Logger::Error() << "The specified client does not have any accounts; please create one." << endl;
+        }
+    }
 }

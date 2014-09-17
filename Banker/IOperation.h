@@ -16,10 +16,12 @@ using namespace Options;
 namespace Operations {
     
     class IOperation {
+    protected:
+        AccountType getAccountType();
+        void DisplayAccountDetails( OptionContext& context, User& user );
     public:
         virtual ~IOperation() {}
         virtual void Execute( OptionContext context ) = 0;
-        AccountType getAccountType();
     };
     
 }

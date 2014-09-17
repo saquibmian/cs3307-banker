@@ -18,24 +18,24 @@
 
 using namespace Menu;
 
-    class Program {
-    private:
-        bool loggedIn = false;
-        IData* data;
-        User user;
-        OptionContext* context;
-        MainMenu* menu;
-        vector<IOperation*>* mOperations;
-        void login();
-        void addMenuOptions();
-        void createDefaultUsers();
-    public:
-        Program();
-        ~Program();
-        void Intialize();
-        inline User& getUser() { return user; }
-        inline OptionContext& getContext() { return *context; }
-        inline MainMenu& getMenu() { return *menu; }
-    };
+class Program {
+private:
+    bool loggedIn = false;
+    IData* data;
+    User user;
+    OptionContext* context;
+    MainMenu* menu;
+    vector<IOperation*>* mOperations;
+    void login();
+    void addMenuOptions();
+    void createDefaultUsers();
+public:
+    Program();
+    ~Program();
+    void Intialize();
+    inline User& getUser() { return user; }
+    inline OptionContext& getContext() { return *context; }
+    inline MainMenu& getMenu() { return *menu; }
+};
 
 #endif /* defined(__Banker__Initializer__) */

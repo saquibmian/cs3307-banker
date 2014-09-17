@@ -8,6 +8,8 @@
 
 #include "Initializer.h"
 #include "AccountBalanceOperation.h"
+#include "AllClientsBalanceOperation.h"
+#include "AggregateBalanceOperation.h"
 #include "TraceOperation.h"
 
 using namespace Operations;
@@ -53,16 +55,28 @@ namespace Initialize {
     
     void Initializer::addMenuOptions() {
         // Account balance operation
-        IOperation* operation1 = new AccountBalanceOperation();
-        MenuOption option1 ( "Display account balance", operation1, Client );
-        mOperations->push_back( operation1 );
-        menu->AddMenuOption( option1 );
+        IOperation* accountBalanceOp = new AccountBalanceOperation();
+        MenuOption accountBalanceMenuOp ( "Display account balance", accountBalanceOp, Client );
+        mOperations->push_back( accountBalanceOp );
+        menu->AddMenuOption( accountBalanceMenuOp );
         
+        // All account balance operation
+        IOperation* allAccountBalanceOp = new AllClientsBalanceOperation();
+        MenuOption allAccountBalanceMenuOp ( "Display all account balances", allAccountBalanceOp, Manager );
+        mOperations->push_back( allAccountBalanceOp );
+        menu->AddMenuOption( allAccountBalanceMenuOp );
+
+        // Total account balance operation
+        IOperation* totalAccountBalanceOp = new AggregateBalanceOperation();
+        MenuOption totalAccountBalanceMenuOp ( "Display total account balances", totalAccountBalanceOp, Manager );
+        mOperations->push_back( totalAccountBalanceOp );
+        menu->AddMenuOption( totalAccountBalanceMenuOp );
+
         // Trace operation
-        IOperation* operation2 = new TraceOperation();
-        MenuOption option2 ( "Enable/disable trace", operation2, Maintainer );
-        mOperations->push_back( operation2 );
-        menu->AddMenuOption( option2 );
+        IOperation* traceOp = new TraceOperation();
+        MenuOption traceMenuOp ( "Enable/disable trace", traceOp, Maintainer );
+        mOperations->push_back( traceOp );
+        menu->AddMenuOption( traceMenuOp );
     }
     
     void Initializer::login() {

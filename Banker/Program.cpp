@@ -12,6 +12,7 @@
 #include "AggregateBalanceOperation.h"
 #include "AccountCreationOperation.h"
 #include "AccountDeletionOperation.h"
+#include "WithdrawOperation.h"
 #include "TraceOperation.h"
 
 using namespace Operations;
@@ -81,7 +82,7 @@ void Program::addMenuOptions() {
     
     // Account creation options
     IOperation* accountCreationOp = new AccountCreationOperation();
-    MenuOption accountCreationMenuOp ("Open a new account", accountCreationOp, Client);
+    MenuOption accountCreationMenuOp ("Open an account", accountCreationOp, Client);
     mOperations->push_back( accountCreationOp );
     menu->AddMenuOption( accountCreationMenuOp );
     
@@ -90,6 +91,12 @@ void Program::addMenuOptions() {
     MenuOption accountDeletionMenuOp ("Close an account", accountDeletionOp, Client);
     mOperations->push_back( accountDeletionOp );
     menu->AddMenuOption( accountDeletionMenuOp );
+    
+    // Withdraw
+    IOperation* withdrawOp = new WithdrawOperation();
+    MenuOption withdrawMenuOp ("Withdraw funds", withdrawOp, Client);
+    mOperations ->push_back (withdrawOp);
+    menu->AddMenuOption (withdrawMenuOp);
     
 }
 

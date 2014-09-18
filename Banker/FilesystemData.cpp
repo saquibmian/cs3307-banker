@@ -159,6 +159,11 @@ namespace Data {
         EXIT( "FilesystemData::StoreAccount" );
     }
     
+    void FilesystemData::UpdateAccount( User user, Account account ) {
+        ENTER( "FilesysemData::UpdateAccount");
+        createFile(getAccountPath(user.Name, account.Type),account.Balance);
+    }
+    
     inline string FilesystemData::getAccountListPath() {
         return Configuration::DataDirectory + "/accounts.dat";
     }

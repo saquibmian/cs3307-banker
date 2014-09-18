@@ -21,7 +21,7 @@ namespace Operations {
         
         data = new FilesystemData();
         
-        AccountType accountType = Savings; // Default value to get rid of warning symbol.
+        AccountType accountType; // Default value to get rid of warning symbol.
         bool validAccountType = false;
         User currentUser = context.GetUser();
         string type;

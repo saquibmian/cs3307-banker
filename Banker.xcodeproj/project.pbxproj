@@ -26,6 +26,7 @@
 		389F35F919C29F1600841892 /* User.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 389F35F819C29F1600841892 /* User.cpp */; };
 		9775EEFC19CA681C000709C9 /* AccountCreationOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9775EEFB19CA681C000709C9 /* AccountCreationOperation.cpp */; };
 		9775EEFF19CA88DB000709C9 /* AccountDeletionOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9775EEFE19CA88DB000709C9 /* AccountDeletionOperation.cpp */; };
+		9775EF0219CB38F4000709C9 /* WithdrawOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9775EF0119CB38F4000709C9 /* WithdrawOperation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -79,6 +80,8 @@
 		9775EEFB19CA681C000709C9 /* AccountCreationOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AccountCreationOperation.cpp; sourceTree = "<group>"; };
 		9775EEFD19CA88BC000709C9 /* AccountDeletionOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountDeletionOperation.h; sourceTree = "<group>"; };
 		9775EEFE19CA88DB000709C9 /* AccountDeletionOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AccountDeletionOperation.cpp; sourceTree = "<group>"; };
+		9775EF0019CB38E2000709C9 /* WithdrawOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WithdrawOperation.h; sourceTree = "<group>"; };
+		9775EF0119CB38F4000709C9 /* WithdrawOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WithdrawOperation.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +139,8 @@
 				38251ABB19C92BFE0010C3D4 /* AggregateBalanceOperation.h */,
 				38251AB719C92A540010C3D4 /* AllClientsBalanceOperation.cpp */,
 				38251AB819C92A540010C3D4 /* AllClientsBalanceOperation.h */,
+				9775EF0019CB38E2000709C9 /* WithdrawOperation.h */,
+				9775EF0119CB38F4000709C9 /* WithdrawOperation.cpp */,
 				38251AB119C81A3F0010C3D4 /* TraceOperation.cpp */,
 				38251AB219C81A3F0010C3D4 /* TraceOperation.h */,
 			);
@@ -268,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3829118D19C635920062440D /* Data.cpp in Sources */,
+				9775EF0219CB38F4000709C9 /* WithdrawOperation.cpp in Sources */,
 				3829119119C6362D0062440D /* Account.cpp in Sources */,
 				3829117319C629EA0062440D /* OptionContext.cpp in Sources */,
 				38251AB019C813460010C3D4 /* IOperation.cpp in Sources */,

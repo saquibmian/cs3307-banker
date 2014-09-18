@@ -26,7 +26,6 @@ namespace Accounts {
         void SetBalance(double);
         double Deposit(double);
         double Withdraw(double);
-        bool getExist();
         //double Transfer( ); May come back to. May have the transfer be done as a combination of Deposit and Withdraw.
     };
 }

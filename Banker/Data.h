@@ -36,6 +36,7 @@ namespace Data {
         virtual bool DoesAccountExist( User user, AccountType type ) = 0;
         virtual Account GetAccount( User user, AccountType type ) = 0;
         virtual void StoreAccount( User user, Account account ) = 0;
+        virtual void UpdateAccount ( User user, Account account ) = 0;
     };
 }
 

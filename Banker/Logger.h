@@ -9,8 +9,8 @@
 #ifndef Banker_Logger_h
 #define Banker_Logger_h
 
-#define ENTER(x) (Logger::Debug() << "Entering function: " << x << std::endl)
-#define EXIT(x) (Logger::Debug() << "Exiting function: " << x << std::endl)
+#define ENTER(x) (Logger::Enter( x ))
+#define EXIT(x) (Logger::Exit( x ))
 
 #include <iostream>
 #include "Configuration.h"
@@ -23,6 +23,9 @@ namespace Logger  {
     ostream& Info();
     ostream& Warn();
     ostream& Error();
+    
+    void Enter( string func );
+    void Exit( string func );
     
 }
 

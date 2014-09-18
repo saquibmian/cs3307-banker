@@ -7,8 +7,15 @@
 //
 
 #include "Logger.h"
+#include <ctime>
+#include "time.h"
+
+#define MAX_TIME_LENGTH 80
 
 namespace Logger {
+    
+    string getTimeAsString();
+    int currentFunctionDepth = 0;
     
     // null stream taken from:
     // http://forums.codeguru.com/showthread.php?460071-ostream-bit-bucket
@@ -30,10 +37,9 @@ namespace Logger {
     
     NullStream cnul;
     
-    // method implementations
     ostream& Debug() {
         if (Configuration::IsDebug) {
-            cout << "DEBUG: ";
+            cout << "[" << getTimeAsString() << "] ";
             return cout;
         }
         
@@ -52,5 +58,24 @@ namespace Logger {
     ostream& Error() {
         cerr << "ERROR: ";
         return cerr;
+    }
+    
+    
+    void Enter( string func ) {
+        ++currentFunctionDepth;
+        Logger::Debug() << "[depth " << currentFunctionDepth << "] Entering function: " << func << std::endl;
+    }
+    void Exit( string func ) {
+        Logger::Debug() << "[depth " << currentFunctionDepth << "] Exiting function: " << func << std::endl;
+        --currentFunctionDepth;
+    }
+    
+    string getTimeAsString() {
+        char buffer [MAX_TIME_LENGTH];
+        
+        time_t currentTime = time( 0 );
+        strftime( buffer, MAX_TIME_LENGTH, "%c", localtime(&currentTime) );
+        
+        return string( buffer );
     }
 }

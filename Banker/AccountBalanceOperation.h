@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "IOperation.h"
+#include "FilesystemData.h"
 
 namespace Operations {
     class AccountBalanceOperation : public IOperation {

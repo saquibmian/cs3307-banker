@@ -10,6 +10,8 @@
 #include "AccountBalanceOperation.h"
 #include "AllClientsBalanceOperation.h"
 #include "AggregateBalanceOperation.h"
+#include "AccountCreationOperation.h"
+#include "AccountDeletionOperation.h"
 #include "TraceOperation.h"
 
 using namespace Operations;
@@ -76,6 +78,19 @@ void Program::addMenuOptions() {
     MenuOption traceMenuOp ( "Enable/disable trace", traceOp, Maintainer );
     mOperations->push_back( traceOp );
     menu->AddMenuOption( traceMenuOp );
+    
+    // Account creation options
+    IOperation* accountCreationOp = new AccountCreationOperation();
+    MenuOption accountCreationMenuOp ("Open a new account", accountCreationOp, Client);
+    mOperations->push_back( accountCreationOp );
+    menu->AddMenuOption( accountCreationMenuOp );
+    
+    // Account deletion options
+    IOperation* accountDeletionOp = new AccountDeletionOperation();
+    MenuOption accountDeletionMenuOp ("Close an account", accountDeletionOp, Client);
+    mOperations->push_back( accountDeletionOp );
+    menu->AddMenuOption( accountDeletionMenuOp );
+    
 }
 
 void Program::login() {

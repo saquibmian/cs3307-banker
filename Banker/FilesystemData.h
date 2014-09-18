@@ -22,6 +22,7 @@ namespace Data {
         bool dirExists( string path );
         bool fileExists( string path );
         void createDirectory( string path );
+        void deleteFile( string path );
         template< class T> void createFile( string path, T& data );
         template< class T> void appendLineToFile( string path, T& data );
         template< class T> void initFromFile( string path, T& data );
@@ -34,6 +35,10 @@ namespace Data {
         virtual bool DoesUserExist( string name );
         virtual vector<User> getAllUsers();
         virtual User GetUser( string name );
+        virtual void CreateSavingsAccount (User user, double inputBalance);
+        virtual void CreateCheckingAccount (User user,double inputBalance);
+        virtual void CloseSavingsAccount(User user);
+        virtual void CloseCheckingAccount (User user);
         virtual void CreateUser( string name, UserRole role = Client );
         virtual bool DoesAccountExist( User user, AccountType type );
         virtual Account GetAccount( User user, AccountType type );

@@ -48,7 +48,7 @@ namespace Menu {
         
         int option;
         cout << "Please choose an option: ";
-        cin >> option;
+        cin >> option; // I noticed this loops infinitely when a non-int is entered.
         
         if( options->count(option) == 0 ) {
             Logger::Error() << "Invalid option!" << endl;

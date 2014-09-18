@@ -24,6 +24,8 @@
 		389DDC5E19C781190063CA4B /* AccountBalanceOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 389DDC5C19C781190063CA4B /* AccountBalanceOperation.cpp */; };
 		389F35EF19C29BFB00841892 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 389F35EE19C29BFB00841892 /* main.cpp */; };
 		389F35F919C29F1600841892 /* User.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 389F35F819C29F1600841892 /* User.cpp */; };
+		9775EEFC19CA681C000709C9 /* AccountCreationOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9775EEFB19CA681C000709C9 /* AccountCreationOperation.cpp */; };
+		9775EEFF19CA88DB000709C9 /* AccountDeletionOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9775EEFE19CA88DB000709C9 /* AccountDeletionOperation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,6 +75,10 @@
 		389F35EE19C29BFB00841892 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		389F35F719C29D8800841892 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		389F35F819C29F1600841892 /* User.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = User.cpp; sourceTree = "<group>"; };
+		9775EEFA19CA680F000709C9 /* AccountCreationOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountCreationOperation.h; sourceTree = "<group>"; };
+		9775EEFB19CA681C000709C9 /* AccountCreationOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AccountCreationOperation.cpp; sourceTree = "<group>"; };
+		9775EEFD19CA88BC000709C9 /* AccountDeletionOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountDeletionOperation.h; sourceTree = "<group>"; };
+		9775EEFE19CA88DB000709C9 /* AccountDeletionOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AccountDeletionOperation.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +125,10 @@
 			isa = PBXGroup;
 			children = (
 				3829117C19C62C900062440D /* IOperation.h */,
+				9775EEFA19CA680F000709C9 /* AccountCreationOperation.h */,
+				9775EEFB19CA681C000709C9 /* AccountCreationOperation.cpp */,
+				9775EEFD19CA88BC000709C9 /* AccountDeletionOperation.h */,
+				9775EEFE19CA88DB000709C9 /* AccountDeletionOperation.cpp */,
 				38251AAF19C813460010C3D4 /* IOperation.cpp */,
 				389DDC5C19C781190063CA4B /* AccountBalanceOperation.cpp */,
 				389DDC5D19C781190063CA4B /* AccountBalanceOperation.h */,
@@ -261,10 +271,12 @@
 				3829119119C6362D0062440D /* Account.cpp in Sources */,
 				3829117319C629EA0062440D /* OptionContext.cpp in Sources */,
 				38251AB019C813460010C3D4 /* IOperation.cpp in Sources */,
+				9775EEFC19CA681C000709C9 /* AccountCreationOperation.cpp in Sources */,
 				3829116C19C568610062440D /* Configuration.cpp in Sources */,
 				3829119619C641960062440D /* Definitions.cpp in Sources */,
 				38251AAE19C7E05A0010C3D4 /* Program.cpp in Sources */,
 				3829118819C6335F0062440D /* Logger.cpp in Sources */,
+				9775EEFF19CA88DB000709C9 /* AccountDeletionOperation.cpp in Sources */,
 				389F35F919C29F1600841892 /* User.cpp in Sources */,
 				389F35EF19C29BFB00841892 /* main.cpp in Sources */,
 				38251ABC19C92BFE0010C3D4 /* AggregateBalanceOperation.cpp in Sources */,

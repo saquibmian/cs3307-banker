@@ -107,6 +107,9 @@ namespace Data {
             Logger::Error() << "This account does not exist!" << endl;
             throw std::exception();
         }
+        else{
+            deleteFile(getAccountPath(user.Name,Checking));
+        }
     }
     
     void FilesystemData::CloseSavingsAccount (User user){

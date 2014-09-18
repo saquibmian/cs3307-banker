@@ -11,6 +11,7 @@
 #include "AllClientsBalanceOperation.h"
 #include "AggregateBalanceOperation.h"
 #include "TraceOperation.h"
+#include "QuitOperation.h"
 #include "Logger.h"
 #include "Definitions.h"
 
@@ -90,5 +91,10 @@ void Program::addMenuOptions() {
     MenuOption traceMenuOp ( "Enable/disable trace", traceOp, Maintainer );
     mOperations->push_back( traceOp );
     menu->AddMenuOption( traceMenuOp );
-}
 
+    // Quit operation
+    IOperation* quitOp = new QuitOperation();
+    MenuOption quitMenuOp ( "Quit", quitOp, All );
+    mOperations->push_back( quitOp );
+    menu->AddMenuOption( quitMenuOp );
+}

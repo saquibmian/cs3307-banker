@@ -37,6 +37,8 @@ namespace Operations {
     }
     
     void IOperation::DisplayAccountDetails( OptionContext& context, User& user ) {
+        ENTER( "IOperation::DisplayAccountDetails" );
+
         bool hasAtLeastOneAccount = false;
         if( context.GetData().DoesAccountExist(user, Checking) ) {
             hasAtLeastOneAccount = true;
@@ -52,5 +54,7 @@ namespace Operations {
         if( !hasAtLeastOneAccount) {
             Logger::Error() << "The specified client does not have any accounts; please create one." << endl;
         }
+        
+        EXIT( "IOperation::DisplayAccountDetails" );
     }
 }

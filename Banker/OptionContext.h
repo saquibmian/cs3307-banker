@@ -12,6 +12,7 @@
 #include <iostream>
 #include "User.h"
 #include "Data.h"
+#include "Session.h"
 
 using namespace Authentication;
 using namespace Data;
@@ -19,12 +20,13 @@ using namespace Data;
 namespace Options {
     class OptionContext {
     private:
-        User user;
         IData& data;
+        Session& session;
     public:
-        User GetUser();
+        Session& GetSession();
         IData& GetData();
-        OptionContext( User usr, IData& d ) : user( usr ), data( d ) { }
+        OptionContext( IData& d, Session& session )
+            : data( d ), session( session ) { }
     };
 }
 

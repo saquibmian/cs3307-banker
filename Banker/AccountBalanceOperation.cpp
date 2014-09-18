@@ -16,9 +16,9 @@ namespace Operations {
     void AccountBalanceOperation::Execute( OptionContext context ) {
         ENTER( "AccountBalanceOperation::Execute" );
         
-        User user = context.GetUser();
+        User user = context.GetSession().getUser();
         
-        if( context.GetUser().Role == Manager ) {
+        if( user.Role == Manager ) {
             string username;
             cout << "Please enter the username of the customer: ";
             cin >> username;

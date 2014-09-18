@@ -9,8 +9,8 @@
 #include "OptionContext.h"
 
 namespace Options {
-    User OptionContext::GetUser() {
-        return user;
+    Session& OptionContext::GetSession() {
+        return session;
     }
     IData& OptionContext::GetData() {
         return data;

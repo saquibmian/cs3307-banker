@@ -11,13 +11,16 @@
 #include "AllClientsBalanceOperation.h"
 #include "AggregateBalanceOperation.h"
 #include "TraceOperation.h"
+#include "Logger.h"
+#include "Definitions.h"
 
 using namespace Operations;
 
-Program::Program() : user( "none" ) {
+Program::Program() {
     mOperations = new vector<IOperation*>;
     data = new FilesystemData();
     menu = new MainMenu();
+    session = new Session( *data );
     context = 0;
 }
 
@@ -36,11 +39,22 @@ void Program::Intialize() {
     
     createDefaultUsers();
     
-    login();
+    session->login();
     
     addMenuOptions();
     
-    context = new OptionContext( user, *data );
+    context = new OptionContext( *data, *session );
+}
+
+void Program::Run() {
+    while( session->isActive() ) {
+        try {
+            MenuOption option = menu->GetNextOption( session->getUser() );
+            option.GetOperation().Execute( *context );
+        } catch ( std::exception e ) {
+            Logger::Error() << "An error occured: " << e.what() << endl;;
+        }
+    }
 }
 
 void Program::createDefaultUsers() {
@@ -78,27 +92,3 @@ void Program::addMenuOptions() {
     menu->AddMenuOption( traceMenuOp );
 }
 
-void Program::login() {
-    ENTER( "login" );
-    
-    string userName;
-    while( !loggedIn ) {
-        cout << "Please enter your username: ";
-        cin >> userName;
-        
-        if( data->DoesUserExist( userName ) ) {
-            user = data->GetUser(userName);
-            break;
-        } else {
-            cout << "User " << userName << " does not exist; would you like to create this user? [y/n] ";
-            char createUser;
-            cin >> createUser;
-            if( createUser == 'y' ) {
-                data->CreateUser( userName );
-                user = data->GetUser(userName);
-            }
-        }
-    }
-    
-    EXIT( "login" );
-}

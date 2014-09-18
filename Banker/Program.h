@@ -15,6 +15,7 @@
 #include "MainMenu.h"
 #include "OptionContext.h"
 #include "Logger.h"
+#include "Session.h"
 
 using namespace Menu;
 
@@ -22,20 +23,17 @@ class Program {
 private:
     bool loggedIn = false;
     IData* data;
-    User user;
     OptionContext* context;
     MainMenu* menu;
+    Session* session;
     vector<IOperation*>* mOperations;
-    void login();
     void addMenuOptions();
     void createDefaultUsers();
 public:
     Program();
     ~Program();
     void Intialize();
-    inline User& getUser() { return user; }
-    inline OptionContext& getContext() { return *context; }
-    inline MainMenu& getMenu() { return *menu; }
+    void Run();
 };
 
 #endif /* defined(__Banker__Initializer__) */

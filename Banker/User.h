@@ -16,7 +16,7 @@ using namespace std;
 namespace Authentication {
     
     enum UserRole {
-        Client, Manager, Maintainer
+        All, Client, Manager, Maintainer
     };
     
     class User {
@@ -30,6 +30,9 @@ namespace Authentication {
             
             string toReturn;
             switch ( role ) {
+                case All:
+                    toReturn = "All";
+                    break;
                 case Client:
                     toReturn = "Client";
                     break;
@@ -46,7 +49,9 @@ namespace Authentication {
         static UserRole roleFromString( string role ) {
             
             UserRole toReturn;
-            if( role.compare("Client") == 0 ) {
+            if( role.compare("All") == 0 ) {
+                toReturn = All;
+            } else if( role.compare("Client") == 0 ) {
                 toReturn = Client;
             } else if( role.compare("Manager") == 0 ) {
                 toReturn = Manager;

@@ -10,8 +10,10 @@
 #define Banker_User_h
 
 #import <iostream>
+#include "Account.h"
 
 using namespace std;
+using namespace Accounts;
 
 namespace Authentication {
     
@@ -21,8 +23,15 @@ namespace Authentication {
     
     class User {
     public:
+        
         string Name;
         UserRole Role;
+        Account savingsAccount;//(AccountType savingsAccount, double balance);
+        Account checkingAccount;//(AccountType checkingAccount, double balance);
+        
+        //Account getSavingsAccount();
+        //Account getCheckingAccount();
+        
         User( string name, UserRole role = Client );
         friend ostream& operator<<( ostream& os, const User& user );
         

@@ -12,7 +12,6 @@
 #include <iostream>
 
 namespace Accounts {
-    
     enum AccountType {
         Savings, Checking
     };
@@ -20,6 +19,14 @@ namespace Accounts {
     public:
         AccountType Type;
         double Balance;
+        Account(AccountType actType, double balance);
+        Account();
+        bool exists = false;
+        void OpenAccount();
+        void SetBalance(double);
+        double Deposit(double);
+        double Withdraw(double);
+        //double Transfer( ); May come back to. May have the transfer be done as a combination of Deposit and Withdraw.
     };
 }
 

@@ -10,10 +10,16 @@
 #include "AccountBalanceOperation.h"
 #include "AllClientsBalanceOperation.h"
 #include "AggregateBalanceOperation.h"
+#include "AccountCreationOperation.h"
+#include "AccountDeletionOperation.h"
+#include "DepositOperation.h"
+#include "WithdrawOperation.h"
+#include "TransferOperation.h"
 #include "TraceOperation.h"
 #include "QuitOperation.h"
 #include "Logger.h"
 #include "Definitions.h"
+
 
 using namespace Operations;
 
@@ -91,6 +97,43 @@ void Program::addMenuOptions() {
     MenuOption traceMenuOp ( "Enable/disable trace", traceOp, Maintainer );
     mOperations->push_back( traceOp );
     menu->AddMenuOption( traceMenuOp );
+<<<<<<< HEAD
+=======
+    
+    // Account creation options
+    IOperation* accountCreationOp = new AccountCreationOperation();
+    MenuOption accountCreationMenuOp ("Open an account", accountCreationOp, Client);
+    mOperations->push_back( accountCreationOp );
+    menu->AddMenuOption( accountCreationMenuOp );
+    
+    // Account deletion options
+    IOperation* accountDeletionOp = new AccountDeletionOperation();
+    MenuOption accountDeletionMenuOp ("Close an account", accountDeletionOp, Client);
+    mOperations->push_back( accountDeletionOp );
+    menu->AddMenuOption( accountDeletionMenuOp );
+    
+    // Withdraw
+    IOperation* withdrawOp = new WithdrawOperation();
+    MenuOption withdrawMenuOp ("Withdraw funds", withdrawOp, Client);
+    mOperations ->push_back (withdrawOp);
+    menu->AddMenuOption (withdrawMenuOp);
+    
+    // Deposit
+    IOperation* depositOp = new DepositOperation();
+    MenuOption depositMenuOp ("Deposit funds", depositOp, Client);
+    mOperations ->push_back (withdrawOp);
+    menu->AddMenuOption(depositMenuOp);
+    
+    //Transfer
+    IOperation* transferOp = new TransferOperation();
+    MenuOption transferMenuOp ("Transfer funds", transferOp, Client);
+    mOperations ->push_back(transferOp);
+    menu->AddMenuOption(transferMenuOp);
+    
+    
+    
+}
+>>>>>>> Brent-New
 
     // Quit operation
     IOperation* quitOp = new QuitOperation();

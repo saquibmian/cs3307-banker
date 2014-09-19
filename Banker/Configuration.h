@@ -17,6 +17,7 @@ namespace Configuration {
     
     extern bool IsDebug;
     extern string DataDirectory;
+    extern string TraceFile;
     
 }
 

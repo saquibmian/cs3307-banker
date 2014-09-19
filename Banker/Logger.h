@@ -19,6 +19,8 @@ using namespace std;
 
 namespace Logger  {
     
+    bool isTraceEnabled();
+    void toggleTrace();
     ostream& Debug();
     ostream& Info();
     ostream& Warn();

@@ -12,5 +12,6 @@ namespace Configuration {
     
     bool IsDebug = false;
     string DataDirectory = ".";
+    string TraceFile = "TRACE";
     
 }

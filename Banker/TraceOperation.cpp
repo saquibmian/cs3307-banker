@@ -12,9 +12,9 @@ namespace Operations {
     void TraceOperation::Execute( OptionContext context ) {
         ENTER( "TraceOperation::Execute" );
         
-        Configuration::IsDebug = !Configuration::IsDebug;
+        Logger::toggleTrace();
         
-        Logger::Info() << "Trace is now: " << ( Configuration::IsDebug ? "ON" : "OFF") << endl;
+        Logger::Info() << "Trace is now: " << ( Logger::isTraceEnabled() ? "ON" : "OFF") << endl;
         
         EXIT( "TraceOperation::Execute" );
     }

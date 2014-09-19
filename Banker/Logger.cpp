@@ -9,11 +9,16 @@
 #include "Logger.h"
 #include <ctime>
 #include "time.h"
+#include <fstream>
+#include <sstream>
+#include <cstdio>
+#include "FileIo.h"
 
 #define MAX_TIME_LENGTH 80
 
 namespace Logger {
     
+    bool pauseTrace = false;
     string getTimeAsString();
     int currentFunctionDepth = 0;
     
@@ -38,8 +43,8 @@ namespace Logger {
     NullStream cnul;
     
     ostream& Debug() {
-        if (Configuration::IsDebug) {
-            cout << "[" << getTimeAsString() << "] ";
+        if ( Configuration::IsDebug ) {
+            cout << "DEBUG: ";
             return cout;
         }
         
@@ -60,14 +65,42 @@ namespace Logger {
         return cerr;
     }
     
+    bool isTraceEnabled() {
+        pauseTrace = true;
+        bool toReturn = Io::fileExists( Configuration::TraceFile );
+        pauseTrace = false;
+        return toReturn;
+    }
+    
+    void toggleTrace() {
+        if( isTraceEnabled() ) {
+            if( Io::deleteFile( Configuration::TraceFile ) != 0 ) {;
+                Error() << "Error deleting file: " << Configuration::TraceFile << endl;
+            }
+            Debug() << "Disabled trace" << endl;
+        } else {
+            Io::createFile( Configuration::TraceFile, "" );
+            Debug() << "Enabled trace" << endl;
+        }
+    }
+    
+    string getTimeAndFunctionDepth() {
+        stringstream buffer;
+        buffer << "[" << getTimeAsString() << "] " << "[depth " << currentFunctionDepth << "]";
+        return buffer.str();
+    }
     
     void Enter( string func ) {
-        ++currentFunctionDepth;
-        Logger::Debug() << "[depth " << currentFunctionDepth << "] Entering function: " << func << std::endl;
+        if ( !pauseTrace && isTraceEnabled() ) {
+            ++currentFunctionDepth;
+            cout << getTimeAndFunctionDepth() << " Entering function: " << func << std::endl;
+        }
     }
     void Exit( string func ) {
-        Logger::Debug() << "[depth " << currentFunctionDepth << "] Exiting function: " << func << std::endl;
-        --currentFunctionDepth;
+        if ( !pauseTrace && isTraceEnabled() ) {
+            cout << getTimeAndFunctionDepth() << " Exiting function: " << func << std::endl;
+            --currentFunctionDepth;
+        }
     }
     
     string getTimeAsString() {
@@ -78,4 +111,5 @@ namespace Logger {
         
         return string( buffer );
     }
+
 }

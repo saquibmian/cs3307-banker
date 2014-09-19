@@ -49,6 +49,7 @@ namespace Authentication {
             Logger::Error() << "Unable to log out; not logged in!";
             throw std::exception();
         }
+        Logger::flushTrace( user );
         loggedIn = false;
         Logger::Debug() << "User logged out '" << user.Name << "'" << endl;
     }

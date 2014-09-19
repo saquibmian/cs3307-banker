@@ -16,11 +16,17 @@
 
 #define MAX_TIME_LENGTH 80
 
+/*
+ Note that this class is immune to the trace directly; any child-functions are not immune. 
+ The reason is because we can get circular traces bu tracing trace functions.
+ */
 namespace Logger {
     
     bool pauseTrace = false;
-    string getTimeAsString();
+    string getTimeAsString( string formatString );
+    string getTimeAndFunctionDepth();
     int currentFunctionDepth = 0;
+    vector<string*> traceLogs;
     
     // null stream taken from:
     // http://forums.codeguru.com/showthread.php?460071-ostream-bit-bucket
@@ -86,30 +92,54 @@ namespace Logger {
     
     string getTimeAndFunctionDepth() {
         stringstream buffer;
-        buffer << "[" << getTimeAsString() << "] " << "[depth " << currentFunctionDepth << "]";
+        buffer << "[" << getTimeAsString( "%X" ) << "] " << "[depth " << currentFunctionDepth << "]";
         return buffer.str();
     }
     
-    void Enter( string func ) {
+    void enter( string func ) {
         if ( !pauseTrace && isTraceEnabled() ) {
             ++currentFunctionDepth;
-            cout << getTimeAndFunctionDepth() << " Entering function: " << func << std::endl;
+            string* log = new string( getTimeAndFunctionDepth() + " Entering function: " + func  );
+            traceLogs.push_back( log );
         }
     }
-    void Exit( string func ) {
+    void exit( string func ) {
         if ( !pauseTrace && isTraceEnabled() ) {
-            cout << getTimeAndFunctionDepth() << " Exiting function: " << func << std::endl;
+            string* log = new string( getTimeAndFunctionDepth() + " Exiting function: " + func  );
+            traceLogs.push_back( log );
             --currentFunctionDepth;
         }
     }
     
-    string getTimeAsString() {
+    string getTimeAsString( string formatString ) {
         char buffer [MAX_TIME_LENGTH];
         
         time_t currentTime = time( 0 );
-        strftime( buffer, MAX_TIME_LENGTH, "%c", localtime(&currentTime) );
+        strftime( buffer, MAX_TIME_LENGTH, formatString.c_str(), localtime(&currentTime) );
         
         return string( buffer );
+    }
+    
+    void flushTrace( Authentication::User& user ) {
+        if( !isTraceEnabled() ) {
+            return;
+        }
+        
+        string traceLogFile = user.Name + ".trace.dat";
+        ofstream myfile;
+        myfile.open( traceLogFile.c_str(), ios::out | ios::app );
+
+        myfile << "Execution log for user '" << user.Name << "' on " << getTimeAsString( "%c" ) << endl;
+        for (int i = 0; i < traceLogs.size(); i++) {
+            string* log = traceLogs.at( i );
+            
+            myfile << *log << endl;
+            
+            delete log;
+        }
+
+        myfile.close();
+        traceLogs.clear();
     }
 
 }

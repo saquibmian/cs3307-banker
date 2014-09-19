@@ -9,11 +9,12 @@
 #ifndef Banker_Logger_h
 #define Banker_Logger_h
 
-#define ENTER(x) (Logger::Enter( x ))
-#define EXIT(x) (Logger::Exit( x ))
+#define ENTER(x) (Logger::enter( x ))
+#define EXIT(x) (Logger::exit( x ))
 
 #include <iostream>
 #include "Configuration.h"
+#include "User.h"
 
 using namespace std;
 
@@ -26,8 +27,9 @@ namespace Logger  {
     ostream& Warn();
     ostream& Error();
     
-    void Enter( string func );
-    void Exit( string func );
+    void enter( string func );
+    void exit( string func );
+    void flushTrace( Authentication::User& user );
     
 }
 

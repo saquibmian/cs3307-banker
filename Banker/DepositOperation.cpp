@@ -21,11 +21,11 @@ namespace Operations {
     void DepositOperation::Execute( OptionContext context ) {
         ENTER( "DepositOperation::Execute" );
         
-        data = new FilesystemData();
+        IData* data = &context.GetData();
         
         AccountType accountType; // Default value to get rid of warning symbol.
         bool validAccountType = false;
-        User currentUser = context.GetUser();
+        User currentUser = context.GetSession().getUser();
         string type;
         
         if (data->DoesAccountExist(currentUser, Savings) == false && data->DoesAccountExist(currentUser, Checking) == false){

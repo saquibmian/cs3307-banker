@@ -36,7 +36,8 @@ Program::~Program() {
     delete context;
     delete menu;
     for (int i = 0; i < mOperations->size(); i++) {
-        delete mOperations->at(i);
+        IOperation* toFree = mOperations->at(i);
+        delete toFree;
     }
     delete mOperations;
 }
@@ -97,8 +98,6 @@ void Program::addMenuOptions() {
     MenuOption traceMenuOp ( "Enable/disable trace", traceOp, Maintainer );
     mOperations->push_back( traceOp );
     menu->AddMenuOption( traceMenuOp );
-<<<<<<< HEAD
-=======
     
     // Account creation options
     IOperation* accountCreationOp = new AccountCreationOperation();
@@ -121,7 +120,7 @@ void Program::addMenuOptions() {
     // Deposit
     IOperation* depositOp = new DepositOperation();
     MenuOption depositMenuOp ("Deposit funds", depositOp, Client);
-    mOperations ->push_back (withdrawOp);
+    mOperations ->push_back (depositOp);
     menu->AddMenuOption(depositMenuOp);
     
     //Transfer
@@ -130,11 +129,6 @@ void Program::addMenuOptions() {
     mOperations ->push_back(transferOp);
     menu->AddMenuOption(transferMenuOp);
     
-    
-    
-}
->>>>>>> Brent-New
-
     // Quit operation
     IOperation* quitOp = new QuitOperation();
     MenuOption quitMenuOp ( "Quit", quitOp, All );

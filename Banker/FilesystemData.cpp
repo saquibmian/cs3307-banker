@@ -13,6 +13,8 @@
 #include <cstdio>
 #include <stdio.h>
 
+using namespace Io;
+
 namespace Data {
     
     void FilesystemData::initialize() {
@@ -195,81 +197,4 @@ namespace Data {
         return path;
     }
     
-    bool FilesystemData::dirExists( string path ) {
-        ENTER( "FilesystemData::dirExists" );
-        struct stat info;
-        bool toReturn;
-        
-        if( stat( path.c_str(), &info ) != 0 )
-            toReturn = false;
-        else if( info.st_mode & S_IFDIR )
-            toReturn = true;
-        else
-            toReturn = false;
-        
-        EXIT( "FilesystemData::dirExists" );
-        return toReturn;
-    }
-    
-    bool FilesystemData::fileExists( string path ) {
-        ENTER( "FilesystemData::fileExists" );
-        struct stat info;
-        bool toReturn;
-        
-        if( stat( path.c_str(), &info ) != 0 )
-            toReturn = false;
-        else if( info.st_mode & S_IFDIR )
-            toReturn = false;
-        else
-            toReturn = true;
-        
-        EXIT( "FilesystemData::fileExists" );
-        return toReturn;
-    }
-    
-    template< class T> void FilesystemData::createFile( string path, T& data ) {
-        ENTER( "FilesystemData::createFile" );
-        
-        Logger::Debug() << "Writing " << data << " to file " << path << endl;
-        
-        ofstream myfile;
-        myfile.open( path.c_str(), ios::out );
-        myfile << data;
-        myfile.close();
-        
-        EXIT( "FilesystemData::createFile" );
-    }
-    
-    void FilesystemData::deleteFile (string path){
-        ENTER( "FilesystemData::deleteFile" );
-        
-        Logger::Debug() << "Deleting file at " << path << endl;
-        
-        int track = remove( path.c_str() );
-        
-        if (track == 0){
-            cout << "File removed successfully" << endl;
-        }
-        else{
-            cout << "An error occured deleting file at " << path << endl;
-        }
-        
-    }
-    
-    template< class T> void FilesystemData::appendLineToFile( string path, T& data ) {
-        ENTER( "FilesystemData::appendLineToFile" );
-        
-        Logger::Debug() << "Appending " << data << " to file " << path << endl;
-        
-        ofstream myfile;
-        myfile.open( path.c_str(), ios::out | ios::app );
-        myfile << endl << data;
-        myfile.close();
-        
-        EXIT( "FilesystemData::appendLineToFile" );
-    }
-    
-    template< class T> void FilesystemData::initFromFile( string path, T& data ) {
-        ENTER( "FilesystemData::initFromFile" );
-
 }

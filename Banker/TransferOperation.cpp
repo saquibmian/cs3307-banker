@@ -19,12 +19,12 @@ namespace Operations{
 void TransferOperation::Execute( OptionContext context ) {
     ENTER( "Transfer::Execute" );
     
-    data = new FilesystemData();
+    IData* data = &context.GetData();
     
     AccountType accountTypeRoot; // Default value to get rid of warning symbol.
     AccountType accountTypeDestination;
     bool validAccountType = false;
-    User currentUser = context.GetUser();
+    User currentUser = context.GetSession().getUser();
     string type;
     
     if (data->DoesAccountExist(currentUser, Savings) == false || data->DoesAccountExist(currentUser, Checking) == false){

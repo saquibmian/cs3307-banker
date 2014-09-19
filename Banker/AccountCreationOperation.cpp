@@ -24,11 +24,11 @@ namespace Operations {
     void AccountCreationOperation::Execute( OptionContext context ) {
         ENTER( "AccountBalanceOperation::Execute" );
         
-        data = new FilesystemData();
+        IData* data = &context.GetData();
         
         AccountType accountType = Savings; // Default value to get rid of warning symbol.
         bool validAccountType = false;
-        User currentUser = context.GetUser();
+        User currentUser = context.GetSession().getUser();
         string type;
         
         if (data->DoesAccountExist(currentUser, Savings) && data->DoesAccountExist(currentUser, Checking)){

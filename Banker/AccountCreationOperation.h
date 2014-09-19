@@ -17,7 +17,6 @@ namespace Operations {
     class AccountCreationOperation : public IOperation {
     public:
         void Execute( OptionContext context ) ;
-        IData* data;
     };
 }
 #endif

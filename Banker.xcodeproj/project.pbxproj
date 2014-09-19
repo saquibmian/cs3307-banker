@@ -28,6 +28,7 @@
 		9775EEFF19CA88DB000709C9 /* AccountDeletionOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9775EEFE19CA88DB000709C9 /* AccountDeletionOperation.cpp */; };
 		9775EF0219CB38F4000709C9 /* WithdrawOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9775EF0119CB38F4000709C9 /* WithdrawOperation.cpp */; };
 		9775EF0519CBD09F000709C9 /* DepositOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9775EF0419CBD09F000709C9 /* DepositOperation.cpp */; };
+		9775EF0819CBD34F000709C9 /* TransferOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9775EF0719CBD34F000709C9 /* TransferOperation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -85,6 +86,8 @@
 		9775EF0119CB38F4000709C9 /* WithdrawOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WithdrawOperation.cpp; sourceTree = "<group>"; };
 		9775EF0319CBD08D000709C9 /* DepositOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DepositOperation.h; sourceTree = "<group>"; };
 		9775EF0419CBD09F000709C9 /* DepositOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DepositOperation.cpp; sourceTree = "<group>"; };
+		9775EF0619CBD33E000709C9 /* TransferOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransferOperation.h; sourceTree = "<group>"; };
+		9775EF0719CBD34F000709C9 /* TransferOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransferOperation.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +149,8 @@
 				9775EF0419CBD09F000709C9 /* DepositOperation.cpp */,
 				9775EF0019CB38E2000709C9 /* WithdrawOperation.h */,
 				9775EF0119CB38F4000709C9 /* WithdrawOperation.cpp */,
+				9775EF0619CBD33E000709C9 /* TransferOperation.h */,
+				9775EF0719CBD34F000709C9 /* TransferOperation.cpp */,
 				38251AB119C81A3F0010C3D4 /* TraceOperation.cpp */,
 				38251AB219C81A3F0010C3D4 /* TraceOperation.h */,
 			);
@@ -289,6 +294,7 @@
 				3829118819C6335F0062440D /* Logger.cpp in Sources */,
 				9775EEFF19CA88DB000709C9 /* AccountDeletionOperation.cpp in Sources */,
 				9775EF0519CBD09F000709C9 /* DepositOperation.cpp in Sources */,
+				9775EF0819CBD34F000709C9 /* TransferOperation.cpp in Sources */,
 				389F35F919C29F1600841892 /* User.cpp in Sources */,
 				389F35EF19C29BFB00841892 /* main.cpp in Sources */,
 				38251ABC19C92BFE0010C3D4 /* AggregateBalanceOperation.cpp in Sources */,

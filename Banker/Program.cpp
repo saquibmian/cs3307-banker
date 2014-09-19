@@ -14,6 +14,7 @@
 #include "AccountDeletionOperation.h"
 #include "DepositOperation.h"
 #include "WithdrawOperation.h"
+#include "TransferOperation.h"
 #include "TraceOperation.h"
 
 
@@ -105,6 +106,13 @@ void Program::addMenuOptions() {
     MenuOption depositMenuOp ("Deposit funds", depositOp, Client);
     mOperations ->push_back (withdrawOp);
     menu->AddMenuOption(depositMenuOp);
+    
+    //Transfer
+    IOperation* transferOp = new TransferOperation();
+    MenuOption transferMenuOp ("Transfer funds", transferOp, Client);
+    mOperations ->push_back(transferOp);
+    menu->AddMenuOption(transferMenuOp);
+    
     
     
 }

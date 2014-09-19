@@ -1,12 +1,13 @@
 //
-//  WithdrawOperation.cpp
+//  DepositOperation.cpp
 //  Banker
 //
 //  Created by Brent Davis on 2014-09-18.
 //  Copyright (c) 2014 Saquib Mian. All rights reserved.
 //
 
-#include "WithdrawOperation.h"
+#include "DepositOperation.h"
+
 #include "Account.h"
 #include "Logger.h"
 #include "FilesystemData.h"
@@ -17,8 +18,8 @@ using namespace Data;
 
 namespace Operations {
     
-    void WithdrawOperation::Execute( OptionContext context ) {
-        ENTER( "WithdrawOperation::Execute" );
+    void DepositOperation::Execute( OptionContext context ) {
+        ENTER( "DepositOperation::Execute" );
         
         data = new FilesystemData();
         
@@ -32,8 +33,7 @@ namespace Operations {
         } else{
             
             while( !validAccountType ) {
-                cout << "Any action causing a checking account to go, or on a checking account below $1000.00 has a $2.00 transaction fee" << endl;
-                cout << "Withdraw from account [savings/checkings/cancel]: ";
+                cout << "Deposit into account [savings/checkings/cancel]: ";
                 
                 cin >> type;
                 if( type.compare("savings") == 0 ) {
@@ -43,7 +43,7 @@ namespace Operations {
                     accountType = Checking;
                     validAccountType = true;
                 } else if ( type.compare ("cancel" ) == 0){
-                    cout << "Withdraw action cancelled" << endl;
+                    cout << "Deposit action cancelled" << endl;
                     validAccountType = true;
                 }
                 else {
@@ -54,15 +54,15 @@ namespace Operations {
             if ( accountType == Savings ){
                 
                 Account withdrawAccount = data->GetAccount(currentUser, Savings);
-                double savingsWithdraw=0;
+                double savingsDeposit=0;
                 double newBalance;
                 
-                cout << "Amount to withdraw from Savings Account [ $ ]: "; // could change it to round any requests of 0.002
-                cin >> savingsWithdraw;
+                cout << "Amount to deposit into Savings Account [ $ ]: "; // could change it to round any requests of 0.002
+                cin >> savingsDeposit;
                 
-                newBalance = withdrawAccount.Withdraw(savingsWithdraw);
+                newBalance = withdrawAccount.Deposit(savingsDeposit);
                 data->UpdateAccount(currentUser, withdrawAccount);
-                cout << "The remaining balance is $" << newBalance << endl; //can format to always show two decimals if needed.
+                cout << "The new balance is $" << newBalance << endl; //can format to always show two decimals if needed.
                 
                 
                 
@@ -71,16 +71,16 @@ namespace Operations {
             if (accountType == Checking){
                 
                 Account withdrawAccount = data->GetAccount(currentUser, Checking);
-                double checkingWithdraw=0;
+                double checkingDeposit=0;
                 double newBalance;
                 
-                cout << "Amount to withdraw from Checking Account [ $ ]: "; // could change it to round any requests of 0.002
-                cin >> checkingWithdraw;
+                cout << "Amount to deposit from Checking Account [ $ ]: "; // could change it to round any requests of 0.002
+                cin >> checkingDeposit;
                 
-                newBalance = withdrawAccount.Withdraw(checkingWithdraw);
+                newBalance = withdrawAccount.Deposit(checkingDeposit);
                 data->UpdateAccount(currentUser, withdrawAccount); // UpdateAccount is a less safe StoreAccount.
                 //It doesn't check to see if the file exists, but in order to reach all uses of it that has to have been checked already.
-                cout << "The remaining balance is $" << newBalance << endl; //can format to always show two decimals if needed.
+                cout << "The new balance is $" << newBalance << endl; //can format to always show two decimals if needed.
                 
             }
             

@@ -9,19 +9,20 @@
 #include "FilesystemData.h"
 #include "Definitions.h"
 #include "Logger.h"
+#include "FileIo.h"
 
 namespace Data {
     
     void FilesystemData::initialize() {
-        if( !fileExists( getAccountListPath() ) ) {
-            createFile(getAccountListPath(), "" );
+        if( !Io::fileExists( getAccountListPath() ) ) {
+            Io::createFile(getAccountListPath(), "" );
         }
     }
     
     bool FilesystemData::DoesUserExist( string name ) {
         ENTER( "FilesystemData::DoesUserExist" );
         string path = getUserPath( name );
-        bool toReturn = fileExists( path );
+        bool toReturn = Io::fileExists( path );
         
         EXIT( "FilesystemData::DoesUserExist" );
         return toReturn;
@@ -36,7 +37,7 @@ namespace Data {
         }
         
         string serRole;
-        initFromFile( getUserPath( name ), serRole );
+        Io::initFromFile( getUserPath( name ), serRole );
         
         User toReturn( name, User::roleFromString(serRole) );
         
@@ -47,7 +48,7 @@ namespace Data {
     vector<User> FilesystemData::getAllUsers() {
         vector<User> toReturn;
         
-        vector<string> users = readAllLinesFromFile( getAccountListPath() );
+        vector<string> users = Io::readAllLinesFromFile( getAccountListPath() );
         for ( vector<string>::iterator iter = users.begin(); iter != users.end(); iter++ ) {
             if( !iter.base()->empty() ) {
                 toReturn.push_back( GetUser( *iter.base() ) );
@@ -65,8 +66,8 @@ namespace Data {
             throw std::exception();
         }
         string serRole = User::roleToString( role );
-        createFile( getUserPath( name ), serRole );
-        appendLineToFile(getAccountListPath(), name);
+        Io::createFile( getUserPath( name ), serRole );
+        Io::appendLineToFile(getAccountListPath(), name);
         
         EXIT( "FilesystemData::CreateUser" );
     }
@@ -74,7 +75,7 @@ namespace Data {
     bool FilesystemData::DoesAccountExist( User user, AccountType type ) {
         ENTER( "FilesystemData::DoesAccountExist" );
         
-        bool toReturn = fileExists(getAccountPath(user.Name, type));
+        bool toReturn = Io::fileExists(getAccountPath(user.Name, type));
         
         EXIT( "FilesystemData::DoesAccountExist" );
         return toReturn;
@@ -89,7 +90,7 @@ namespace Data {
         }
         
         Account account;
-        initFromFile(getAccountPath(user.Name, type), account.Balance);
+        Io::initFromFile(getAccountPath(user.Name, type), account.Balance);
         
         return account;
     }
@@ -102,7 +103,7 @@ namespace Data {
             throw std::exception();
         }
         
-        createFile(getAccountPath(user.Name, account.Type), account.Balance);
+        Io::createFile(getAccountPath(user.Name, account.Type), account.Balance);
         
         EXIT( "FilesystemData::StoreAccount" );
     }
@@ -137,93 +138,5 @@ namespace Data {
         return path;
     }
     
-    bool FilesystemData::dirExists( string path ) {
-        ENTER( "FilesystemData::dirExists" );
-        struct stat info;
-        bool toReturn;
-        
-        if( stat( path.c_str(), &info ) != 0 )
-            toReturn = false;
-        else if( info.st_mode & S_IFDIR )
-            toReturn = true;
-        else
-            toReturn = false;
-        
-        EXIT( "FilesystemData::dirExists" );
-        return toReturn;
-    }
-    
-    bool FilesystemData::fileExists( string path ) {
-        ENTER( "FilesystemData::fileExists" );
-        struct stat info;
-        bool toReturn;
-        
-        if( stat( path.c_str(), &info ) != 0 )
-            toReturn = false;
-        else if( info.st_mode & S_IFDIR )
-            toReturn = false;
-        else
-            toReturn = true;
-        
-        EXIT( "FilesystemData::fileExists" );
-        return toReturn;
-    }
-    
-    template< class T> void FilesystemData::createFile( string path, T& data ) {
-        ENTER( "FilesystemData::createFile" );
-        
-        Logger::Debug() << "Writing " << data << " to file " << path << endl;
-        
-        ofstream myfile;
-        myfile.open( path.c_str(), ios::out );
-        myfile << data;
-        myfile.close();
-        
-        EXIT( "FilesystemData::createFile" );
-    }
-    
-    template< class T> void FilesystemData::appendLineToFile( string path, T& data ) {
-        ENTER( "FilesystemData::appendLineToFile" );
-        
-        Logger::Debug() << "Appending " << data << " to file " << path << endl;
-        
-        ofstream myfile;
-        myfile.open( path.c_str(), ios::out | ios::app );
-        myfile << endl << data;
-        myfile.close();
-        
-        EXIT( "FilesystemData::appendLineToFile" );
-    }
-    
-    template< class T> void FilesystemData::initFromFile( string path, T& data ) {
-        ENTER( "FilesystemData::initFromFile" );
 
-        ifstream myfile;
-        myfile.open( path.c_str(), ios::in );
-        myfile >> data;
-        myfile.close();
-        
-        Logger::Debug() << "Read " << data << " from file " << path << endl;
-        
-        EXIT( "FilesystemData::initFromFile" );
-    }
-    
-    vector<string> FilesystemData::readAllLinesFromFile( string path ) {
-        ENTER( "FilesystemData::readAllLinesFromFile" );
-
-        ifstream myfile;
-        myfile.open( path.c_str(), ios::in );
-        
-        vector<string> lines;
-        string line;
-        while ( myfile.good() ) {
-            getline ( myfile, line, '\n' );
-            lines.push_back( line );
-        }
-        
-        myfile.close();
-        
-        EXIT( "FilesystemData::readAllLinesFromFile" );
-        return lines;
-    }
 }

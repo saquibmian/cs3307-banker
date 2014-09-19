@@ -19,13 +19,6 @@
 namespace Data {
     class FilesystemData : public IData {
     private:
-        bool dirExists( string path );
-        bool fileExists( string path );
-        void createDirectory( string path );
-        template< class T> void createFile( string path, T& data );
-        template< class T> void appendLineToFile( string path, T& data );
-        template< class T> void initFromFile( string path, T& data );
-        vector<string> readAllLinesFromFile( string path );
         inline string getUserPath( string userName );
         string getAccountPath( string username, AccountType type );
         inline string getAccountListPath();

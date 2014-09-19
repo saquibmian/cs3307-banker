@@ -23,6 +23,7 @@
 		3829119619C641960062440D /* Definitions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829119519C641960062440D /* Definitions.cpp */; };
 		3838E8D319CAA3BA005AF9CB /* QuitOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3838E8D119CAA3BA005AF9CB /* QuitOperation.cpp */; };
 		3838E8D619CAA493005AF9CB /* Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3838E8D419CAA493005AF9CB /* Session.cpp */; };
+		3845096919CBDB4D000073A7 /* FileIo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3845096719CBDB4D000073A7 /* FileIo.cpp */; };
 		389DDC5E19C781190063CA4B /* AccountBalanceOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 389DDC5C19C781190063CA4B /* AccountBalanceOperation.cpp */; };
 		389F35EF19C29BFB00841892 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 389F35EE19C29BFB00841892 /* main.cpp */; };
 		389F35F919C29F1600841892 /* User.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 389F35F819C29F1600841892 /* User.cpp */; };
@@ -73,6 +74,8 @@
 		3838E8D219CAA3BA005AF9CB /* QuitOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuitOperation.h; sourceTree = "<group>"; };
 		3838E8D419CAA493005AF9CB /* Session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Session.cpp; sourceTree = "<group>"; };
 		3838E8D519CAA493005AF9CB /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		3845096719CBDB4D000073A7 /* FileIo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileIo.cpp; sourceTree = "<group>"; };
+		3845096819CBDB4D000073A7 /* FileIo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileIo.h; sourceTree = "<group>"; };
 		389DDC5C19C781190063CA4B /* AccountBalanceOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AccountBalanceOperation.cpp; sourceTree = "<group>"; };
 		389DDC5D19C781190063CA4B /* AccountBalanceOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountBalanceOperation.h; sourceTree = "<group>"; };
 		389F35EB19C29BFB00841892 /* Banker */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Banker; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -180,6 +183,15 @@
 			name = Accounts;
 			sourceTree = "<group>";
 		};
+		3845096A19CBDC94000073A7 /* IO */ = {
+			isa = PBXGroup;
+			children = (
+				3845096719CBDB4D000073A7 /* FileIo.cpp */,
+				3845096819CBDB4D000073A7 /* FileIo.h */,
+			);
+			name = IO;
+			sourceTree = "<group>";
+		};
 		389F35E219C29BFB00841892 = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +211,7 @@
 		389F35ED19C29BFB00841892 /* Banker */ = {
 			isa = PBXGroup;
 			children = (
+				3845096A19CBDC94000073A7 /* IO */,
 				3829118E19C6360A0062440D /* Accounts */,
 				3829118A19C635770062440D /* Data */,
 				3829117519C62C1E0062440D /* Authentication */,
@@ -282,6 +295,7 @@
 				389DDC5E19C781190063CA4B /* AccountBalanceOperation.cpp in Sources */,
 				3829118319C633050062440D /* MainMenu.cpp in Sources */,
 				3829117919C62C660062440D /* MenuOption.cpp in Sources */,
+				3845096919CBDB4D000073A7 /* FileIo.cpp in Sources */,
 				38251AB319C81A3F0010C3D4 /* TraceOperation.cpp in Sources */,
 				3829119419C638F50062440D /* FilesystemData.cpp in Sources */,
 				3838E8D319CAA3BA005AF9CB /* QuitOperation.cpp in Sources */,

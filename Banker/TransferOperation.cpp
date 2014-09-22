@@ -35,7 +35,7 @@ namespace Operations{
                     transfer( Savings, Checking, context );
                     validAccountType = true;
                 } else if ( type.compare( "checkings" ) == 0 ) {
-                    transfer( Savings, Checking, context );
+                    transfer( Checking, Savings, context );
                     validAccountType = true;
                 } else if ( type.compare ("cancel" ) == 0){
                     Logger::info() << "Withdraw action cancelled" << endl;

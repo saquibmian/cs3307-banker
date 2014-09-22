@@ -16,8 +16,8 @@ namespace Operations {
     void AggregateBalanceOperation::execute( OptionContext context ) {
         ENTER( "AggregateBalanceOperation.h::Execute" );
         
-        int totalCheckingBalance = 0;
-        int totalSavingsBalance = 0;
+        double totalCheckingBalance = 0;
+        double totalSavingsBalance = 0;
         vector<User> users = context.getData().getAllUsers();
         for ( vector<User>::iterator iter = users.begin(); iter != users.end(); iter++ ) {
             User* user = iter.base();

@@ -19,7 +19,7 @@ using namespace std;
 namespace Menu {
     class MainMenu {
     private:
-        int _numOptions = 0;
+        int _numOptions;
         map<int,MenuOption>* _options;
         void display( User user );
     public:

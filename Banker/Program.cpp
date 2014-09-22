@@ -18,8 +18,6 @@
 #include "TraceOperation.h"
 #include "QuitOperation.h"
 #include "Logger.h"
-#include "Definitions.h"
-
 
 using namespace Operations;
 

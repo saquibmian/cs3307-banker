@@ -13,6 +13,7 @@ namespace Menu {
     
     MainMenu::MainMenu() {
         _options = new map<int,MenuOption>;
+        _numOptions = 0;
     }
     
     MainMenu::~MainMenu() {

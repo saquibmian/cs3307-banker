@@ -21,7 +21,6 @@ using namespace Menu;
 
 class Program {
 private:
-    bool loggedIn = false;
     IData* _data;
     OptionContext* _context;
     MainMenu* _menu;

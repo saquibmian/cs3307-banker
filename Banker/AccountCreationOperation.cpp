@@ -1,6 +1,3 @@
-
-
-
 //
 //  AccountCreationOperation.cpp
 //  Banker

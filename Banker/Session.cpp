@@ -8,7 +8,6 @@
 
 #include "Session.h"
 #include "Logger.h"
-#include "Definitions.h"
 
 namespace Authentication {
     

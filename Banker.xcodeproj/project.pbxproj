@@ -20,7 +20,6 @@
 		3829118D19C635920062440D /* Data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829118B19C635920062440D /* Data.cpp */; };
 		3829119119C6362D0062440D /* Account.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829118F19C6362D0062440D /* Account.cpp */; };
 		3829119419C638F50062440D /* FilesystemData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829119219C638F50062440D /* FilesystemData.cpp */; };
-		3829119619C641960062440D /* Definitions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3829119519C641960062440D /* Definitions.cpp */; };
 		3838E8D319CAA3BA005AF9CB /* QuitOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3838E8D119CAA3BA005AF9CB /* QuitOperation.cpp */; };
 		3838E8D619CAA493005AF9CB /* Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3838E8D419CAA493005AF9CB /* Session.cpp */; };
 		3845096919CBDB4D000073A7 /* FileIo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3845096719CBDB4D000073A7 /* FileIo.cpp */; };
@@ -67,14 +66,12 @@
 		3829118119C633050062440D /* MainMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainMenu.cpp; sourceTree = "<group>"; };
 		3829118219C633050062440D /* MainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenu.h; sourceTree = "<group>"; };
 		3829118719C6335F0062440D /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Logger.cpp; sourceTree = "<group>"; };
-		3829118919C633970062440D /* Definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
 		3829118B19C635920062440D /* Data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Data.cpp; sourceTree = "<group>"; };
 		3829118C19C635920062440D /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
 		3829118F19C6362D0062440D /* Account.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Account.cpp; sourceTree = "<group>"; };
 		3829119019C6362D0062440D /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
 		3829119219C638F50062440D /* FilesystemData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FilesystemData.cpp; sourceTree = "<group>"; };
 		3829119319C638F50062440D /* FilesystemData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesystemData.h; sourceTree = "<group>"; };
-		3829119519C641960062440D /* Definitions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Definitions.cpp; sourceTree = "<group>"; };
 		3838E8D119CAA3BA005AF9CB /* QuitOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuitOperation.cpp; sourceTree = "<group>"; };
 		3838E8D219CAA3BA005AF9CB /* QuitOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuitOperation.h; sourceTree = "<group>"; };
 		3838E8D419CAA493005AF9CB /* Session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Session.cpp; sourceTree = "<group>"; };
@@ -241,8 +238,6 @@
 				3829118A19C635770062440D /* Data */,
 				3829117519C62C1E0062440D /* Authentication */,
 				3829118419C6330C0062440D /* Configuration */,
-				3829118919C633970062440D /* Definitions.h */,
-				3829119519C641960062440D /* Definitions.cpp */,
 				3829118519C633250062440D /* Logger */,
 				389F35EE19C29BFB00841892 /* main.cpp */,
 				38251AAC19C7E05A0010C3D4 /* Program.cpp */,
@@ -313,7 +308,6 @@
 				38251AB019C813460010C3D4 /* IOperation.cpp in Sources */,
 				9775EEFC19CA681C000709C9 /* AccountCreationOperation.cpp in Sources */,
 				3829116C19C568610062440D /* Configuration.cpp in Sources */,
-				3829119619C641960062440D /* Definitions.cpp in Sources */,
 				38251AAE19C7E05A0010C3D4 /* Program.cpp in Sources */,
 				3829118819C6335F0062440D /* Logger.cpp in Sources */,
 				9775EEFF19CA88DB000709C9 /* AccountDeletionOperation.cpp in Sources */,

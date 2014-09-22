@@ -7,7 +7,6 @@
 //
 
 #include "MenuOption.h"
-#include "Definitions.h"
 #include "Logger.h"
 
 namespace Menu {

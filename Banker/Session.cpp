@@ -16,7 +16,7 @@ namespace Authentication {
     };
     
     void Session::login() {
-        ENTER( "login" );
+        ENTER( "Session::login" );
         
         string userName;
         while( true ) {
@@ -40,10 +40,12 @@ namespace Authentication {
         _loggedIn = true;
         
         Logger::debug() << "User logged in '" << _user.Name << "'" << endl;
-        EXIT( "login" );
+        EXIT( "Session::login" );
     }
     
     void Session::logout() {
+        ENTER( "Session::logout" );
+        
         if( !_loggedIn ) {
             Logger::error() << "Unable to log out; not logged in!";
             throw std::exception();
@@ -51,5 +53,6 @@ namespace Authentication {
         Logger::flushTrace( _user.Name );
         _loggedIn = false;
         Logger::debug() << "User logged out '" << _user.Name << "'" << endl;
+        EXIT( "Session::logout" );
     }
 }

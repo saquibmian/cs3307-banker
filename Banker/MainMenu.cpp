@@ -21,7 +21,7 @@ namespace Menu {
     }
     
     void MainMenu::display( User user ) {
-        ENTER( "MenuWindow::Display" );
+        ENTER( "MenuWindow::display" );
         
         for ( map<int,MenuOption>::iterator iter = _options->begin(
              ); iter != _options->end(); iter++ ) {
@@ -31,20 +31,20 @@ namespace Menu {
             }
         }
         
-        EXIT( "MenuWindow::Display" );
+        EXIT( "MenuWindow::display" );
     }
     
     void MainMenu::addMenuOption( MenuOption option ) {
-        ENTER( "MenuWindow::AddMenuOption" );
+        ENTER( "MenuWindow::addMenuOption" );
         
         _options->insert( std::map< int, MenuOption >::value_type ( _numOptions++, option ) );
         MenuOption op = _options->at( _numOptions - 1 );
         
-        EXIT( "MenuWindow::AddMenuOption" );
+        EXIT( "MenuWindow::addMenuOption" );
     }
     
     MenuOption MainMenu::getNextOption( User user ) {
-        ENTER( "MenuWindow::GetNextOption" );
+        ENTER( "MenuWindow::getNextOption" );
         display( user );
         
         int option;
@@ -57,7 +57,7 @@ namespace Menu {
             throw std::exception();
         }
         
-        EXIT( "MenuWindow::GetNextOption" );
+        EXIT( "MenuWindow::getNextOption" );
         return _options->at( option );
     }
 

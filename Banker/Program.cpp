@@ -41,6 +41,8 @@ Program::~Program() {
 }
 
 void Program::intialize() {
+    ENTER( "Program::initialize" );
+    
     _data->initialize();
     
     createDefaultUsers();
@@ -50,9 +52,13 @@ void Program::intialize() {
     addMenuOptions();
     
     _context = new OptionContext( *_data, *_session );
+
+    EXIT( "Program::initialize" );
 }
 
 void Program::run() {
+    ENTER( "Program::run" );
+
     while( _session->isActive() ) {
         try {
             MenuOption option = _menu->getNextOption( _session->getUser() );
@@ -61,18 +67,26 @@ void Program::run() {
             Logger::error() << "An error occured: " << e.what() << endl;;
         }
     }
+
+    EXIT( "Program::run" );
 }
 
 void Program::createDefaultUsers() {
+    ENTER( "Program::createDefaultUsers" );
+
     if( !_data->doesUserExist( "maintainer" ) ) {
         _data->createUser( "maintainer", Maintainer );
     }
     if( !_data->doesUserExist( "manager" ) ) {
         _data->createUser( "manager", Manager );
     }
+
+    EXIT( "Program::createDefaultUsers" );
 }
 
 void Program::addMenuOptions() {
+    ENTER( "Program::addMenuOptions" );
+
     // Account balance operation
     IOperation* accountBalanceOp = new AccountBalanceOperation();
     MenuOption accountBalanceMenuOp ( "Display account balance", accountBalanceOp, Client );
@@ -132,4 +146,6 @@ void Program::addMenuOptions() {
     MenuOption quitMenuOp ( "Quit", quitOp, All );
     _operations->push_back( quitOp );
     _menu->addMenuOption( quitMenuOp );
+
+    EXIT( "Program::addMenuOptions" );
 }

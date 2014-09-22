@@ -7,12 +7,17 @@
 //
 
 #include "OptionContext.h"
+#include "Logger.h"
 
 namespace Options {
     Session& OptionContext::getSession() {
+        ENTER( "OptionContext::getSession" );
+        EXIT( "OptionContext::getSession" );
         return _session;
     }
     IData& OptionContext::getData() {
+        ENTER( "OptionContext::getSession" );
+        EXIT( "OptionContext::getSession" );
         return _data;
     }
 }

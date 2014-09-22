@@ -17,15 +17,19 @@ namespace Menu {
         }
     
     string MenuOption::getDisplay() {
+        ENTER( "MenuOption::getDisplay" );
+        EXIT( "MenuOption::getDisplay" );
         return _display;
     }
     
     IOperation& MenuOption::getOperation() {
+        ENTER( "MenuOption::getDisplay" );
+        EXIT( "MenuOption::getDisplay" );
         return *_operation;
     }
     
     bool MenuOption::isValidForUser( Authentication::User user ) {
-        ENTER( "MenuOption::IsValidForUser" );
+        ENTER( "MenuOption::isValidForUser" );
         bool toReturn;
         
         if( _validRole == All ) {
@@ -40,7 +44,7 @@ namespace Menu {
             toReturn = user.Role == _validRole;
         }
         
-        EXIT( "MenuOption::IsValidForUser" );
+        EXIT( "MenuOption::isValidForUser" );
         return toReturn;
     }
     

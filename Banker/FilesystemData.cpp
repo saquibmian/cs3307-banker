@@ -17,22 +17,24 @@ using namespace Io;
 namespace Data {
     
     void FilesystemData::initialize() {
+        ENTER( "FilesystemData::initialize" );
         if( !Io::fileExists( getAccountListPath() ) ) {
             Io::createFile(getAccountListPath(), "" );
         }
+        EXIT( "FilesystemData::initialize" );
     }
     
     bool FilesystemData::doesUserExist( string name ) {
-        ENTER( "FilesystemData::DoesUserExist" );
+        ENTER( "FilesystemData::doesUserExist" );
         string path = getUserPath( name );
         bool toReturn = Io::fileExists( path );
         
-        EXIT( "FilesystemData::DoesUserExist" );
+        EXIT( "FilesystemData::doesUserExist" );
         return toReturn;
     }
     
     User FilesystemData::getUser( string name ) {
-        ENTER( "FilesystemData::GetUser" );
+        ENTER( "FilesystemData::getUser" );
         
         if( !doesUserExist(name) ) {
             Logger::error() << "No such user";
@@ -44,11 +46,12 @@ namespace Data {
         
         User toReturn( name, User::roleFromString(serRole) );
         
-        EXIT( "FilesystemData::GetUser" );
+        EXIT( "FilesystemData::getUser" );
         return toReturn;
     }
     
     vector<User> FilesystemData::getAllUsers() {
+        ENTER( "FilesystemData::getAllUsers" );
         vector<User> toReturn;
         
         vector<string> users = Io::readAllLinesFromFile( getAccountListPath() );
@@ -58,11 +61,12 @@ namespace Data {
             }
         }
         
+        EXIT( "FilesystemData::getAllUsers" );
         return toReturn;
     }
     
     void FilesystemData::createUser( string name, UserRole role ) {
-        ENTER( "FilesystemData::CreateUser" );
+        ENTER( "FilesystemData::createUser" );
         
         if( doesUserExist( name ) ) {
             Logger::error() << "User already exists!" <<endl;
@@ -72,20 +76,20 @@ namespace Data {
         Io::createFile( getUserPath( name ), serRole );
         Io::appendLineToFile(getAccountListPath(), name);
         
-        EXIT( "FilesystemData::CreateUser" );
+        EXIT( "FilesystemData::createUser" );
     }
         
     bool FilesystemData::doesAccountExist( User user, AccountType type ) {
-        ENTER( "FilesystemData::DoesAccountExist" );
+        ENTER( "FilesystemData::doesAccountExist" );
         
         bool toReturn = Io::fileExists(getAccountPath(user.Name, type));
         
-        EXIT( "FilesystemData::DoesAccountExist" );
+        EXIT( "FilesystemData::doesAccountExist" );
         return toReturn;
     }
     
     Account FilesystemData::getAccount( User user, AccountType type ) {
-        ENTER( "FilesystemData::GetAccount" );
+        ENTER( "FilesystemData::getAccount" );
         
         if( !doesAccountExist(user, type) ) {
             Logger::error() << "User account doesn't exist!" << endl;
@@ -95,15 +99,16 @@ namespace Data {
         Account account(type, 0);
         initFromFile(getAccountPath(user.Name, type), account.Balance);
         
+        EXIT( "FilesystemData::getAccount" );
         return account;
     }
     
     void FilesystemData::storeAccount( User user, Account account ) {
-        ENTER( "FilesystemData::StoreAccount" );
+        ENTER( "FilesystemData::storeAccount" );
         
         Io::createFile(getAccountPath(user.Name, account.Type), account.Balance);
         
-        EXIT( "FilesystemData::StoreAccount" );
+        EXIT( "FilesystemData::storeAccount" );
     }
     
     void FilesystemData::closeAccountForUser( User user, AccountType type ) {

@@ -15,6 +15,8 @@
 
 namespace Operations {
     class DepositOperation : public IOperation {
+    private:
+        void depositIntoAccount( AccountType type, OptionContext& context );
     public:
         void Execute( OptionContext context ) ;
     };

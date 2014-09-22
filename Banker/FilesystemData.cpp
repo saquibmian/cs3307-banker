@@ -75,57 +75,7 @@ namespace Data {
         
         EXIT( "FilesystemData::CreateUser" );
     }
-    
-    
-    //Method to create an account for a pre-existing user.
-    void FilesystemData::CreateSavingsAccount (User user, double startBalance){
-        ENTER ("FilesystemData::CreateSavingsAccount");
         
-        if ( DoesAccountExist( user.Name, Savings)){
-            Logger::Error() << "Savings Account already exists!" <<endl;
-            throw std::exception();
-        }
-        else{
-        createFile( getAccountPath(user.Name, Savings), startBalance );
-        }
-        // Creates an account with the starting balance specified in the form of a username.checking.dat file
-        EXIT("FilesystemData::CreateSavingsAccount");
-    }
-    
-    
-    void FilesystemData::CreateCheckingAccount (User user, double startBalance){
-        ENTER("FilesystemData::CreateCheckingAccount");
-        if ( DoesAccountExist( user.Name, Checking)){
-            Logger::Error() << "Checking Account already exists!" <<endl;
-            throw std::exception();
-        }
-        else{
-            createFile(getAccountPath(user.Name, Checking), startBalance );
-        }
-    }
-    
-    void FilesystemData::CloseCheckingAccount (User user){
-        ENTER("FilesystemData::CloseCheckingAccount");
-        if ( !DoesAccountExist( user.Name, Checking)){
-            Logger::Error() << "This account does not exist!" << endl;
-            throw std::exception();
-        }
-        else{
-            deleteFile(getAccountPath(user.Name,Checking));
-        }
-    }
-    
-    void FilesystemData::CloseSavingsAccount (User user){
-        ENTER("FilesystemData::CloseSavingsAccount");
-        if ( !DoesAccountExist( user.Name, Savings)){
-            Logger::Error() << "This account does not exist!" << endl;
-            throw std::exception();
-        }
-        else{
-            deleteFile(getAccountPath(user.Name,Savings));
-        }
-    }
-    
     bool FilesystemData::DoesAccountExist( User user, AccountType type ) {
         ENTER( "FilesystemData::DoesAccountExist" );
         
@@ -152,20 +102,25 @@ namespace Data {
     void FilesystemData::StoreAccount( User user, Account account ) {
         ENTER( "FilesystemData::StoreAccount" );
         
-        if( DoesAccountExist(user, account.Type) ) {
-            Logger::Error() << "User account already exists!" << endl;
-            throw std::exception();
-        }
-        
         Io::createFile(getAccountPath(user.Name, account.Type), account.Balance);
         
         EXIT( "FilesystemData::StoreAccount" );
     }
     
-    void FilesystemData::UpdateAccount( User user, Account account ) {
-        ENTER( "FilesysemData::UpdateAccount");
-        createFile(getAccountPath(user.Name, account.Type),account.Balance);
-    }
+    void FilesystemData::closeAccountForUser( User user, AccountType type ) {
+        ENTER( "FilesystemData::closeAccountForUser" );
+        
+        if( !DoesAccountExist(user, type) ) {
+            Logger::Error() << "User account doesn't exist!" << endl;
+            EXIT( "FilesystemData::closeAccountForUser" );
+            throw std::exception();
+        }
+        
+        deleteFile(getAccountPath( user.Name, type) );
+        
+        EXIT( "FilesystemData::closeAccountForUser" );
+    };
+
     
     inline string FilesystemData::getAccountListPath() {
         return Configuration::DataDirectory + "/accounts.dat";

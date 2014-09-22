@@ -19,70 +19,58 @@ namespace Operations {
     void AccountDeletionOperation::Execute( OptionContext context ) {
         ENTER( "AccountBalanceOperation::Execute" );
         
-        IData* data = &context.GetData();
+        IData& data = context.GetData();
+        User& user = context.GetSession().getUser();
         
-        AccountType accountType; // Default value to get rid of warning symbol.
-        bool validAccountType = false;
-        User currentUser = context.GetSession().getUser();
-        string type;
         
-        if (data->DoesAccountExist(currentUser, Savings) == false && data->DoesAccountExist(currentUser, Checking) == false){
-            cout << "Neither account exists!" << endl;
+        if (data.DoesAccountExist(user, Savings) == false && data.DoesAccountExist(user, Checking) == false){
+            Logger::Error() << "Neither account exists!" << endl;
         } else{
-    
+
+            bool validAccountType = false;
+            string type;
             while( !validAccountType ) {
-                cout << "To close an account, it must have a 0 (zero) balance." << endl;
-                cout << "Closing account of type [savings/checkings/both/cancel]: ";
+                Logger::Info() << "To close an account, it must have a 0 (zero) balance." << endl;
+                Logger::Info() << "Closing account of type [savings/checkings/both/cancel]: ";
                 
                 cin >> type;
                 if( type.compare("savings") == 0 ) {
-                    accountType = Savings;
+                    deleteAccount( Savings, context);
                     validAccountType = true;
                 } else if ( type.compare( "checkings" ) == 0 ) {
-                    accountType = Checking;
+                    deleteAccount( Checking, context);
                     validAccountType = true;
                 } else if ( type.compare( "both" ) == 0){
+                    deleteAccount( Checking, context);
+                    deleteAccount( Savings, context);
                     validAccountType = true;
                 } else if ( type.compare ("cancel" ) == 0){
-                    cout << "Close acount action cancelled" << endl;
-                    validAccountType = true;
-                }
-                else {
+                    Logger::Info() << "Close acount action cancelled" << endl;
+                    break;
+                } else {
                     Logger::Error() << "Invalid account type!" << endl;
                 }
             }
-            
-            if (accountType == Savings || type.compare("both") == 0){
-             
-                Account deletionAccount = data->GetAccount(currentUser, Savings);
-                
-                if (deletionAccount.Balance != 0){
-                    cout << "Savings account is not empty" << endl;
-                }
-                else{
-                    data->CloseSavingsAccount(currentUser);
-                    cout << "Savings account closed" << endl;
-                }
-                
-                
-            }
-            
-            if (accountType == Checking || type.compare("both") == 0){
-                
-                Account deletionAccount = data->GetAccount(currentUser, Checking);
-                
-                if (deletionAccount.Balance != 0){
-                    cout << "Checking account is not empty" << endl;
-                }
-                else {
-                    data ->CloseCheckingAccount(currentUser);
-                    cout << "Checking account closed" << endl;
-                }
-                
-            }
-            
-        }// end else where accounts can be closed.
+        }
         
-    } // end execute
+        EXIT( "AccountBalanceOperation::Execute" );
+    }
+    
+    void AccountDeletionOperation::deleteAccount( AccountType type, OptionContext& context ) {
+        IData& data = context.GetData();
+        User& user = context.GetSession().getUser();
+        
+        if( !data.DoesAccountExist( user, type ) ) {
+            Logger::Error() << "Account '" << Account::typeToString( type ) <<"' doesn't exist!" << endl;
+        }
+        
+        Account account = data.GetAccount(user, type);
+        if ( account.Balance != 0 ){
+            Logger::Error() << "Account '" << Account::typeToString( type ) <<"' is not empty" << endl;
+        } else{
+            data.closeAccountForUser( user, account.Type );
+            Logger::Info() << "Account '" << Account::typeToString( type ) <<"' closed" << endl;
+        }
+    }
 
 }

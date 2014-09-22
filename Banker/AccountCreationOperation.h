@@ -15,6 +15,8 @@
 
 namespace Operations {
     class AccountCreationOperation : public IOperation {
+    private:
+        void createAccount( AccountType type, OptionContext& context );
     public:
         void Execute( OptionContext context ) ;
     };

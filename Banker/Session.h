@@ -25,7 +25,6 @@ namespace Authentication {
     public:
         Session( IData& d ) : data( d ), user( "none" ) {
             loggedIn = false;
-            
         }
         bool isActive();
         void login();

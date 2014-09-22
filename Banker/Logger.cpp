@@ -101,12 +101,18 @@ namespace Logger {
             ++currentFunctionDepth;
             string* log = new string( getTimeAndFunctionDepth() + " Entering function: " + func  );
             traceLogs.push_back( log );
+            if( Configuration::IsDebug ) {
+                Debug() << *log << endl;
+            }
         }
     }
     void exit( string func ) {
         if ( !pauseTrace && isTraceEnabled() ) {
             string* log = new string( getTimeAndFunctionDepth() + " Exiting function: " + func  );
             traceLogs.push_back( log );
+            if( Configuration::IsDebug ) {
+                Debug() << *log << endl;
+            }
             --currentFunctionDepth;
         }
     }
@@ -120,16 +126,16 @@ namespace Logger {
         return string( buffer );
     }
     
-    void flushTrace( Authentication::User& user ) {
+    void flushTrace( string username ) {
         if( !isTraceEnabled() ) {
             return;
         }
         
-        string traceLogFile = user.Name + ".trace.dat";
+        string traceLogFile = username + ".trace.dat";
         ofstream myfile;
         myfile.open( traceLogFile.c_str(), ios::out | ios::app );
 
-        myfile << "Execution log for user '" << user.Name << "' on " << getTimeAsString( "%c" ) << endl;
+        myfile << "Execution log for user '" << username << "' on " << getTimeAsString( "%c" ) << endl;
         for (int i = 0; i < traceLogs.size(); i++) {
             string* log = traceLogs.at( i );
             

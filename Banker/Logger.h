@@ -14,7 +14,6 @@
 
 #include <iostream>
 #include "Configuration.h"
-#include "User.h"
 
 using namespace std;
 
@@ -29,7 +28,7 @@ namespace Logger  {
     
     void enter( string func );
     void exit( string func );
-    void flushTrace( Authentication::User& user );
+    void flushTrace( string username );
     
 }
 

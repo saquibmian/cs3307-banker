@@ -48,7 +48,8 @@ namespace Menu {
         
         int option;
         cout << "Please choose an option: ";
-        cin >> option; // I noticed this loops infinitely when a non-int is entered.
+        // TODO: entering a string here causes a stack overflow; is there a way to empty cin?
+        cin >> option;
         
         if( options->count(option) == 0 ) {
             Logger::Error() << "Invalid option!" << endl;

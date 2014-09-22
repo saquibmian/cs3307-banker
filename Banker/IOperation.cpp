@@ -39,13 +39,14 @@ namespace Operations {
     void IOperation::DisplayAccountDetails( OptionContext& context, User& user ) {
         ENTER( "IOperation::DisplayAccountDetails" );
 
+        IData& data = context.GetData();
         bool hasAtLeastOneAccount = false;
-        if( context.GetData().DoesAccountExist(user, Checking) ) {
+        if( data.DoesAccountExist(user, Checking) ) {
             hasAtLeastOneAccount = true;
             Account act = context.GetData().GetAccount( user, Checking );
             cout << "Checking balance: $" << act.Balance <<endl;
         }
-        if( context.GetData().DoesAccountExist(user, Savings) ) {
+        if( data.DoesAccountExist(user, Savings) ) {
             hasAtLeastOneAccount = true;
             Account act = context.GetData().GetAccount( user, Savings );
             cout << "Savings balance: $" << act.Balance << endl;

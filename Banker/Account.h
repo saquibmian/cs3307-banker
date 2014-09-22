@@ -10,23 +10,52 @@
 #define __Banker__Account__
 
 #include <iostream>
+#include "Logger.h"
+
+using namespace std;
 
 namespace Accounts {
     enum AccountType {
         Savings, Checking
     };
+    
     class Account {
     public:
         AccountType Type;
         double Balance;
-        Account(AccountType actType, double balance);
-        Account();
-        bool exists = false;
-        void OpenAccount();
-        void SetBalance(double);
-        double Deposit(double);
-        double Withdraw(double);
-        //double Transfer( ); May come back to. May have the transfer be done as a combination of Deposit and Withdraw.
+        Account( AccountType actType, double balance);
+        void Deposit(double);
+        void Withdraw(double);
+        
+        static string typeToString( AccountType type ) {
+            ENTER( "Account::typeToString" );
+            
+            string toReturn;
+            switch ( type ) {
+                case Savings:
+                    toReturn = "Savings";
+                    break;
+                case Checking:
+                    toReturn = "Checking";
+                    break;
+            }
+            
+            EXIT( "Account::typeToString" );
+            return toReturn;
+        }
+        static AccountType typeFromString( string type ) {
+            ENTER( "Account::typeFromString" );
+
+            AccountType toReturn;
+            if( type.compare("Checking") == 0 ) {
+                toReturn = Checking;
+            } else if( type.compare("Savings") == 0 ) {
+                toReturn = Savings;
+            }
+            
+            EXIT( "Account::typeFromString" );
+            return toReturn;
+        }
     };
 }
 

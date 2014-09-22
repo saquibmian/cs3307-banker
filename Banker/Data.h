@@ -29,14 +29,11 @@ namespace Data {
         virtual User GetUser( string name ) = 0;
         virtual vector<User> getAllUsers() = 0;
         virtual void CreateUser( string name, UserRole role = Client ) = 0;
-        virtual void CreateSavingsAccount ( User user, double inputBalance ) = 0;
-        virtual void CreateCheckingAccount ( User user, double inputBalance ) = 0;
-        virtual void CloseSavingsAccount(User user) = 0;
-        virtual void CloseCheckingAccount (User user) = 0;
+
         virtual bool DoesAccountExist( User user, AccountType type ) = 0;
         virtual Account GetAccount( User user, AccountType type ) = 0;
         virtual void StoreAccount( User user, Account account ) = 0;
-        virtual void UpdateAccount ( User user, Account account ) = 0;
+        virtual void closeAccountForUser( User user, AccountType type ) = 0;
     };
 }
 

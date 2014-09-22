@@ -15,6 +15,8 @@
 
 namespace Operations {
     class AccountDeletionOperation : public IOperation {
+    private:
+        void deleteAccount( AccountType type, OptionContext& context  );
     public:
         void Execute( OptionContext context ) ;
     };

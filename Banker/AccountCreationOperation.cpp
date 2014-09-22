@@ -20,87 +20,67 @@ using namespace Data;
 
 namespace Operations {
     
-    
     void AccountCreationOperation::Execute( OptionContext context ) {
         ENTER( "AccountBalanceOperation::Execute" );
         
-        IData* data = &context.GetData();
+        IData& data = context.GetData();
+        User& user = context.GetSession().getUser();
         
-        AccountType accountType = Savings; // Default value to get rid of warning symbol.
-        bool validAccountType = false;
-        User currentUser = context.GetSession().getUser();
-        string type;
-        
-        if (data->DoesAccountExist(currentUser, Savings) && data->DoesAccountExist(currentUser, Checking)){
-            cout << "Both accounts already exist!" << endl;
+        if (data.DoesAccountExist(user, Savings) && data.DoesAccountExist(user, Checking)){
+            Logger::Error() << "Both accounts already exist!" << endl;
         } else{
-            
-        
-        
-        while( !validAccountType ) {
-            cout << "Opening account of type [savings/checkings/both/cancel]: ";
-            
-            cin >> type;
-            if( type.compare("savings") == 0 ) {
-                accountType = Savings;
-                validAccountType = true;
-            } else if ( type.compare( "checkings" ) == 0 ) {
-                accountType = Checking;
-                validAccountType = true;
-            } else if ( type.compare( "both" ) == 0){
-                validAccountType = true;
-            } else if ( type.compare ("cancel" ) == 0){
-                cout << "Open acount action cancelled" << endl;
-                validAccountType = true;
-            }
-            else {
-                Logger::Error() << "Invalid account type!" << endl;
-            }
-        }
-        
-        
-        if (accountType == Savings || type.compare("both") == 0 ){
-            if( currentUser.savingsAccount.exists || data->DoesAccountExist(currentUser, Savings) ) {
-                Logger::Error() << "This Savings account already exists!" << endl;
-            } else {
-                bool validBalance = false;
-                double inputBalance = -1;
-                while (!validBalance){
-                cout << "Starting balance of savings account [ $ ]: ";
-                cin >> inputBalance;
-                    if (inputBalance >= 0){
-                        validBalance = true;
-                    }
-                }
-                currentUser.savingsAccount.SetBalance(inputBalance); // sets the value in the class
-                currentUser.savingsAccount.exists = true; // Boolean flag in account class
-                data->CreateSavingsAccount(currentUser,inputBalance); // Creates the file with contents identical to class.
+            bool validAccountType = false;
+            string type;
+            while( !validAccountType ) {
+                cout << "Open account of type [savings/checkings/both/cancel]: ";
+                cin >> type;
                 
-            }
-        }
-         
-        if (accountType == Checking || type.compare("both") == 0){
-            
-            if (currentUser.checkingAccount.exists || data->DoesAccountExist(currentUser, Checking) ){
-                Logger::Error() << "This Checking account already exists!" << endl;
-            } else {
-                bool validBalance = false;
-                double inputBalance = -1;
-                while (!validBalance){
-                    cout << "Starting balance of checking account [ $ ]: ";
-                    cin >> inputBalance;
-                    if (inputBalance >= 0){
-                        validBalance = true;
-                    }
+                if( type.compare("savings") == 0 ) {
+                    createAccount( Savings, context );
+                    validAccountType = true;
+                } else if ( type.compare( "checkings" ) == 0 ) {
+                    createAccount( Checking, context );
+                    validAccountType = true;
+                } else if ( type.compare( "both" ) == 0){
+                    createAccount( Checking, context );
+                    createAccount( Savings, context );
+                    validAccountType = true;
+                } else if ( type.compare ("cancel" ) == 0){
+                    cout << "Open acount action cancelled" << endl;
+                    break;
+                } else {
+                    Logger::Error() << "Invalid account type!" << endl;
                 }
-                currentUser.checkingAccount.SetBalance(inputBalance); // sets the value in the class
-                currentUser.checkingAccount.exists = true; // Boolean flag in account class
-                data->CreateCheckingAccount(currentUser,inputBalance); // Creates the file with contents identical to class.
-                
             }
-            
         }
-        } // Exit of else/if of checking if both accounts already exist.
+        
         EXIT( "AccountBalanceOperation::Execute" );
     }
+    
+    void AccountCreationOperation::createAccount( AccountType type, OptionContext& context) {
+        ENTER( "AccountBalanceOperation::createAccount" );
+        
+        IData& data = context.GetData();
+        User& user = context.GetSession().getUser();
+
+        if ( data.DoesAccountExist(user, type) ){
+            Logger::Error() << Account::typeToString( type ) << "account already exists!" << endl;
+        } else {
+            bool validBalance = false;
+            double inputBalance = -1;
+            while (!validBalance){
+                cout << "Starting balance of account [ $ ]: ";
+                cin >> inputBalance;
+                if (inputBalance >= 0){
+                    validBalance = true;
+                }
+            }
+            Account account = Account( type, inputBalance );
+            data.StoreAccount( user, account );
+            Logger::Info() << "Account '" << Account::typeToString( type ) <<"' created!" << endl;
+        }
+
+        EXIT( "AccountBalanceOperation::createAccount" );
+    }
+
 }

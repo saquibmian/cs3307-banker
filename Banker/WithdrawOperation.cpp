@@ -21,71 +21,70 @@ namespace Operations {
         ENTER( "WithdrawOperation::Execute" );
         
         IData* data = &context.GetData();
-        
-        AccountType accountType; // Default value to get rid of warning symbol.
-        bool validAccountType = false;
         User currentUser = context.GetSession().getUser();
-        string type;
         
         if (data->DoesAccountExist(currentUser, Savings) == false && data->DoesAccountExist(currentUser, Checking) == false){
-            cout << "No open account exists!" << endl;
+            Logger::Error() << "No open account exists!" << endl;
         } else{
-            
+            string type;
+            bool validAccountType = false;
             while( !validAccountType ) {
                 cout << "Any action causing a checking account to go, or on a checking account below $1000.00 has a $2.00 transaction fee" << endl;
                 cout << "Withdraw from account [savings/checkings/cancel]: ";
                 
                 cin >> type;
                 if( type.compare("savings") == 0 ) {
-                    accountType = Savings;
+                    withdrawFromAccount( context, Savings );
                     validAccountType = true;
                 } else if ( type.compare( "checkings" ) == 0 ) {
-                    accountType = Checking;
+                    withdrawFromAccount( context, Checking );
                     validAccountType = true;
                 } else if ( type.compare ("cancel" ) == 0){
-                    cout << "Withdraw action cancelled" << endl;
+                    Logger::Info() << "Withdraw action cancelled" << endl;
                     validAccountType = true;
-                }
-                else {
+                } else {
                     Logger::Error() << "Invalid account type!" << endl;
                 }
             }
-            
-            if ( accountType == Savings ){
-                
-                Account withdrawAccount = data->GetAccount(currentUser, Savings);
-                double savingsWithdraw=0;
-                double newBalance;
-                
-                cout << "Amount to withdraw from Savings Account [ $ ]: "; // could change it to round any requests of 0.002
-                cin >> savingsWithdraw;
-                
-                newBalance = withdrawAccount.Withdraw(savingsWithdraw);
-                data->UpdateAccount(currentUser, withdrawAccount);
-                cout << "The remaining balance is $" << newBalance << endl; //can format to always show two decimals if needed.
-                
-                
-                
-            }
-            
-            if (accountType == Checking){
-                
-                Account withdrawAccount = data->GetAccount(currentUser, Checking);
-                double checkingWithdraw=0;
-                double newBalance;
-                
-                cout << "Amount to withdraw from Checking Account [ $ ]: "; // could change it to round any requests of 0.002
-                cin >> checkingWithdraw;
-                
-                newBalance = withdrawAccount.Withdraw(checkingWithdraw);
-                data->UpdateAccount(currentUser, withdrawAccount); // UpdateAccount is a less safe StoreAccount.
-                //It doesn't check to see if the file exists, but in order to reach all uses of it that has to have been checked already.
-                cout << "The remaining balance is $" << newBalance << endl; //can format to always show two decimals if needed.
-                
-            }
-            
-        }// end if statements
+        }
+     
+        EXIT( "WithdrawOperation::Execute" );
+    }
+    
+    void WithdrawOperation::withdrawFromAccount( OptionContext &context, AccountType type) {
+        ENTER( "WithdrawOperation::withdrawFromAccount" );
+
+        IData& data = context.GetData();
+        User& user = context.GetSession().getUser();
+        Account account = data.GetAccount( user, type );
         
-    } // end execute
+        double toWithdraw=0;
+        cout << "Amount to withdraw from account [ $ ]: ";
+        cin >> toWithdraw;
+        
+        if ( type == Checking && account.Balance - toWithdraw < 1000 ){
+            Logger::Warn() << "A $2.00 fee will be applied to this transaction. Continue? [y/n]: ";
+            
+            char yesno;
+            cin >> yesno;
+            if ( yesno == 'y' ){
+                toWithdraw += 2;
+            } else {
+                EXIT( "WithdrawOperation::withdrawFromAccount" );
+                return;
+            }
+        }
+
+        if ( account.Balance - toWithdraw < 0 ){
+            Logger::Error() << "Invalid. The balance will be less than 0. Overdraft is not enabled" << endl;
+        } else {
+            account.Withdraw( toWithdraw );
+            data.StoreAccount( user, account );
+        }
+        
+        Logger::Info() << "The remaining balance is $" << account.Balance << endl;
+        
+        EXIT( "WithdrawOperation::withdrawFromAccount" );
+    }
     
 }

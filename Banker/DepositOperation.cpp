@@ -21,71 +21,59 @@ namespace Operations {
     void DepositOperation::Execute( OptionContext context ) {
         ENTER( "DepositOperation::Execute" );
         
-        IData* data = &context.GetData();
+        IData& data = context.GetData();
+        User& user = context.GetSession().getUser();
         
-        AccountType accountType; // Default value to get rid of warning symbol.
-        bool validAccountType = false;
-        User currentUser = context.GetSession().getUser();
-        string type;
         
-        if (data->DoesAccountExist(currentUser, Savings) == false && data->DoesAccountExist(currentUser, Checking) == false){
-            cout << "No open account exists!" << endl;
+        if (data.DoesAccountExist(user, Savings) == false && data.DoesAccountExist(user, Checking) == false){
+            Logger::Error() << "No open account exists!" << endl;
         } else{
-            
+            bool validAccountType = false;
+            string type;
             while( !validAccountType ) {
                 cout << "Deposit into account [savings/checkings/cancel]: ";
                 
                 cin >> type;
                 if( type.compare("savings") == 0 ) {
-                    accountType = Savings;
+                    depositIntoAccount( Savings, context );
                     validAccountType = true;
                 } else if ( type.compare( "checkings" ) == 0 ) {
-                    accountType = Checking;
+                    depositIntoAccount( Checking, context );
                     validAccountType = true;
                 } else if ( type.compare ("cancel" ) == 0){
-                    cout << "Deposit action cancelled" << endl;
-                    validAccountType = true;
-                }
-                else {
+                    Logger::Info() << "Deposit action cancelled" << endl;
+                    break;
+                } else {
                     Logger::Error() << "Invalid account type!" << endl;
                 }
             }
-            
-            if ( accountType == Savings ){
-                
-                Account withdrawAccount = data->GetAccount(currentUser, Savings);
-                double savingsDeposit=0;
-                double newBalance;
-                
-                cout << "Amount to deposit into Savings Account [ $ ]: "; // could change it to round any requests of 0.002
-                cin >> savingsDeposit;
-                
-                newBalance = withdrawAccount.Deposit(savingsDeposit);
-                data->UpdateAccount(currentUser, withdrawAccount);
-                cout << "The new balance is $" << newBalance << endl; //can format to always show two decimals if needed.
-                
-                
-                
-            }
-            
-            if (accountType == Checking){
-                
-                Account withdrawAccount = data->GetAccount(currentUser, Checking);
-                double checkingDeposit=0;
-                double newBalance;
-                
-                cout << "Amount to deposit from Checking Account [ $ ]: "; // could change it to round any requests of 0.002
-                cin >> checkingDeposit;
-                
-                newBalance = withdrawAccount.Deposit(checkingDeposit);
-                data->UpdateAccount(currentUser, withdrawAccount); // UpdateAccount is a less safe StoreAccount.
-                //It doesn't check to see if the file exists, but in order to reach all uses of it that has to have been checked already.
-                cout << "The new balance is $" << newBalance << endl; //can format to always show two decimals if needed.
-                
-            }
-            
-        }// end if statements
+        }
         
-    } // end execute
+        EXIT( "DepositOperation::Execute" );
+    }
+    
+    void DepositOperation::depositIntoAccount( AccountType type, OptionContext& context ) {
+        ENTER( "DepositOperation::depositIntoAccount" );
+        
+        IData& data = context.GetData();
+        User& user = context.GetSession().getUser();
+        
+        if( !data.DoesAccountExist( user, type ) ) {
+            Logger::Error() << "Specified account does not exist. Please create it first." << endl;
+        } else {
+            Account account = data.GetAccount( user, type );
+            
+            double toDeposit=0;
+            cout << "Amount to deposit into account [ $ ]: ";
+            cin >> toDeposit;
+            
+            account.Deposit( toDeposit );
+            data.StoreAccount( user, account );
+            
+            Logger::Info() << "The remaining balance is $" << account.Balance << endl;
+        }
+        
+        EXIT( "DepositOperation::depositIntoAccount" );
+    }
     
 }

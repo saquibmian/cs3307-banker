@@ -15,6 +15,8 @@
 
 namespace Operations {
     class WithdrawOperation : public IOperation {
+    private:
+        void withdrawFromAccount( OptionContext& context, AccountType type );
     public:
         void Execute( OptionContext context ) ;
     };

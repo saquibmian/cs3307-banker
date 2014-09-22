@@ -69,7 +69,7 @@ namespace Operations {
             bool validBalance = false;
             double inputBalance = -1;
             while (!validBalance){
-                cout << "Starting balance of account [ $ ]: ";
+                cout << "Starting balance of " << Account::typeToString( type ) << " account [ $ ]: ";
                 cin >> inputBalance;
                 if (inputBalance >= 0){
                     validBalance = true;

@@ -22,11 +22,12 @@
  */
 namespace Logger {
     
-    bool pauseTrace = false;
+    bool _pauseTrace = false;
+    int _currentFunctionDepth = 0;
+    vector<string*> _traceLogs;
+    
     string getTimeAsString( string formatString );
     string getTimeAndFunctionDepth();
-    int currentFunctionDepth = 0;
-    vector<string*> traceLogs;
     
     // null stream taken from:
     // http://forums.codeguru.com/showthread.php?460071-ostream-bit-bucket
@@ -48,8 +49,8 @@ namespace Logger {
     
     NullStream cnul;
     
-    ostream& Debug() {
-        if ( Configuration::IsDebug ) {
+    ostream& debug() {
+        if ( Configuration::isDebug ) {
             cout << "DEBUG: ";
             return cout;
         }
@@ -57,63 +58,59 @@ namespace Logger {
         return cnul;
     }
     
-    ostream& Info() {
+    ostream& info() {
         return cout;
     }
     
-    ostream& Warn() {
+    ostream& warn() {
         cout << "WARN: ";
         return cout;
     }
     
-    ostream& Error() {
+    ostream& error() {
         cerr << "ERROR: ";
         return cerr;
     }
     
     bool isTraceEnabled() {
-        pauseTrace = true;
-        bool toReturn = Io::fileExists( Configuration::TraceFile );
-        pauseTrace = false;
+        _pauseTrace = true;
+        bool toReturn = Io::fileExists( Configuration::traceFile );
+        _pauseTrace = false;
         return toReturn;
     }
     
     void toggleTrace() {
         if( isTraceEnabled() ) {
-            if( Io::deleteFile( Configuration::TraceFile ) != 0 ) {;
-                Error() << "Error deleting file: " << Configuration::TraceFile << endl;
+            if( Io::deleteFile( Configuration::traceFile ) != 0 ) {;
+                error() << "Error deleting file: " << Configuration::traceFile << endl;
             }
-            Debug() << "Disabled trace" << endl;
+            debug() << "Disabled trace" << endl;
         } else {
-            Io::createFile( Configuration::TraceFile, "" );
-            Debug() << "Enabled trace" << endl;
+            Io::createFile( Configuration::traceFile, "" );
+            debug() << "Enabled trace" << endl;
         }
     }
     
     string getTimeAndFunctionDepth() {
         stringstream buffer;
-        buffer << "[" << getTimeAsString( "%X" ) << "] " << "[depth " << currentFunctionDepth << "]";
+        buffer << "[" << getTimeAsString( "%X" ) << "] " << "[depth " << _currentFunctionDepth << "]";
         return buffer.str();
     }
     
     void enter( string func ) {
-        if ( !pauseTrace && isTraceEnabled() ) {
-            ++currentFunctionDepth;
+        if ( !_pauseTrace && isTraceEnabled() ) {
+            ++_currentFunctionDepth;
             string* log = new string( getTimeAndFunctionDepth() + " Entering function: " + func  );
-            traceLogs.push_back( log );
-            if( Configuration::IsDebug ) {
-                Debug() << *log << endl;
-            }
+            _traceLogs.push_back( log );
+            debug() << *log << endl;
         }
     }
     void exit( string func ) {
-        if ( !pauseTrace && isTraceEnabled() ) {
+        if ( !_pauseTrace && isTraceEnabled() ) {
             string* log = new string( getTimeAndFunctionDepth() + " Exiting function: " + func  );
-            traceLogs.push_back( log );
-            if( Configuration::IsDebug ) {
-                Debug() << *log << endl;
-            }
-            --currentFunctionDepth;
+            _traceLogs.push_back( log );
+            debug() << *log << endl;
+            --_currentFunctionDepth;
         }
     }
     
@@ -136,8 +133,8 @@ namespace Logger {
         myfile.open( traceLogFile.c_str(), ios::out | ios::app );
 
         myfile << "Execution log for user '" << username << "' on " << getTimeAsString( "%c" ) << endl;
-        for (int i = 0; i < traceLogs.size(); i++) {
-            string* log = traceLogs.at( i );
+        for (int i = 0; i < _traceLogs.size(); i++) {
+            string* log = _traceLogs.at( i );
             
             myfile << *log << endl;
             
@@ -145,7 +142,7 @@ namespace Logger {
         }
 
         myfile.close();
-        traceLogs.clear();
+        _traceLogs.clear();
     }
 
 }

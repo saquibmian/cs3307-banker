@@ -18,10 +18,10 @@ namespace Operations {
     class IOperation {
     protected:
         AccountType getAccountType();
-        void DisplayAccountDetails( OptionContext& context, User& user );
+        void displayAccountDetails( OptionContext& context, User& user );
     public:
         virtual ~IOperation() {}
-        virtual void Execute( OptionContext context ) = 0;
+        virtual void execute( OptionContext context ) = 0;
     };
     
 }

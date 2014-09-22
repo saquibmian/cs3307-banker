@@ -18,15 +18,15 @@ using namespace Data;
 
 namespace Operations {
     
-    void DepositOperation::Execute( OptionContext context ) {
+    void DepositOperation::execute( OptionContext context ) {
         ENTER( "DepositOperation::Execute" );
         
-        IData& data = context.GetData();
-        User& user = context.GetSession().getUser();
+        IData& data = context.getData();
+        User& user = context.getSession().getUser();
         
         
-        if (data.DoesAccountExist(user, Savings) == false && data.DoesAccountExist(user, Checking) == false){
-            Logger::Error() << "No open account exists!" << endl;
+        if (data.doesAccountExist(user, Savings) == false && data.doesAccountExist(user, Checking) == false){
+            Logger::error() << "No open account exists!" << endl;
         } else{
             bool validAccountType = false;
             string type;
@@ -41,10 +41,10 @@ namespace Operations {
                     depositIntoAccount( Checking, context );
                     validAccountType = true;
                 } else if ( type.compare ("cancel" ) == 0){
-                    Logger::Info() << "Deposit action cancelled" << endl;
+                    Logger::info() << "Deposit action cancelled" << endl;
                     break;
                 } else {
-                    Logger::Error() << "Invalid account type!" << endl;
+                    Logger::error() << "Invalid account type!" << endl;
                 }
             }
         }
@@ -55,22 +55,22 @@ namespace Operations {
     void DepositOperation::depositIntoAccount( AccountType type, OptionContext& context ) {
         ENTER( "DepositOperation::depositIntoAccount" );
         
-        IData& data = context.GetData();
-        User& user = context.GetSession().getUser();
+        IData& data = context.getData();
+        User& user = context.getSession().getUser();
         
-        if( !data.DoesAccountExist( user, type ) ) {
-            Logger::Error() << "Specified account does not exist. Please create it first." << endl;
+        if( !data.doesAccountExist( user, type ) ) {
+            Logger::error() << "Specified account does not exist. Please create it first." << endl;
         } else {
-            Account account = data.GetAccount( user, type );
+            Account account = data.getAccount( user, type );
             
             double toDeposit=0;
             cout << "Amount to deposit into account [ $ ]: ";
             cin >> toDeposit;
             
-            account.Deposit( toDeposit );
-            data.StoreAccount( user, account );
+            account.deposit( toDeposit );
+            data.storeAccount( user, account );
             
-            Logger::Info() << "The remaining balance is $" << account.Balance << endl;
+            Logger::info() << "The remaining balance is $" << account.Balance << endl;
         }
         
         EXIT( "DepositOperation::depositIntoAccount" );

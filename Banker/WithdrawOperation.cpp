@@ -17,14 +17,14 @@ using namespace Data;
 
 namespace Operations {
     
-    void WithdrawOperation::Execute( OptionContext context ) {
+    void WithdrawOperation::execute( OptionContext context ) {
         ENTER( "WithdrawOperation::Execute" );
         
-        IData* data = &context.GetData();
-        User currentUser = context.GetSession().getUser();
+        IData* data = &context.getData();
+        User currentUser = context.getSession().getUser();
         
-        if (data->DoesAccountExist(currentUser, Savings) == false && data->DoesAccountExist(currentUser, Checking) == false){
-            Logger::Error() << "No open account exists!" << endl;
+        if (data->doesAccountExist(currentUser, Savings) == false && data->doesAccountExist(currentUser, Checking) == false){
+            Logger::error() << "No open account exists!" << endl;
         } else{
             string type;
             bool validAccountType = false;
@@ -40,10 +40,10 @@ namespace Operations {
                     withdrawFromAccount( context, Checking );
                     validAccountType = true;
                 } else if ( type.compare ("cancel" ) == 0){
-                    Logger::Info() << "Withdraw action cancelled" << endl;
+                    Logger::info() << "Withdraw action cancelled" << endl;
                     validAccountType = true;
                 } else {
-                    Logger::Error() << "Invalid account type!" << endl;
+                    Logger::error() << "Invalid account type!" << endl;
                 }
             }
         }
@@ -54,16 +54,16 @@ namespace Operations {
     void WithdrawOperation::withdrawFromAccount( OptionContext &context, AccountType type) {
         ENTER( "WithdrawOperation::withdrawFromAccount" );
 
-        IData& data = context.GetData();
-        User& user = context.GetSession().getUser();
-        Account account = data.GetAccount( user, type );
+        IData& data = context.getData();
+        User& user = context.getSession().getUser();
+        Account account = data.getAccount( user, type );
         
         double toWithdraw=0;
         cout << "Amount to withdraw from account [ $ ]: ";
         cin >> toWithdraw;
         
         if ( type == Checking && account.Balance - toWithdraw < 1000 ){
-            Logger::Warn() << "A $2.00 fee will be applied to this transaction. Continue? [y/n]: ";
+            Logger::warn() << "A $2.00 fee will be applied to this transaction. Continue? [y/n]: ";
             
             char yesno;
             cin >> yesno;
@@ -76,13 +76,13 @@ namespace Operations {
         }
 
         if ( account.Balance - toWithdraw < 0 ){
-            Logger::Error() << "Invalid. The balance will be less than 0. Overdraft is not enabled" << endl;
+            Logger::error() << "Invalid. The balance will be less than 0. Overdraft is not enabled" << endl;
         } else {
-            account.Withdraw( toWithdraw );
-            data.StoreAccount( user, account );
+            account.withdraw( toWithdraw );
+            data.storeAccount( user, account );
         }
         
-        Logger::Info() << "The remaining balance is $" << account.Balance << endl;
+        Logger::info() << "The remaining balance is $" << account.Balance << endl;
         
         EXIT( "WithdrawOperation::withdrawFromAccount" );
     }

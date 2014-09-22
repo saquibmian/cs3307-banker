@@ -27,14 +27,14 @@ namespace Data {
         
         virtual void initialize();
         
-        virtual bool DoesUserExist( string name );
-        virtual User GetUser( string name );
+        virtual bool doesUserExist( string name );
+        virtual User getUser( string name );
         virtual vector<User> getAllUsers();
-        virtual void CreateUser( string name, UserRole role = Client );
+        virtual void createUser( string name, UserRole role = Client );
         
-        virtual bool DoesAccountExist( User user, AccountType type );
-        virtual Account GetAccount( User user, AccountType type );
-        virtual void StoreAccount( User user, Account account );
+        virtual bool doesAccountExist( User user, AccountType type );
+        virtual Account getAccount( User user, AccountType type );
+        virtual void storeAccount( User user, Account account );
         virtual void closeAccountForUser( User user, AccountType type );
     };
 }

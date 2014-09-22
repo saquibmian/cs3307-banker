@@ -15,11 +15,16 @@ namespace Accounts{
         Balance = inputBalance;
         Type = inputType;
     }
-    void Account::Withdraw (double withdrawAmount){
+    
+    void Account::withdraw( double withdrawAmount ){
+        ENTER( "Account::withdraw" );
         Balance -= withdrawAmount;
-    }
-    void Account::Deposit(double depositAmount){
-        Balance += depositAmount;
+        EXIT( "Account::withdraw" );
     }
     
+    void Account::deposit( double depositAmount ){
+        ENTER( "Account::deposit" );
+        Balance += depositAmount;
+        EXIT( "Account::deposit" );
+    }
 }

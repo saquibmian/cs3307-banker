@@ -19,14 +19,14 @@ using namespace std;
 namespace Menu {
     class MainMenu {
     private:
-        int numOptions = 0;
-        map<int,MenuOption>* options;
-        void Display( User user );
+        int _numOptions = 0;
+        map<int,MenuOption>* _options;
+        void display( User user );
     public:
         MainMenu();
         ~MainMenu();
-        void AddMenuOption( MenuOption option );
-        MenuOption GetNextOption( User user );
+        void addMenuOption( MenuOption option );
+        MenuOption getNextOption( User user );
     };
 }
 

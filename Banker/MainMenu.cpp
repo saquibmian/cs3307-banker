@@ -13,51 +13,52 @@
 namespace Menu {
     
     MainMenu::MainMenu() {
-        options = new map<int,MenuOption>;
+        _options = new map<int,MenuOption>;
     }
     
     MainMenu::~MainMenu() {
-        delete options;
+        delete _options;
     }
     
-    void MainMenu::Display( User user ) {
+    void MainMenu::display( User user ) {
         ENTER( "MenuWindow::Display" );
         
-        for ( map<int,MenuOption>::iterator iter = options->begin(); iter != options->end(); iter++ ) {
+        for ( map<int,MenuOption>::iterator iter = _options->begin(
+             ); iter != _options->end(); iter++ ) {
             MenuOption op = iter->second;
-            if( op.IsValidForUser( user ) ) {
-                cout << "[" << iter->first << "] " << op.GetDisplay() <<endl;
+            if( op.isValidForUser( user ) ) {
+                cout << "[" << iter->first << "] " << op.getDisplay() <<endl;
             }
         }
         
         EXIT( "MenuWindow::Display" );
     }
     
-    void MainMenu::AddMenuOption( MenuOption option ) {
+    void MainMenu::addMenuOption( MenuOption option ) {
         ENTER( "MenuWindow::AddMenuOption" );
         
-        options->insert( std::map< int, MenuOption >::value_type ( numOptions++, option ) );
-        MenuOption op = options->at(numOptions -1);
+        _options->insert( std::map< int, MenuOption >::value_type ( _numOptions++, option ) );
+        MenuOption op = _options->at( _numOptions - 1 );
         
         EXIT( "MenuWindow::AddMenuOption" );
     }
     
-    MenuOption MainMenu::GetNextOption( User user ) {
+    MenuOption MainMenu::getNextOption( User user ) {
         ENTER( "MenuWindow::GetNextOption" );
-        Display( user );
+        display( user );
         
         int option;
         cout << "Please choose an option: ";
         // TODO: entering a string here causes a stack overflow; is there a way to empty cin?
         cin >> option;
         
-        if( options->count(option) == 0 ) {
-            Logger::Error() << "Invalid option!" << endl;
+        if( _options->count(option) == 0 ) {
+            Logger::error() << "Invalid option!" << endl;
             throw std::exception();
         }
         
         EXIT( "MenuWindow::GetNextOption" );
-        return options->at( option );
+        return _options->at( option );
     }
 
 }

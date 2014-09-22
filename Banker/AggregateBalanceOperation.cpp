@@ -13,23 +13,23 @@
 using namespace Accounts;
 
 namespace Operations {
-    void AggregateBalanceOperation::Execute( OptionContext context ) {
+    void AggregateBalanceOperation::execute( OptionContext context ) {
         ENTER( "AggregateBalanceOperation.h::Execute" );
         
         int totalCheckingBalance = 0;
         int totalSavingsBalance = 0;
-        vector<User> users = context.GetData().getAllUsers();
+        vector<User> users = context.getData().getAllUsers();
         for ( vector<User>::iterator iter = users.begin(); iter != users.end(); iter++ ) {
             User* user = iter.base();
             if( user->Role == Client ) {
                 
-                if( context.GetData().DoesAccountExist(*user, Checking) ) {
-                    Account checking = context.GetData().GetAccount(*user, Checking);
+                if( context.getData().doesAccountExist(*user, Checking) ) {
+                    Account checking = context.getData().getAccount(*user, Checking);
                     totalCheckingBalance += checking.Balance;
                 }
                 
-                if( context.GetData().DoesAccountExist(*user, Savings) ) {
-                    Account checking = context.GetData().GetAccount(*user, Savings);
+                if( context.getData().doesAccountExist(*user, Savings) ) {
+                    Account checking = context.getData().getAccount(*user, Savings);
                     totalSavingsBalance += checking.Balance;
                 }
             }

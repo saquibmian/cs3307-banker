@@ -16,22 +16,22 @@ using namespace Data;
 
 namespace Operations {
 
-    void AccountDeletionOperation::Execute( OptionContext context ) {
+    void AccountDeletionOperation::execute( OptionContext context ) {
         ENTER( "AccountBalanceOperation::Execute" );
         
-        IData& data = context.GetData();
-        User& user = context.GetSession().getUser();
+        IData& data = context.getData();
+        User& user = context.getSession().getUser();
         
         
-        if (data.DoesAccountExist(user, Savings) == false && data.DoesAccountExist(user, Checking) == false){
-            Logger::Error() << "Neither account exists!" << endl;
+        if (data.doesAccountExist(user, Savings) == false && data.doesAccountExist(user, Checking) == false){
+            Logger::error() << "Neither account exists!" << endl;
         } else{
 
             bool validAccountType = false;
             string type;
             while( !validAccountType ) {
-                Logger::Info() << "To close an account, it must have a 0 (zero) balance." << endl;
-                Logger::Info() << "Closing account of type [savings/checkings/both/cancel]: ";
+                Logger::info() << "To close an account, it must have a 0 (zero) balance." << endl;
+                Logger::info() << "Closing account of type [savings/checkings/both/cancel]: ";
                 
                 cin >> type;
                 if( type.compare("savings") == 0 ) {
@@ -45,10 +45,10 @@ namespace Operations {
                     deleteAccount( Savings, context);
                     validAccountType = true;
                 } else if ( type.compare ("cancel" ) == 0){
-                    Logger::Info() << "Close acount action cancelled" << endl;
+                    Logger::info() << "Close acount action cancelled" << endl;
                     break;
                 } else {
-                    Logger::Error() << "Invalid account type!" << endl;
+                    Logger::error() << "Invalid account type!" << endl;
                 }
             }
         }
@@ -57,19 +57,19 @@ namespace Operations {
     }
     
     void AccountDeletionOperation::deleteAccount( AccountType type, OptionContext& context ) {
-        IData& data = context.GetData();
-        User& user = context.GetSession().getUser();
+        IData& data = context.getData();
+        User& user = context.getSession().getUser();
         
-        if( !data.DoesAccountExist( user, type ) ) {
-            Logger::Error() << "Account '" << Account::typeToString( type ) <<"' doesn't exist!" << endl;
+        if( !data.doesAccountExist( user, type ) ) {
+            Logger::error() << "Account '" << Account::typeToString( type ) <<"' doesn't exist!" << endl;
         }
         
-        Account account = data.GetAccount(user, type);
+        Account account = data.getAccount(user, type);
         if ( account.Balance != 0 ){
-            Logger::Error() << "Account '" << Account::typeToString( type ) <<"' is not empty" << endl;
+            Logger::error() << "Account '" << Account::typeToString( type ) <<"' is not empty" << endl;
         } else{
             data.closeAccountForUser( user, account.Type );
-            Logger::Info() << "Account '" << Account::typeToString( type ) <<"' closed" << endl;
+            Logger::info() << "Account '" << Account::typeToString( type ) <<"' closed" << endl;
         }
     }
 

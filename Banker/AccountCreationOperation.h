@@ -18,7 +18,7 @@ namespace Operations {
     private:
         void createAccount( AccountType type, OptionContext& context );
     public:
-        void Execute( OptionContext context ) ;
+        void execute( OptionContext context ) ;
     };
 }
 #endif

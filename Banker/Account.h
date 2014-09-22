@@ -24,8 +24,8 @@ namespace Accounts {
         AccountType Type;
         double Balance;
         Account( AccountType actType, double balance);
-        void Deposit(double);
-        void Withdraw(double);
+        void deposit( double value );
+        void withdraw( double value );
         
         static string typeToString( AccountType type ) {
             ENTER( "Account::typeToString" );

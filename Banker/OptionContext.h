@@ -20,13 +20,13 @@ using namespace Data;
 namespace Options {
     class OptionContext {
     private:
-        IData& data;
-        Session& session;
+        IData& _data;
+        Session& _session;
     public:
-        Session& GetSession();
-        IData& GetData();
+        Session& getSession();
+        IData& getData();
         OptionContext( IData& d, Session& session )
-            : data( d ), session( session ) { }
+            : _data( d ), _session( session ) { }
     };
 }
 

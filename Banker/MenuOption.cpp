@@ -13,40 +13,36 @@
 namespace Menu {
 
     MenuOption::MenuOption( string display, IOperation* op, UserRole role )
-        : display( display ), validRole( role ) {
-            operation = op;
+        : _display( display ), _validRole( role ) {
+            _operation = op;
         }
     
-    string MenuOption::GetDisplay() {
-        return display;
+    string MenuOption::getDisplay() {
+        return _display;
     }
     
-    IOperation& MenuOption::GetOperation() {
-        return *operation;
+    IOperation& MenuOption::getOperation() {
+        return *_operation;
     }
     
-    bool MenuOption::IsValidForUser( Authentication::User user ) {
+    bool MenuOption::isValidForUser( Authentication::User user ) {
         ENTER( "MenuOption::IsValidForUser" );
         bool toReturn;
         
-        if( validRole == All ) {
+        if( _validRole == All ) {
             toReturn = true;
         } else if( user.Role == Manager ) {
-            if( validRole == Maintainer ) {
+            if( _validRole == Maintainer ) {
                 toReturn = false;
             } else {
                 toReturn = true;
             }
         } else {
-            toReturn = user.Role == validRole;
+            toReturn = user.Role == _validRole;
         }
         
         EXIT( "MenuOption::IsValidForUser" );
         return toReturn;
-    }
-    
-    bool MenuOption::IsQuit() {
-        TODO;
     }
     
 }

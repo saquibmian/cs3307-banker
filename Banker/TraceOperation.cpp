@@ -9,12 +9,12 @@
 #include "TraceOperation.h"
 
 namespace Operations {
-    void TraceOperation::Execute( OptionContext context ) {
+    void TraceOperation::execute( OptionContext context ) {
         ENTER( "TraceOperation::Execute" );
         
         Logger::toggleTrace();
         
-        Logger::Info() << "Trace is now: " << ( Logger::isTraceEnabled() ? "ON" : "OFF") << endl;
+        Logger::info() << "Trace is now: " << ( Logger::isTraceEnabled() ? "ON" : "OFF") << endl;
         
         EXIT( "TraceOperation::Execute" );
     }

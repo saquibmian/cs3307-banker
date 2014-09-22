@@ -14,10 +14,10 @@ int main( int argc, const char * argv[] ) {
     ENTER( "main" );
         
     Program init;
-    init.Intialize();
-    init.Run();
+    init.intialize();
+    init.run();
     
-    Logger::Info() << "Goodbye!" << endl;
+    Logger::info() << "Goodbye!" << endl;
 
     EXIT( "main" );
     return 0;

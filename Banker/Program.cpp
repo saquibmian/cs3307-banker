@@ -24,53 +24,53 @@
 using namespace Operations;
 
 Program::Program() {
-    mOperations = new vector<IOperation*>;
-    data = new FilesystemData();
-    menu = new MainMenu();
-    session = new Session( *data );
-    context = 0;
+    _operations = new vector<IOperation*>;
+    _data = new FilesystemData();
+    _menu = new MainMenu();
+    _session = new Session( *_data );
+    _context = 0;
 }
 
 Program::~Program() {
-    delete data;
-    delete context;
-    delete menu;
-    for (int i = 0; i < mOperations->size(); i++) {
-        IOperation* toFree = mOperations->at(i);
+    delete _data;
+    delete _context;
+    delete _menu;
+    for (int i = 0; i < _operations->size(); i++) {
+        IOperation* toFree = _operations->at(i);
         delete toFree;
     }
-    delete mOperations;
+    delete _operations;
 }
 
-void Program::Intialize() {
-    data->initialize();
+void Program::intialize() {
+    _data->initialize();
     
     createDefaultUsers();
     
-    session->login();
+    _session->login();
     
     addMenuOptions();
     
-    context = new OptionContext( *data, *session );
+    _context = new OptionContext( *_data, *_session );
 }
 
-void Program::Run() {
-    while( session->isActive() ) {
+void Program::run() {
+    while( _session->isActive() ) {
         try {
-            MenuOption option = menu->GetNextOption( session->getUser() );
-            option.GetOperation().Execute( *context );
+            MenuOption option = _menu->getNextOption( _session->getUser() );
+            option.getOperation().execute( *_context );
         } catch ( std::exception e ) {
-            Logger::Error() << "An error occured: " << e.what() << endl;;
+            Logger::error() << "An error occured: " << e.what() << endl;;
         }
     }
 }
 
 void Program::createDefaultUsers() {
-    if( !data->DoesUserExist( "maintainer" ) ) {
-        data->CreateUser( "maintainer", Maintainer );
+    if( !_data->doesUserExist( "maintainer" ) ) {
+        _data->createUser( "maintainer", Maintainer );
     }
-    if( !data->DoesUserExist( "manager" ) ) {
-        data->CreateUser( "manager", Manager );
+    if( !_data->doesUserExist( "manager" ) ) {
+        _data->createUser( "manager", Manager );
     }
 }
 
@@ -78,60 +78,60 @@ void Program::addMenuOptions() {
     // Account balance operation
     IOperation* accountBalanceOp = new AccountBalanceOperation();
     MenuOption accountBalanceMenuOp ( "Display account balance", accountBalanceOp, Client );
-    mOperations->push_back( accountBalanceOp );
-    menu->AddMenuOption( accountBalanceMenuOp );
+    _operations->push_back( accountBalanceOp );
+    _menu->addMenuOption( accountBalanceMenuOp );
     
     // All account balance operation
     IOperation* allAccountBalanceOp = new AllClientsBalanceOperation();
     MenuOption allAccountBalanceMenuOp ( "Display all account balances", allAccountBalanceOp, Manager );
-    mOperations->push_back( allAccountBalanceOp );
-    menu->AddMenuOption( allAccountBalanceMenuOp );
+    _operations->push_back( allAccountBalanceOp );
+    _menu->addMenuOption( allAccountBalanceMenuOp );
 
     // Total account balance operation
     IOperation* totalAccountBalanceOp = new AggregateBalanceOperation();
     MenuOption totalAccountBalanceMenuOp ( "Display total account balances", totalAccountBalanceOp, Manager );
-    mOperations->push_back( totalAccountBalanceOp );
-    menu->AddMenuOption( totalAccountBalanceMenuOp );
+    _operations->push_back( totalAccountBalanceOp );
+    _menu->addMenuOption( totalAccountBalanceMenuOp );
 
     // Trace operation
     IOperation* traceOp = new TraceOperation();
     MenuOption traceMenuOp ( "Enable/disable trace", traceOp, Maintainer );
-    mOperations->push_back( traceOp );
-    menu->AddMenuOption( traceMenuOp );
+    _operations->push_back( traceOp );
+    _menu->addMenuOption( traceMenuOp );
     
     // Account creation options
     IOperation* accountCreationOp = new AccountCreationOperation();
     MenuOption accountCreationMenuOp ("Open an account", accountCreationOp, Client);
-    mOperations->push_back( accountCreationOp );
-    menu->AddMenuOption( accountCreationMenuOp );
+    _operations->push_back( accountCreationOp );
+    _menu->addMenuOption( accountCreationMenuOp );
     
     // Account deletion options
     IOperation* accountDeletionOp = new AccountDeletionOperation();
     MenuOption accountDeletionMenuOp ("Close an account", accountDeletionOp, Client);
-    mOperations->push_back( accountDeletionOp );
-    menu->AddMenuOption( accountDeletionMenuOp );
+    _operations->push_back( accountDeletionOp );
+    _menu->addMenuOption( accountDeletionMenuOp );
     
     // Withdraw
     IOperation* withdrawOp = new WithdrawOperation();
     MenuOption withdrawMenuOp ("Withdraw funds", withdrawOp, Client);
-    mOperations ->push_back (withdrawOp);
-    menu->AddMenuOption (withdrawMenuOp);
+    _operations ->push_back (withdrawOp);
+    _menu->addMenuOption (withdrawMenuOp);
     
     // Deposit
     IOperation* depositOp = new DepositOperation();
     MenuOption depositMenuOp ("Deposit funds", depositOp, Client);
-    mOperations ->push_back (depositOp);
-    menu->AddMenuOption(depositMenuOp);
+    _operations ->push_back (depositOp);
+    _menu->addMenuOption(depositMenuOp);
     
     //Transfer
     IOperation* transferOp = new TransferOperation();
     MenuOption transferMenuOp ("Transfer funds", transferOp, Client);
-    mOperations ->push_back(transferOp);
-    menu->AddMenuOption(transferMenuOp);
+    _operations ->push_back(transferOp);
+    _menu->addMenuOption(transferMenuOp);
     
     // Quit operation
     IOperation* quitOp = new QuitOperation();
     MenuOption quitMenuOp ( "Quit", quitOp, All );
-    mOperations->push_back( quitOp );
-    menu->AddMenuOption( quitMenuOp );
+    _operations->push_back( quitOp );
+    _menu->addMenuOption( quitMenuOp );
 }

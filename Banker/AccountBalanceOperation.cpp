@@ -13,26 +13,26 @@
 using namespace Accounts;
 
 namespace Operations {
-    void AccountBalanceOperation::Execute( OptionContext context ) {
+    void AccountBalanceOperation::execute( OptionContext context ) {
         ENTER( "AccountBalanceOperation::Execute" );
         
-        User user = context.GetSession().getUser();
+        User user = context.getSession().getUser();
         
         if( user.Role == Manager ) {
             string username;
             cout << "Please enter the username of the customer: ";
             cin >> username;
 
-            if ( context.GetData().DoesUserExist(username) ) {
-                user = context.GetData().GetUser( username );
+            if ( context.getData().doesUserExist(username) ) {
+                user = context.getData().getUser( username );
             } else {
-                Logger::Error() << "Client does not exist!" << endl;
+                Logger::error() << "Client does not exist!" << endl;
                 EXIT( "AccountBalanceOperation::Execute" );
                 return;
             }
         }
         
-        DisplayAccountDetails( context, user );
+        displayAccountDetails( context, user );
         
         EXIT( "AccountBalanceOperation::Execute" );
     }

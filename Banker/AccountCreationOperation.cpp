@@ -20,14 +20,14 @@ using namespace Data;
 
 namespace Operations {
     
-    void AccountCreationOperation::Execute( OptionContext context ) {
+    void AccountCreationOperation::execute( OptionContext context ) {
         ENTER( "AccountBalanceOperation::Execute" );
         
-        IData& data = context.GetData();
-        User& user = context.GetSession().getUser();
+        IData& data = context.getData();
+        User& user = context.getSession().getUser();
         
-        if (data.DoesAccountExist(user, Savings) && data.DoesAccountExist(user, Checking)){
-            Logger::Error() << "Both accounts already exist!" << endl;
+        if (data.doesAccountExist(user, Savings) && data.doesAccountExist(user, Checking)){
+            Logger::error() << "Both accounts already exist!" << endl;
         } else{
             bool validAccountType = false;
             string type;
@@ -49,7 +49,7 @@ namespace Operations {
                     cout << "Open acount action cancelled" << endl;
                     break;
                 } else {
-                    Logger::Error() << "Invalid account type!" << endl;
+                    Logger::error() << "Invalid account type!" << endl;
                 }
             }
         }
@@ -60,11 +60,11 @@ namespace Operations {
     void AccountCreationOperation::createAccount( AccountType type, OptionContext& context) {
         ENTER( "AccountBalanceOperation::createAccount" );
         
-        IData& data = context.GetData();
-        User& user = context.GetSession().getUser();
+        IData& data = context.getData();
+        User& user = context.getSession().getUser();
 
-        if ( data.DoesAccountExist(user, type) ){
-            Logger::Error() << Account::typeToString( type ) << "account already exists!" << endl;
+        if ( data.doesAccountExist(user, type) ){
+            Logger::error() << Account::typeToString( type ) << "account already exists!" << endl;
         } else {
             bool validBalance = false;
             double inputBalance = -1;
@@ -76,8 +76,8 @@ namespace Operations {
                 }
             }
             Account account = Account( type, inputBalance );
-            data.StoreAccount( user, account );
-            Logger::Info() << "Account '" << Account::typeToString( type ) <<"' created!" << endl;
+            data.storeAccount( user, account );
+            Logger::info() << "Account '" << Account::typeToString( type ) <<"' created!" << endl;
         }
 
         EXIT( "AccountBalanceOperation::createAccount" );

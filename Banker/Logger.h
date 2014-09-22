@@ -21,10 +21,10 @@ namespace Logger  {
     
     bool isTraceEnabled();
     void toggleTrace();
-    ostream& Debug();
-    ostream& Info();
-    ostream& Warn();
-    ostream& Error();
+    ostream& debug();
+    ostream& info();
+    ostream& warn();
+    ostream& error();
     
     void enter( string func );
     void exit( string func );

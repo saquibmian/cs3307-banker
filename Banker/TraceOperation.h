@@ -17,7 +17,7 @@
 namespace Operations {
     class TraceOperation : public IOperation {
     public:
-        void Execute( OptionContext context ) ;
+        void execute( OptionContext context ) ;
     };
 }
 

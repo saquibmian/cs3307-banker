@@ -15,9 +15,9 @@ using namespace std;
 
 namespace Configuration {
     
-    extern bool IsDebug;
-    extern string DataDirectory;
-    extern string TraceFile;
+    extern bool isDebug;
+    extern string dataDirectory;
+    extern string traceFile;
     
 }
 

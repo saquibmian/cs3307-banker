@@ -19,17 +19,17 @@ namespace Authentication {
     
     class Session {
     private:
-        bool loggedIn;
-        IData& data;
-        User user;
+        bool _loggedIn;
+        IData& _data;
+        User _user;
     public:
-        Session( IData& d ) : data( d ), user( "none" ) {
-            loggedIn = false;
+        Session( IData& d ) : _data( d ), _user( "none" ) {
+            _loggedIn = false;
         }
         bool isActive();
         void login();
         void logout();
-        User& getUser() { return user; };
+        User& getUser() { return _user; };
     };
     
 }

@@ -28,7 +28,7 @@ namespace Operations {
                 accountType = Checking;
                 validAccountType = true;
             } else {
-                Logger::Error() << "Invalid account type!" << endl;
+                Logger::error() << "Invalid account type!" << endl;
             }
         }
         
@@ -36,24 +36,24 @@ namespace Operations {
         return accountType;
     }
     
-    void IOperation::DisplayAccountDetails( OptionContext& context, User& user ) {
+    void IOperation::displayAccountDetails( OptionContext& context, User& user ) {
         ENTER( "IOperation::DisplayAccountDetails" );
 
-        IData& data = context.GetData();
+        IData& data = context.getData();
         bool hasAtLeastOneAccount = false;
-        if( data.DoesAccountExist(user, Checking) ) {
+        if( data.doesAccountExist(user, Checking) ) {
             hasAtLeastOneAccount = true;
-            Account act = context.GetData().GetAccount( user, Checking );
+            Account act = context.getData().getAccount( user, Checking );
             cout << "Checking balance: $" << act.Balance <<endl;
         }
-        if( data.DoesAccountExist(user, Savings) ) {
+        if( data.doesAccountExist(user, Savings) ) {
             hasAtLeastOneAccount = true;
-            Account act = context.GetData().GetAccount( user, Savings );
+            Account act = context.getData().getAccount( user, Savings );
             cout << "Savings balance: $" << act.Balance << endl;
         }
         
         if( !hasAtLeastOneAccount) {
-            Logger::Error() << "The specified client does not have any accounts; please create one." << endl;
+            Logger::error() << "The specified client does not have any accounts; please create one." << endl;
         }
         
         EXIT( "IOperation::DisplayAccountDetails" );

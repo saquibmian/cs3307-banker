@@ -13,7 +13,7 @@
 namespace Authentication {
     
     bool Session::isActive() {
-        return loggedIn;
+        return _loggedIn;
     };
     
     void Session::login() {
@@ -24,33 +24,33 @@ namespace Authentication {
             cout << "Please enter your username: ";
             cin >> userName;
             
-            if( data.DoesUserExist( userName ) ) {
-                user = data.GetUser(userName);
+            if( _data.doesUserExist( userName ) ) {
+                _user = _data.getUser(userName);
                 break;
             } else {
                 cout << "User " << userName << " does not exist; would you like to create this user? [y/n] ";
                 char createUser;
                 cin >> createUser;
                 if( createUser == 'y' ) {
-                    data.CreateUser( userName );
-                    user = data.GetUser(userName);
+                    _data.createUser( userName );
+                    _user = _data.getUser(userName);
                     break;
                 }
             }
         }
-        loggedIn = true;
+        _loggedIn = true;
         
-        Logger::Debug() << "User logged in '" << user.Name << "'" << endl;
+        Logger::debug() << "User logged in '" << _user.Name << "'" << endl;
         EXIT( "login" );
     }
     
     void Session::logout() {
-        if( !loggedIn ) {
-            Logger::Error() << "Unable to log out; not logged in!";
+        if( !_loggedIn ) {
+            Logger::error() << "Unable to log out; not logged in!";
             throw std::exception();
         }
-        Logger::flushTrace( user.Name );
-        loggedIn = false;
-        Logger::Debug() << "User logged out '" << user.Name << "'" << endl;
+        Logger::flushTrace( _user.Name );
+        _loggedIn = false;
+        Logger::debug() << "User logged out '" << _user.Name << "'" << endl;
     }
 }

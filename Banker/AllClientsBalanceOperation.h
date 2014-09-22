@@ -15,7 +15,7 @@
 namespace Operations {
     class AllClientsBalanceOperation : public IOperation {
     public:
-        void Execute( OptionContext context ) ;
+        void execute( OptionContext context ) ;
     };
 }
 

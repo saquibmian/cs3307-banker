@@ -16,7 +16,7 @@
 namespace Operations {
     class AccountBalanceOperation : public IOperation {
     public:
-        void Execute( OptionContext context ) ;
+        void execute( OptionContext context ) ;
     };
 }
 

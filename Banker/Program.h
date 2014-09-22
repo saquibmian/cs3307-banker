@@ -22,18 +22,18 @@ using namespace Menu;
 class Program {
 private:
     bool loggedIn = false;
-    IData* data;
-    OptionContext* context;
-    MainMenu* menu;
-    Session* session;
-    vector<IOperation*>* mOperations;
+    IData* _data;
+    OptionContext* _context;
+    MainMenu* _menu;
+    Session* _session;
+    vector<IOperation*>* _operations;
     void addMenuOptions();
     void createDefaultUsers();
 public:
     Program();
     ~Program();
-    void Intialize();
-    void Run();
+    void intialize();
+    void run();
 };
 
 #endif /* defined(__Banker__Initializer__) */

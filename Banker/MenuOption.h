@@ -19,15 +19,14 @@ namespace Menu {
     
     class MenuOption {
     private:
-        string display;
-        IOperation* operation;
-        UserRole validRole;
+        string _display;
+        IOperation* _operation;
+        UserRole _validRole;
     public:
         MenuOption( string display, IOperation* op, UserRole role );
-        string GetDisplay();
-        IOperation& GetOperation();
-        bool IsValidForUser( User user );
-        bool IsQuit();
+        string getDisplay();
+        IOperation& getOperation();
+        bool isValidForUser( User user );
     };
     
 }

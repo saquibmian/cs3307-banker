@@ -23,7 +23,7 @@ namespace Data {
         }
     }
     
-    bool FilesystemData::DoesUserExist( string name ) {
+    bool FilesystemData::doesUserExist( string name ) {
         ENTER( "FilesystemData::DoesUserExist" );
         string path = getUserPath( name );
         bool toReturn = Io::fileExists( path );
@@ -32,11 +32,11 @@ namespace Data {
         return toReturn;
     }
     
-    User FilesystemData::GetUser( string name ) {
+    User FilesystemData::getUser( string name ) {
         ENTER( "FilesystemData::GetUser" );
         
-        if( !DoesUserExist(name) ) {
-            Logger::Error() << "No such user";
+        if( !doesUserExist(name) ) {
+            Logger::error() << "No such user";
             throw std::exception();
         }
         
@@ -55,18 +55,18 @@ namespace Data {
         vector<string> users = Io::readAllLinesFromFile( getAccountListPath() );
         for ( vector<string>::iterator iter = users.begin(); iter != users.end(); iter++ ) {
             if( !iter.base()->empty() ) {
-                toReturn.push_back( GetUser( *iter.base() ) );
+                toReturn.push_back( getUser( *iter.base() ) );
             }
         }
         
         return toReturn;
     }
     
-    void FilesystemData::CreateUser( string name, UserRole role ) {
+    void FilesystemData::createUser( string name, UserRole role ) {
         ENTER( "FilesystemData::CreateUser" );
         
-        if( DoesUserExist( name ) ) {
-            Logger::Error() << "User already exists!" <<endl;
+        if( doesUserExist( name ) ) {
+            Logger::error() << "User already exists!" <<endl;
             throw std::exception();
         }
         string serRole = User::roleToString( role );
@@ -76,7 +76,7 @@ namespace Data {
         EXIT( "FilesystemData::CreateUser" );
     }
         
-    bool FilesystemData::DoesAccountExist( User user, AccountType type ) {
+    bool FilesystemData::doesAccountExist( User user, AccountType type ) {
         ENTER( "FilesystemData::DoesAccountExist" );
         
         bool toReturn = Io::fileExists(getAccountPath(user.Name, type));
@@ -85,11 +85,11 @@ namespace Data {
         return toReturn;
     }
     
-    Account FilesystemData::GetAccount( User user, AccountType type ) {
+    Account FilesystemData::getAccount( User user, AccountType type ) {
         ENTER( "FilesystemData::GetAccount" );
         
-        if( !DoesAccountExist(user, type) ) {
-            Logger::Error() << "User account doesn't exist!" << endl;
+        if( !doesAccountExist(user, type) ) {
+            Logger::error() << "User account doesn't exist!" << endl;
             throw std::exception();
         }
         
@@ -99,7 +99,7 @@ namespace Data {
         return account;
     }
     
-    void FilesystemData::StoreAccount( User user, Account account ) {
+    void FilesystemData::storeAccount( User user, Account account ) {
         ENTER( "FilesystemData::StoreAccount" );
         
         Io::createFile(getAccountPath(user.Name, account.Type), account.Balance);
@@ -110,8 +110,8 @@ namespace Data {
     void FilesystemData::closeAccountForUser( User user, AccountType type ) {
         ENTER( "FilesystemData::closeAccountForUser" );
         
-        if( !DoesAccountExist(user, type) ) {
-            Logger::Error() << "User account doesn't exist!" << endl;
+        if( !doesAccountExist(user, type) ) {
+            Logger::error() << "User account doesn't exist!" << endl;
             EXIT( "FilesystemData::closeAccountForUser" );
             throw std::exception();
         }
@@ -123,7 +123,7 @@ namespace Data {
 
     
     inline string FilesystemData::getAccountListPath() {
-        return Configuration::DataDirectory + "/accounts.dat";
+        return Configuration::dataDirectory + "/accounts.dat";
     }
     
     string FilesystemData::getAccountPath( string username, AccountType type ) {
@@ -132,10 +132,10 @@ namespace Data {
         string toReturn;
         switch ( type ) {
             case Accounts::Savings:
-                toReturn = Configuration::DataDirectory + "/" + username + ".savings.dat";
+                toReturn = Configuration::dataDirectory + "/" + username + ".savings.dat";
                 break;
             case Accounts::Checking:
-                toReturn = Configuration::DataDirectory + "/" + username + ".checking.dat";
+                toReturn = Configuration::dataDirectory + "/" + username + ".checking.dat";
                 break;
         }
         
@@ -146,7 +146,7 @@ namespace Data {
     inline string FilesystemData::getUserPath( string userName ) {
         ENTER( "FilesystemData::getSavingsAccountPath" );
         
-        string path = Configuration::DataDirectory + "/" + userName + ".dat";
+        string path = Configuration::dataDirectory + "/" + userName + ".dat";
         
         EXIT( "FilesystemData::getSavingsAccountPath" );
         return path;

@@ -16,13 +16,13 @@ using namespace Data;
 
 namespace Operations{
 
-    void TransferOperation::Execute( OptionContext context ) {
+    void TransferOperation::execute( OptionContext context ) {
         ENTER( "TransferOperation::Execute" );
         
-        IData& data = context.GetData();
-        User& user = context.GetSession().getUser();
+        IData& data = context.getData();
+        User& user = context.getSession().getUser();
         
-        if (data.DoesAccountExist(user, Savings) == false || data.DoesAccountExist(user, Checking) == false){
+        if (data.doesAccountExist(user, Savings) == false || data.doesAccountExist(user, Checking) == false){
             cout << "Both accounts do not exist! Please open the missing account." << endl;
         } else{
             bool validAccountType = false;
@@ -38,10 +38,10 @@ namespace Operations{
                     transfer( Savings, Checking, context );
                     validAccountType = true;
                 } else if ( type.compare ("cancel" ) == 0){
-                    Logger::Info() << "Withdraw action cancelled" << endl;
+                    Logger::info() << "Withdraw action cancelled" << endl;
                     break;
                 } else {
-                    Logger::Error() << "Invalid account type!" << endl;
+                    Logger::error() << "Invalid account type!" << endl;
                 }
             }
             
@@ -53,21 +53,21 @@ namespace Operations{
     void TransferOperation::transfer( AccountType from, AccountType to, OptionContext& context ) {
         ENTER( "TransferOperation::transfer" );
 
-        IData& data = context.GetData();
-        User& user = context.GetSession().getUser();
+        IData& data = context.getData();
+        User& user = context.getSession().getUser();
         
-        Account transferFrom = data.GetAccount(user, from);
-        Account transferTo = data.GetAccount(user,to);
+        Account transferFrom = data.getAccount(user, from);
+        Account transferTo = data.getAccount(user,to);
         
         double transferAmount = 0;
         cout << "Amount to transfer from " << Account::typeToString( from ) << " to " << Account::typeToString( to ) << " [ $ ]: ";
         cin >> transferAmount;
         
-        transferFrom.Withdraw( transferAmount );
-        transferTo.Deposit( transferAmount );
+        transferFrom.withdraw( transferAmount );
+        transferTo.deposit( transferAmount );
         
-        data.StoreAccount( user, transferFrom );
-        data.StoreAccount( user, transferTo );
+        data.storeAccount( user, transferFrom );
+        data.storeAccount( user, transferTo );
         
         EXIT( "TransferOperation::transfer" );
     }

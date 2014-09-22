@@ -10,10 +10,10 @@
 #include "Logger.h"
 
 namespace Operations {
-    void QuitOperation::Execute( OptionContext context ) {
+    void QuitOperation::execute( OptionContext context ) {
         ENTER( "QuitOperation::Execute" );
         
-        context.GetSession().logout();
+        context.getSession().logout();
         
         EXIT( "QuitOperation::Execute" );
     }

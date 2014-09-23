@@ -50,9 +50,13 @@ namespace Authentication {
             Logger::error() << "Unable to log out; not logged in!";
             throw std::exception();
         }
-        Logger::flushTrace( _user.Name );
+        
         _loggedIn = false;
         Logger::debug() << "User logged out '" << _user.Name << "'" << endl;
+
+        // flushTrace writes the trace to the disk; trace events after this point will not be flushed out before the program exits.
+        Logger::flushTrace( _user.Name );
+
         EXIT( "Session::logout" );
     }
 }

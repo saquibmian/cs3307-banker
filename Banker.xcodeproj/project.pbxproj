@@ -276,7 +276,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = "Saquib Mian";
+				ORGANIZATIONNAME = "CS3307 Assignment 1 Group 22";
 			};
 			buildConfigurationList = 389F35E619C29BFB00841892 /* Build configuration list for PBXProject "Banker" */;
 			compatibilityVersion = "Xcode 3.2";

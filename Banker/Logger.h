@@ -29,6 +29,7 @@ namespace Logger  {
     void enter( string func );
     void exit( string func );
     void flushTrace( string username );
+    inline string getTraceFile( string username );
     
 }
 

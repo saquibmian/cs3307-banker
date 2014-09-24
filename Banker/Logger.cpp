@@ -129,7 +129,7 @@ namespace Logger {
             return;
         }
         
-        string traceLogFile = username + ".trace.dat";
+        string traceLogFile = getTraceFile( username );
         ofstream myfile;
         myfile.open( traceLogFile.c_str(), ios::out | ios::app );
 
@@ -144,6 +144,10 @@ namespace Logger {
 
         myfile.close();
         _traceLogs.clear();
+    }
+    
+    inline string getTraceFile( string username ) {
+        return username + ".trace.dat";
     }
 
 }

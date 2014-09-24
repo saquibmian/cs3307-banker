@@ -31,6 +31,7 @@ namespace Logger {
     
     // null stream taken from:
     // http://forums.codeguru.com/showthread.php?460071-ostream-bit-bucket
+    // This is an elegant way to create a stream that never writes its input. It is essentially a stream that does nothing, but responds in a way that makes it seem to the caller like all is well. It is well suited for cases where one may want to dynamically turn stream output ON or OFF, as is common in log level scenarios (e.g., turn debug logging ON, disable warnings, etc.).
     class NullBuffer : public streambuf {
     public:
         virtual streamsize xsputn(const char * s, streamsize n) {
@@ -128,7 +129,7 @@ namespace Logger {
             return;
         }
         
-        string traceLogFile = username + ".trace.dat";
+        string traceLogFile = getTraceFile( username );
         ofstream myfile;
         myfile.open( traceLogFile.c_str(), ios::out | ios::app );
 
@@ -143,6 +144,10 @@ namespace Logger {
 
         myfile.close();
         _traceLogs.clear();
+    }
+    
+    inline string getTraceFile( string username ) {
+        return username + ".trace.dat";
     }
 
 }

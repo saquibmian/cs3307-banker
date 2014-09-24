@@ -16,6 +16,7 @@
 #include "WithdrawOperation.h"
 #include "TransferOperation.h"
 #include "TraceOperation.h"
+#include "TraceDisplayOperation.h"
 #include "QuitOperation.h"
 #include "Logger.h"
 
@@ -110,6 +111,12 @@ void Program::addMenuOptions() {
     MenuOption traceMenuOp ( "Enable/disable trace", traceOp, Maintainer );
     _operations->push_back( traceOp );
     _menu->addMenuOption( traceMenuOp );
+
+    // Trace display operation
+    IOperation* traceDisplayOp = new TraceDisplayOperation();
+    MenuOption traceDisplayMenuOp ( "Display the trace for a user", traceDisplayOp, Maintainer );
+    _operations->push_back( traceDisplayOp );
+    _menu->addMenuOption( traceDisplayMenuOp );
     
     // Account creation options
     IOperation* accountCreationOp = new AccountCreationOperation();

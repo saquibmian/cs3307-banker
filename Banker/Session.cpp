@@ -59,29 +59,4 @@ namespace Authentication {
 
         EXIT( "Session::logout" );
     }
-    
-    void Session::externalTransferHelper() {
-        ENTER( "Session:externalTransferHelper" );
-        
-        string transferUsername;
-        while( true ) {
-            cout << "Please enter destination username: ";
-            cin >> transferUsername;
-            
-            if( _data.doesUserExist( transferUsername ) ) {
-                _user = _data.getUser(transferUsername);
-                break;
-            } else {
-                cout << "User " << transferUsername << " does not exist" << endl;
-                
-                }
-            }
-    
-        _loggedIn = true;
-        
-    }
-    
-        
-        
-    }
-
+}

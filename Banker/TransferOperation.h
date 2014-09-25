@@ -25,11 +25,8 @@
 
 namespace Operations {
     class TransferOperation : public IOperation {
-        void transfer( AccountType from, AccountType to, OptionContext& context );
-        void transferExternal ( OptionContext destinationContext, AccountType from, AccountType to, OptionContext& context );
-        IData* _transferData;
-        OptionContext* _transferContext;
-        Session* _transferSession;
+    private:
+        void transfer( User& fromUser, User& toUser, AccountType fromAccount, AccountType toAccount, IData& data );
     public:
         void execute( OptionContext context ) ;
     };

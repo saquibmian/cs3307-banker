@@ -21,213 +21,116 @@ namespace Operations{
         ENTER( "TransferOperation::Execute" );
         
         IData& data = context.getData();
-        User& user = context.getSession().getUser();
+        User fromUser = context.getSession().getUser();
+        User toUser = context.getSession().getUser();
+        AccountType from, to;
+        
         string internalExternalChoice;
-        
-        cout << "Would you like to perform an internal transfer (Ex: Savings to Checkings) or an external transfer (Doe to Smith)? [internal/external/cancel]: ";
+        cout << "Would you like to transfer between accounts, (Ex: Savings to Checkings) or transfer to another user (Doe to Smith)? [account/customer/cancel]: ";
         cin >> internalExternalChoice;
-        
-        if (internalExternalChoice.compare("external")==0) {
-            
-            
-            
-            _transferData = new FilesystemData();
-            _transferSession = new Session( *_transferData );
-            _transferContext = 0;
-            
-            _transferData->initialize();
-            
-            
-            _transferSession->externalTransferHelper();
-            
-            
-            
-            _transferContext = new OptionContext( *_transferData, *_transferSession );
-            
-            OptionContext transferContext = *_transferContext;
-            
+        bool isBetweenCustomers = internalExternalChoice.compare( "customer" )==0;
+        bool cancel = internalExternalChoice.compare ( "cancel" ) == 0;
+    
+        // get destination username if transfering between customers
+        if ( !cancel && isBetweenCustomers ) {
             string destinationUsername;
-            
-            cout << "Please re-enter the name of the account to transfer to: ";
-            cin >> destinationUsername;
-            
-            if ( transferContext.getData().doesUserExist(destinationUsername) ) {
-                User destinationUser = transferContext.getData().getUser( destinationUsername );
-            } else {
-                Logger::error() << "Client does not exist!" << endl;
-                EXIT( "TransferOperation::Execute" );
-                return;
+            while( true ) {
+                Logger::info() << "Please enter destination username (type cancel to cancel): ";
+                cin >> destinationUsername;
+                if( destinationUsername.compare("cancel") == 0 ) {
+                    cancel = true;
+                    break;
+                } else if( data.doesUserExist( destinationUsername ) ) {
+                    toUser = data.getUser( destinationUsername );
+                    break;
+                } else {
+                    Logger::error() << "User " << destinationUsername << " does not exist" << endl;
+                }
             }
-            
-            
-            bool validAccountType;
-            string destinationType;
+        }
+
+        // get account to transfer from
+        while( !cancel && true ) {
             string type;
+            cout << "Transfer from account [savings/checkings/cancel]: ";
+            cin >> type;
             
-            while( !validAccountType ) {
-                cout << "Transfer from account [savings/checkings/cancel]: ";
-                
+            if ( type.compare ("cancel" ) == 0){
+                cancel = true;
+                break;
+            } else if( type.compare("savings") == 0 ) {
+                from = Savings;
+                break;
+            } else if ( type.compare( "checkings" ) == 0 ) {
+                from = Checking;
+                break;
+            } else {
+                Logger::error() << "Invalid account type!" << endl;
+            }
+        }
+        
+        // get destination account
+        if( !cancel && isBetweenCustomers ) {
+            while( true ) {
+                string type;
+                cout << "Transfer to account [savings/checkings/cancel]: ";
                 cin >> type;
-                if( type.compare("savings") == 0 ) {
-                    
-                    
-                    ////////
-                    
-                    while( !validAccountType ) {
-
-                        cout << "Transfer to " << destinationUsername << "'s Checking or Saving account? [checkings/savings]: ";
-                        cin >> type;
-                        if( type.compare("savings") == 0 ) {
-                            transferExternal(transferContext, Savings, Savings, context );
-                            validAccountType = true;
-                        } else if ( type.compare( "checkings" ) == 0 ) {
-                            transferExternal( transferContext, Savings, Checking, context );
-                            validAccountType = true;
-                        } else if ( type.compare ("cancel" ) == 0){
-                            Logger::info() << "External Transfer action cancelled" << endl;
-                            break;
-                        } else {
-                            Logger::error() << "Invalid account type!" << endl;
-                        }
-                    }
-                    
-                    ///////
-                    
-                    validAccountType = true;
-                    
+                
+                if ( type.compare ("cancel" ) == 0){
+                    Logger::info() << "Transfer action cancelled" << endl;
+                    break;
+                } else if( type.compare("savings") == 0 ) {
+                    to = Savings;
+                    break;
                 } else if ( type.compare( "checkings" ) == 0 ) {
-                    
-                    while( !validAccountType ) {
-                        
-                        cout << "Transfer to " << destinationUsername << "'s Checking or Saving account? [checkings/savings]: ";
-                        cin >> type;
-                        if( type.compare("savings") == 0 ) {
-                            transferExternal( transferContext, Checking, Savings, context );
-                            validAccountType = true;
-                        } else if ( type.compare( "checkings" ) == 0 ) {
-                            transferExternal( transferContext, Checking, Checking, context );
-                            validAccountType = true;
-                        } else if ( type.compare ("cancel" ) == 0){
-                            Logger::info() << "External Transfer action cancelled" << endl;
-                            break;
-                        } else {
-                            Logger::error() << "Invalid account type!" << endl;
-                        }
-                    }
-                    validAccountType = true;
-                    
-                } else if ( type.compare ("cancel" ) == 0){
-                    Logger::info() << "External Transfer action cancelled" << endl;
+                    to = Checking;
                     break;
                 } else {
                     Logger::error() << "Invalid account type!" << endl;
                 }
             }
-            
-            //Repeating myself here. Could maybe change this to a function?
-            /*
-            while( !validAccountType ) {
-                cout << "Transfer from account [savings/checkings/cancel]: ";
-                cout << "Is this ever entered?";
-                
-                cin >> type;
-                if( type.compare("savings") == 0 ) {
-                    transfer( Savings, Checking, context );
-                    validAccountType = true;
-                } else if ( type.compare( "checkings" ) == 0 ) {
-                    transfer( Checking, Savings, context );
-                    validAccountType = true;
-                } else if ( type.compare ("cancel" ) == 0){
-                    Logger::info() << "Internal Transfer action cancelled" << endl;
-                    break;
-                } else {
-                    Logger::error() << "Invalid account type!" << endl;
-                }
-            } */
+        } else if( !cancel && !isBetweenCustomers ) {
+            if( from == Savings ) {
+                to = Checking;
+            } else {
+                to = Savings;
+            }
+        }
+        
+        // check if accounts exist; if all good, do transfer
+        if( !cancel ) {
+            if ( data.doesAccountExist( fromUser, from ) == false ) {
+                Logger::error() << "Source account does not exist! Please open the missing account." << endl;
+            } else if( data.doesAccountExist( fromUser, to ) == false ){
+                Logger::error() << "Destination account does not exist! Please open the missing account." << endl;
+            } else {
+                transfer(fromUser, toUser, from, to, data );
+            }
+        }
 
-        
-        }
-        else if (internalExternalChoice.compare("internal")==0){
-        
-            if (data.doesAccountExist(user, Savings) == false || data.doesAccountExist(user, Checking) == false){
-                cout << "Both accounts do not exist! Please open the missing account." << endl;
-            } else{
-                bool validAccountType = false;
-                string type;
-                while( !validAccountType ) {
-                    cout << "Transfer from account [savings/checkings/cancel]: ";
-                    
-                    cin >> type;
-                    if( type.compare("savings") == 0 ) {
-                        transfer( Savings, Checking, context );
-                        validAccountType = true;
-                    } else if ( type.compare( "checkings" ) == 0 ) {
-                        transfer( Checking, Savings, context );
-                        validAccountType = true;
-                    } else if ( type.compare ("cancel" ) == 0){
-                        Logger::info() << "Internal Transfer action cancelled" << endl;
-                        break;
-                    } else {
-                        Logger::error() << "Invalid account type!" << endl;
-                    }
-                }
-            
-        }
-            
-            
-        } // end internal external if statement.
-        
-        else if (internalExternalChoice.compare ("cancel") == 0){
-           Logger::info() << "Transfer action cancelled" << endl;
+        if( cancel ) {
+            Logger::info() << "Transfer action cancelled" << endl;
         }
         
         EXIT( "TransferOperation::Execute" );
     }
     
-    void TransferOperation::transfer( AccountType from, AccountType to, OptionContext& context ) {
-        ENTER( "TransferOperation::transfer" );
-
-        IData& data = context.getData();
-        User& user = context.getSession().getUser();
-        
-        Account transferFrom = data.getAccount(user, from);
-        Account transferTo = data.getAccount(user,to);
-        
-        double transferAmount = 0;
-        cout << "Amount to transfer from " << Account::typeToString( from ) << " to " << Account::typeToString( to ) << " [ $ ]: ";
-        cin >> transferAmount;
-        
-        transferFrom.withdraw( transferAmount );
-        transferTo.deposit( transferAmount );
-        
-        data.storeAccount( user, transferFrom );
-        data.storeAccount( user, transferTo );
-        
-        EXIT( "TransferOperation::transfer" );
-    }
     
-    
-    void TransferOperation::transferExternal(OptionContext destinationContext, AccountType from, AccountType to, OptionContext& context ) {
+    void TransferOperation::transfer( User& fromUser, User& toUser, AccountType fromAccount, AccountType toAccount, IData& data ) {
         ENTER( "TransferOperation::transferExternal" );
         
-        IData& data = context.getData();
-        User& user = context.getSession().getUser();
-        
-        IData& destinationData = destinationContext.getData();
-        User& destinationUser = destinationContext.getSession().getUser();
-        
-        Account transferFrom = data.getAccount(user, from);
-        Account transferTo = destinationData.getAccount(destinationUser,to);
+        Account transferFrom = data.getAccount( fromUser, fromAccount );
+        Account transferTo = data.getAccount( toUser,toAccount );
         
         double transferAmount = 0;
-        cout << "Amount to transfer from " << Account::typeToString( from ) << " to " << Account::typeToString( to ) << " [ $ ]: ";
+        cout << "Amount to transfer from " << Account::typeToString( fromAccount ) << " to " << Account::typeToString( toAccount ) << " [ $ ]: ";
         cin >> transferAmount;
         
         transferFrom.withdraw( transferAmount );
         transferTo.deposit( transferAmount );
         
-        data.storeAccount( user, transferFrom );
-        data.storeAccount( destinationUser, transferTo );
+        data.storeAccount( fromUser, transferFrom );
+        data.storeAccount( toUser, transferTo );
         
         EXIT( "TransferOperation::transfer" );
     }

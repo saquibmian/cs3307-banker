@@ -29,6 +29,7 @@ namespace Authentication {
         bool isActive();
         void login();
         void logout();
+        void externalTransferHelper();
         User& getUser() { return _user; };
     };
     

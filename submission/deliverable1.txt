@@ -1,0 +1,39 @@
+System requirements
+
+The system contains the following roles, each of which has their own requirements:
+- Maintainer
+- Manager
+- Client/Customer
+
+REQUIREMENTS:
+
+A: The maintainer should be able to …
+	A.1: enable and disable a TRACE function in the program. 
+		A.1.1: This trace should be user-specific and should show the user’s name, time of log, and each function that was entered/exited in the program (until the user logs out).
+		A.1.2: The maintainer should be able to identify what operations the user executed, but not the specific details (e.g., not how much money was transferred).
+	A.2: print the TRACE log for any given user.
+
+B: The manager should be able to …
+	B.1: display the account balances for any client.
+	B.2: display the account balances for all clients.
+	B.3: display total aggregate account balances for the entire bank.
+	B.4: act as a client (see the section C)
+
+C: The client should be able to …
+	B.1: display his/her account balances.
+	B.2: open an account of any type.
+		B.2.1: The client should be presented with the option to indicate an initial balance for the account.
+	B.3: close his/her account of any type.
+		B.3.1: the account must be empty for this to be possible.
+	B.4: withdraw funds from his/her account.
+		B.4.1: If the client attempts to withdraw funds such that his/her balance should fall below $1,000, the system should present a warning. If he/she chooses to proceed, there shall be a $2 fee for this transaction.
+		B.4.2: The client should not be allowed to exist in a negative balance. That is to say, there is no credit account and no overdraft protection.
+	B.5: deposit funds into an account.
+	B.6: transfer funds from one account to another.
+	B.7: transfer funds to another client.
+
+D: Non role-based requirements are as such. 
+	D.1: Users must be required to log in; once they are logged in, they should be restricted by their current session’s permissions.
+	D.2: The first time a client logins in, he/she should be presented to option to create his user account. If he/she opts not to do so, he/she will be logged out.
+	D.3: The system should not crash at any time. If an operation fails, failure should be caught safely and the user must be allowed to safely log out.
+	D.4: The system should be able to handle an arbitrary number of users.

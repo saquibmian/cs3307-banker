@@ -53,7 +53,7 @@ namespace Operations {
         }
         
         if( !hasAtLeastOneAccount) {
-            Logger::error() << "The specified client does not have any accounts; please create one." << endl;
+            Logger::warn() << "The specified user '" << user.Name << "' does not have any accounts." << endl;
         }
         
         EXIT( "IOperation::DisplayAccountDetails" );

@@ -21,7 +21,7 @@ namespace Operations {
         vector<User> users = context.getData().getAllUsers();
         for ( vector<User>::iterator iter = users.begin(); iter != users.end(); iter++ ) {
             User* user = iter.base();
-            if( user->Role == Client ) {
+            if( user->Role == Client || user->Role == Manager ) {
                 
                 if( context.getData().doesAccountExist(*user, Checking) ) {
                     Account checking = context.getData().getAccount(*user, Checking);

@@ -19,8 +19,8 @@ namespace Operations {
         vector<User> users = context.getData().getAllUsers();
         for ( vector<User>::iterator iter = users.begin(); iter != users.end(); iter++ ) {
             User* user = iter.base();
-            if( user->Role == Client ) {
-                cout << "Client " << user->Name << endl;
+            if( user->Role == Manager || user->Role == Client ) {
+                cout << User::roleToString( user->Role ) << " " << user->Name << endl;
                 displayAccountDetails( context, *user );
                 cout << endl;
             }

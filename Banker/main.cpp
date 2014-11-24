@@ -19,7 +19,7 @@ int main( int argc, const char * argv[] ) {
     Program init;
     init.intialize();
     init.run();
-     
+    
     
     Logger::info() << "Goodbye!" << endl;
 

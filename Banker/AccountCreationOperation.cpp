@@ -37,9 +37,11 @@ namespace Operations {
                     validAccountType = true;
                 } else if ( type.compare( "checkings" ) == 0 ) {
                     createAccount( Checking, context );
+                    createAccount( CreditCard, context );
                     validAccountType = true;
                 } else if ( type.compare( "both" ) == 0){
                     createAccount( Checking, context );
+                    createAccount( CreditCard, context);
                     createAccount( Savings, context );
                     validAccountType = true;
                 } else if ( type.compare ("cancel" ) == 0){
@@ -66,10 +68,22 @@ namespace Operations {
             bool validBalance = false;
             double inputBalance = -1;
             while (!validBalance){
-                cout << "Starting balance of " << Account::typeToString( type ) << " account [ $ ]: ";
-                cin >> inputBalance;
-                if (inputBalance >= 0){
-                    validBalance = true;
+                
+                if (type == CreditCard){
+                    cout << "Credit limit of card is [ $ ]: ";
+                    cin >> inputBalance;
+                    
+                    if (inputBalance >=0){
+                        validBalance = true;
+                    }
+                }
+                else{
+                    cout << "Starting balance of " << Account::typeToString( type ) << " account [ $ ]: ";
+                    cin >> inputBalance;
+                    
+                    if (inputBalance >= 0){
+                        validBalance = true;
+                    }
                 }
             }
             Account account = Account( type, inputBalance );

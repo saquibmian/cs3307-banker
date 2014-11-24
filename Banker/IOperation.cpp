@@ -27,7 +27,10 @@ namespace Operations {
             } else if ( type.compare( "checkings" ) == 0 ) {
                 accountType = Checking;
                 validAccountType = true;
-            } else {
+            } else if (type.compare ( "credit" ) == 0){
+                accountType = CreditCard;
+                validAccountType = true;
+            } else{
                 Logger::error() << "Invalid account type!" << endl;
             }
         }

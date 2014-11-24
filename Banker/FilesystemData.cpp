@@ -164,11 +164,16 @@ namespace Data {
         string path;
         switch ( type ){
             case Accounts::CreditCard:
+                //cout << "Entered CreditCard";
                 path = Configuration::dataDirectory + "/" + username + ".creditcard.transactions.dat";
+                break;
             case Accounts::Savings:
                 path = Configuration::dataDirectory + "/" + username + ".savings.transactions.dat";
+                break;
             case Accounts::Checking:
+                //cout << "Entered Checking";
                 path = Configuration::dataDirectory + "/" + username + ".checking.transactions.dat";
+                break;
         }
         
         Io::appendLineToFile(path, transaction );

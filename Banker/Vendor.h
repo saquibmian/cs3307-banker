@@ -10,24 +10,23 @@
 #define Banker_Vendor_h
 
 
-#include "Logger.h"
-#include <iostream>
-#include "User.h"
-#include "Account.h"
-#include <iostream>
+
 #include <vector>
 #include <fstream>
 #include <ctime>
 #include <cstdio>
-#include <stdio.h>
+//#include <iostream>
+//#include <stdio.h>
 #include "FilesystemData.h"
-#include "MenuOption.h"
-#include "MainMenu.h"
+//#include "MenuOption.h"
+//#include "MainMenu.h"
 #include "OptionContext.h"
 #include "Logger.h"
 #include "Session.h"
 #include "User.h"
 #include "FileIo.h"
+
+using namespace std;
 
 namespace Vendors{
     

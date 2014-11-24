@@ -11,10 +11,14 @@
 #include "Program.h"
 #include "Vendor.h"
 
+using namespace Vendors;
+
 int main( int argc, const char * argv[] ) {
     ENTER( "main" );
     
-    
+    Vendor vendor;
+    Vendors::Vendor::purchaseSession();
+    vendor.loadPurchaseHistory();
     
     Program init;
     init.intialize();

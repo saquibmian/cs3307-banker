@@ -10,6 +10,7 @@
 #include "Vendor.h"
 #include <iostream>
 #include "Logger.h"
+#include <sstream>
 
 
 using namespace std;
@@ -37,7 +38,7 @@ namespace Vendors{
         
     }
     
-    bool checkPin (int inputPin ){ // Will need some way to access user's pin. Maybe do this
+    bool Vendor::checkPin (int inputPin ){ // Will need some way to access user's pin. Maybe do this
         // on account end?
         ENTER("Vendor::checkPin");
         
@@ -52,15 +53,15 @@ namespace Vendors{
         EXIT("Vendor::checkPin"); //May not be reached.
     }
     
-    bool isCardFrozen (){
+    bool Vendor::isCardFrozen (){
         
         //Have to wait and see how the credit card is implemented.
         int funny = 2;
         
-        return true;
+        return false;
     }
     
-    static string loadPurchaseHistory(){
+    string Vendor::loadPurchaseHistory(){
         
         ENTER("Vendor::loadPurchaseHistory");
         
@@ -83,7 +84,7 @@ namespace Vendors{
         
     }
     
-    static void purchaseSession (){
+    void Vendor::purchaseSession (){
         
         // You did a lot of -> without checking whether you should in this one.
         
@@ -106,7 +107,7 @@ namespace Vendors{
          
          */
         IData* _transferData;
-        OptionContext* _transferContext;
+        Options::OptionContext* _transferContext;
         Session* _transferSession;
         
         _transferData = new FilesystemData();
@@ -122,7 +123,7 @@ namespace Vendors{
         
         
         
-        _transferContext = new OptionContext( *_transferData, *_transferSession );
+        _transferContext = new Options::OptionContext( *_transferData, *_transferSession );
         
         //OptionContext transferContext = *_transferContext;
         
@@ -141,9 +142,9 @@ namespace Vendors{
         cout << "Please enter your pin (####): ";
         cin >> inputPin;
         
-        if (checkPin(inputPin)){
+        if (thisVendor.checkPin(inputPin)){
             
-            if (isCardFrozen()){
+            if (thisVendor.isCardFrozen()){
                 cout << "Sorry, but your card has been frozen. Please contact the bank for details" << endl;
             }
             else{
@@ -198,7 +199,7 @@ namespace Vendors{
      Adds the purchase to the log for both the Vendor and the bank, and updates vendor funds.
      
      */
-    void updateVendor (double purchasePrice, string clientName ){
+    void Vendor::updateVendor (double purchasePrice, string clientName ){
         
         time_t timeVar;
         struct tm * timeinfo;
@@ -213,24 +214,64 @@ namespace Vendors{
         inputString += " ";
         inputString += clientName;
         inputString += " $";
-        inputString += purchasePrice;
         
-        ofstream vendorFile ("/vendor.history.dat", ofstream::app);
-        ofstream bankFile ("/vendorandbank.history.dat", ofstream::app);
-        ifstream vendorFileRead;
+        
+        std::ostringstream appendingDouble;
+        appendingDouble << purchasePrice;
+        std::string appendingDoubleString = appendingDouble.str();
+        
+        cout << appendingDoubleString;
+        
+        inputString += appendingDoubleString;
+        
+        if (Io::fileExists(Configuration::dataDirectory+"/vendor.history.dat")==false){
+            
+            cout << "Creating vend history";
+            
+            Io::createFile(Configuration::dataDirectory + "/" + "vendor.history.dat", inputString);
+            Io::createFile(Configuration::dataDirectory + "/"+"/vendorandbank.history.dat", inputString);
+            
+        }
+        else{
+        string location = Configuration::dataDirectory + "/" + "vendor.history.dat";
+            const char * locationchar = location.c_str();
+       /* ofstream vendorFile (locationchar , ofstream::app);
+        ofstream bankFile (locationchar, ofstream::app);
+        
         
         vendorFile << inputString;
         bankFile << inputString;
         vendorFile.close();
-        bankFile.close();
+        bankFile.close(); */
+            
+            Io::appendLineToFile(location, inputString);
+            Io::appendLineToFile(Configuration::dataDirectory+"/vendorandbank.history.dat",inputString);
+            
+        }
         
+        ifstream vendorFileRead;
         double vendorFunds = 0;
-        vendorFileRead.open("/vendor.purchase.dat");
-        vendorFileRead >> vendorFunds;
-        vendorFileRead.close();
-        ofstream fundsOverwrite ("/vendor.purchase.dat", ofstream::trunc);
-        fundsOverwrite << vendorFunds;
-        fundsOverwrite.close();
+        
+        if (Io::fileExists(Configuration::dataDirectory+"/vendor.purchase.dat")==false){
+            
+            Io::createFile(Configuration::dataDirectory+"/vendor.purchase.dat", purchasePrice);
+            
+        }
+        else{
+            
+            //Gets the previous balance, adds the new balance, overwrites the file.
+            string location = Configuration::dataDirectory + "/vendor.purchase.dat";
+            const char * charLocation = location.c_str();
+            
+            vendorFileRead.open(charLocation);
+            vendorFileRead >> vendorFunds;
+            vendorFileRead.close();
+            vendorFunds += purchasePrice;
+            ofstream fundsOverwrite (charLocation, ofstream::trunc);
+            fundsOverwrite << vendorFunds;
+            fundsOverwrite.close();
+            
+        }
         
         
         
@@ -242,7 +283,7 @@ namespace Vendors{
         
     }
     //Not entirely sure what parameters I'll need here. Context, maybe? Context would work.
-    string updateCustomer(double purchasePrice){
+    string Vendor::updateCustomer(double purchasePrice){
         
         ENTER("Vendor::updateCustomer");
         
@@ -257,7 +298,12 @@ namespace Vendors{
         
         string inputString = buffer;
         inputString += " $";
-        inputString += purchasePrice;
+        
+        std::ostringstream appendingDouble;
+        appendingDouble << purchasePrice;
+        std::string appendingDoubleString = appendingDouble.str();
+        
+        inputString += appendingDoubleString;
         
         EXIT("Vendor::updateCustomer");
         

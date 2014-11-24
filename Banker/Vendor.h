@@ -18,6 +18,8 @@
 #include <vector>
 #include <fstream>
 #include <ctime>
+#include <cstdio>
+#include <stdio.h>
 #include "FilesystemData.h"
 #include "MenuOption.h"
 #include "MainMenu.h"
@@ -25,6 +27,7 @@
 #include "Logger.h"
 #include "Session.h"
 #include "User.h"
+#include "FileIo.h"
 
 namespace Vendors{
     
@@ -41,7 +44,7 @@ namespace Vendors{
         static void purchaseSession(); // Could essentially be copied to a main.cpp file.
         bool checkPin(int inputPin);
         bool isCardFrozen();
-        void updateCustomer(double purchasePrice, OptionContext inputContext);
+        string updateCustomer(double purchasePrice);
         void updateVendor(double purchasePrice, string clientName);
         string getPurchaseHistory();
         static string loadPurchaseHistory();

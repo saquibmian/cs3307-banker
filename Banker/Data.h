@@ -34,6 +34,7 @@ namespace Data {
         virtual Account getAccount( User user, AccountType type ) = 0;
         virtual void storeAccount( User user, Account account ) = 0;
         virtual void closeAccountForUser( User user, AccountType type ) = 0;
+        virtual void storeTransaction ( string username, AccountType accountType, string transaction ) = 0;
     };
 }
 

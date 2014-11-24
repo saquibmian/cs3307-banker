@@ -24,6 +24,7 @@ namespace Accounts {
         AccountType Type;
         double Balance;
         
+        
         Account( AccountType actType, double balance);
         void deposit( double value );
         void withdraw( double value );
@@ -43,7 +44,7 @@ namespace Accounts {
                     toReturn = "Checking";
                     break;
                 case CreditCard:
-                    toReturn = "Credit Card";
+                    toReturn = "Credit";
                     break;
             }
             
@@ -58,6 +59,8 @@ namespace Accounts {
                 toReturn = Checking;
             } else if( type.compare("Savings") == 0 ) {
                 toReturn = Savings;
+            } else if (type.compare("Credit") == 0) {
+                toReturn = CreditCard;
             }
             
             EXIT( "Account::typeFromString" );

@@ -15,12 +15,11 @@ int main( int argc, const char * argv[] ) {
     ENTER( "main" );
     
     
-    /*
+    
     Program init;
     init.intialize();
     init.run();
      
-     */
     
     Logger::info() << "Goodbye!" << endl;
 

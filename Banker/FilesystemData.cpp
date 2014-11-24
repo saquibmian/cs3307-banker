@@ -158,4 +158,21 @@ namespace Data {
         return path;
     }
     
+    void FilesystemData::storeTransaction(string username, AccountType type, string transaction ){
+        ENTER ("FilesystemData::storeTransaction" );
+        
+        string path;
+        switch ( type ){
+            case Accounts::CreditCard:
+                path = Configuration::dataDirectory + "/" + username + ".creditcard.transactions.dat";
+            case Accounts::Savings:
+                path = Configuration::dataDirectory + "/" + username + ".savings.transactions.dat";
+            case Accounts::Checking:
+                path = Configuration::dataDirectory + "/" + username + ".checking.transactions.dat";
+        }
+        
+        Io::appendLineToFile(path, transaction );
+        
+    }
+    
 }

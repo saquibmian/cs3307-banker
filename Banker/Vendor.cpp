@@ -11,6 +11,7 @@
 #include <iostream>
 #include "Logger.h"
 
+
 using namespace std;
 
 namespace Vendors{
@@ -164,12 +165,11 @@ namespace Vendors{
                     
                     //Specifically does not check at this point whether this is a valid op or not
                     creditAccount.withdraw( purchasePrice );
+                   
+                    // Collectively, these three statements will add a transaction history.
                     _transferData->storeAccount( customer, creditAccount );
+                    _transferData->storeTransaction ( inputUsername, CreditCard, thisVendor.updateCustomer(purchasePrice) );
                     thisVendor.updateVendor(purchasePrice, inputUsername);
-                    
-                    
-                    
-                    
                     
                     
                 }
@@ -242,11 +242,26 @@ namespace Vendors{
         
     }
     //Not entirely sure what parameters I'll need here. Context, maybe? Context would work.
-    void updateCustomer(double purchasePrice, OptionContext customerContext){
+    string updateCustomer(double purchasePrice){
         
-        User customer = customerContext.getSession().getUser();
-        IData& data = customerContext.getData();
-        Account account = data.getAccount(customer,CreditCard);
+        ENTER("Vendor::updateCustomer");
+        
+        time_t timeVar;
+        struct tm * timeinfo;
+        char buffer[80];
+        
+        time(&timeVar);
+        timeinfo = localtime(&timeVar);
+        strftime(buffer,80,"%d-%m-%Y %I:%M:%S",timeinfo);
+        string date (buffer);
+        
+        string inputString = buffer;
+        inputString += " $";
+        inputString += purchasePrice;
+        
+        EXIT("Vendor::updateCustomer");
+        
+        return inputString;
         
         
     }

@@ -16,16 +16,20 @@ using namespace std;
 
 namespace Accounts {
     enum AccountType {
-        Savings, Checking
+        Savings, Checking, CreditCard
     };
     
     class Account {
     public:
         AccountType Type;
         double Balance;
+        
         Account( AccountType actType, double balance);
         void deposit( double value );
         void withdraw( double value );
+        bool pinCheck ( int input );
+        
+        
         
         static string typeToString( AccountType type ) {
             ENTER( "Account::typeToString" );
@@ -37,6 +41,9 @@ namespace Accounts {
                     break;
                 case Checking:
                     toReturn = "Checking";
+                    break;
+                case CreditCard:
+                    toReturn = "Credit Card";
                     break;
             }
             
@@ -56,6 +63,11 @@ namespace Accounts {
             EXIT( "Account::typeFromString" );
             return toReturn;
         }
+        
+        
+        
+        private: int pinNumber;
+        
     };
 }
 

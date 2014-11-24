@@ -60,3 +60,54 @@ namespace Authentication {
         EXIT( "Session::logout" );
     }
 }
+    void Session::externalTransferHelper() {
+        ENTER( "Session:externalTransferHelper" );
+        
+        string transferUsername;
+        while( true ) {
+            cout << "Please enter destination username: ";
+            cin >> transferUsername;
+            
+            if( _data.doesUserExist( transferUsername ) ) {
+                _user = _data.getUser(transferUsername);
+                break;
+            } else {
+                cout << "User " << transferUsername << " does not exist" << endl;
+                
+                }
+            }
+    
+        _loggedIn = true;
+        
+    }
+    
+    string Session::vendorHelper(){
+        
+        ENTER ( "Session::vendorHelper" );
+        
+        string customerUsername;
+        while ( true ) {
+            
+            cout << "To simulate a credit card swipe/insert, please enter the username of the person that is making the purchase: ";
+            cin >> customerUsername;
+            
+            if (_data.doesUserExist (customerUsername ) ) {
+                _user = _data.getUser( customerUsername );
+                return customerUsername;
+            }
+            else{
+                cout << "The customer " << customerUsername << " does not exist" << endl;
+            }
+            
+        }
+        
+        EXIT ( "Session::vendorHelper" );
+        
+        // _loggedIn = true;
+        
+        
+    }
+    
+        
+        
+    

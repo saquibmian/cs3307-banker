@@ -51,6 +51,29 @@ namespace Operations {
         EXIT( "WithdrawOperation::Execute" );
     }
     
+    
+    void WithdrawOperation::vendorPurchase( OptionContext context, double purchasePrice ) {
+        ENTER( "WithdrawOperation::vendorPurchase" );
+       /*
+        IData& data = context.getData();
+        User currentUser = context.getSession().getUser();
+        
+        if (data.doesAccountExist(currentUser, CreditCard) == false){
+            Logger::error() << "No account exists!" << endl;
+        }
+        else{
+            
+            Account creditAccount = data.getAccount ( currentUser, CreditCard );
+            creditAccount.withdraw( purchasePrice );
+            data.storeAccount( currentUser, creditAccount );
+            
+            
+        }
+        EXIT ( "WithdrawOperation::vendorPurchase" );
+        */
+        
+    }
+    
     void WithdrawOperation::withdrawFromAccount( OptionContext &context, AccountType type) {
         ENTER( "WithdrawOperation::withdrawFromAccount" );
 

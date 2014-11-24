@@ -51,7 +51,7 @@ namespace Operations {
             Account act = context.getData().getAccount( user, Savings );
             cout << "Savings balance: $" << act.Balance << endl;
         }
-        
+        //ADD CREDIT CARD EXCEPTIONS
         if( !hasAtLeastOneAccount) {
             Logger::error() << "The specified client does not have any accounts; please create one." << endl;
         }

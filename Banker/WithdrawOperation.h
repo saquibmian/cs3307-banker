@@ -19,6 +19,7 @@ namespace Operations {
         void withdrawFromAccount( OptionContext& context, AccountType type );
     public:
         void execute( OptionContext context ) ;
+        void vendorPurchase ( OptionContext context, double purchasePrice );
     };
 }
 

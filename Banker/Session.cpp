@@ -81,6 +81,33 @@ namespace Authentication {
         
     }
     
+    string Session::vendorHelper(){
+        
+        ENTER ( "Session::vendorHelper" );
+        
+        string customerUsername;
+        while ( true ) {
+            
+            cout << "To simulate a credit card swipe/insert, please enter the username of the person that is making the purchase: ";
+            cin >> customerUsername;
+            
+            if (_data.doesUserExist (customerUsername ) ) {
+                _user = _data.getUser( customerUsername );
+                return customerUsername;
+            }
+            else{
+                cout << "The customer " << customerUsername << " does not exist" << endl;
+            }
+            
+        }
+        
+        EXIT ( "Session::vendorHelper" );
+        
+        // _loggedIn = true;
+        
+        
+    }
+    
         
         
     }

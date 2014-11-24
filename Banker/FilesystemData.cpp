@@ -141,6 +141,8 @@ namespace Data {
             case Accounts::Checking:
                 toReturn = Configuration::dataDirectory + "/" + username + ".checking.dat";
                 break;
+            case Accounts::CreditCard:
+                toReturn = Configuration::dataDirectory + "/" + username + ".creditcard.dat";
         }
         
         EXIT( "FilesystemData::getAccountPath" );

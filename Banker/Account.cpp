@@ -27,4 +27,15 @@ namespace Accounts{
         Balance += depositAmount;
         EXIT( "Account::deposit" );
     }
+    
+    bool Account::pinCheck( int inputPin ){
+        
+        if (inputPin==pinNumber){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
 }

@@ -32,6 +32,7 @@
 		9775EF0219CB38F4000709C9 /* WithdrawOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9775EF0119CB38F4000709C9 /* WithdrawOperation.cpp */; };
 		9775EF0519CBD09F000709C9 /* DepositOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9775EF0419CBD09F000709C9 /* DepositOperation.cpp */; };
 		9775EF0819CBD34F000709C9 /* TransferOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9775EF0719CBD34F000709C9 /* TransferOperation.cpp */; };
+		97C7FD7F1A20D44C00FD95B1 /* Vendor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C7FD7E1A20D44C00FD95B1 /* Vendor.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -97,6 +98,8 @@
 		9775EF0419CBD09F000709C9 /* DepositOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DepositOperation.cpp; sourceTree = "<group>"; };
 		9775EF0619CBD33E000709C9 /* TransferOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransferOperation.h; sourceTree = "<group>"; };
 		9775EF0719CBD34F000709C9 /* TransferOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransferOperation.cpp; sourceTree = "<group>"; };
+		97C7FD7D1A20D22B00FD95B1 /* Vendor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vendor.h; sourceTree = "<group>"; };
+		97C7FD7E1A20D44C00FD95B1 /* Vendor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vendor.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +241,7 @@
 		389F35ED19C29BFB00841892 /* Banker */ = {
 			isa = PBXGroup;
 			children = (
+				97C7FD7C1A20D21600FD95B1 /* Vendor */,
 				3845096A19CBDC94000073A7 /* IO */,
 				3829118E19C6360A0062440D /* Accounts */,
 				3829118A19C635770062440D /* Data */,
@@ -252,6 +256,15 @@
 				3829117419C62C090062440D /* Options */,
 			);
 			path = Banker;
+			sourceTree = "<group>";
+		};
+		97C7FD7C1A20D21600FD95B1 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				97C7FD7D1A20D22B00FD95B1 /* Vendor.h */,
+				97C7FD7E1A20D44C00FD95B1 /* Vendor.cpp */,
+			);
+			name = Vendor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,6 +335,7 @@
 				389F35EF19C29BFB00841892 /* main.cpp in Sources */,
 				38251ABC19C92BFE0010C3D4 /* AggregateBalanceOperation.cpp in Sources */,
 				389DDC5E19C781190063CA4B /* AccountBalanceOperation.cpp in Sources */,
+				97C7FD7F1A20D44C00FD95B1 /* Vendor.cpp in Sources */,
 				3829118319C633050062440D /* MainMenu.cpp in Sources */,
 				3829117919C62C660062440D /* MenuOption.cpp in Sources */,
 				3845096919CBDB4D000073A7 /* FileIo.cpp in Sources */,

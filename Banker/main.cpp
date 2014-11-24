@@ -9,13 +9,18 @@
 #include <iostream>
 #include "Logger.h"
 #include "Program.h"
+#include "Vendor.h"
 
 int main( int argc, const char * argv[] ) {
     ENTER( "main" );
-        
+    
+    
+    /*
     Program init;
     init.intialize();
     init.run();
+     
+     */
     
     Logger::info() << "Goodbye!" << endl;
 

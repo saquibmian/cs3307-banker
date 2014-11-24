@@ -30,6 +30,7 @@ namespace Authentication {
         void login();
         void logout();
         void externalTransferHelper();
+        string vendorHelper();
         User& getUser() { return _user; };
     };
     

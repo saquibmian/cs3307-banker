@@ -73,8 +73,28 @@ namespace Operations {
                     cout << "Credit limit of card is [ $ ]: ";
                     cin >> inputBalance;
                     
+                    
+                    bool validPin = false;
+                    string pin1 = "";
+                    string pin2 = "default";
+                    
+                    while (!validPin){
+                        cout << "Enter pin (####): ";
+                        cin >> pin1;
+                        cout << "Confirm pin (#####): ";
+                        cin >> pin2;
+                        if (pin1.compare(pin2)==0){
+                            validPin=true;
+                            
+                            
+                        }
+                    }
+                    
                     if (inputBalance >=0){
                         validBalance = true;
+                        Account tempAccount = Account (type,inputBalance);
+                        data.storePin( user, tempAccount, pin1);
+                        data.storeCreditLimit(user, tempAccount);
                     }
                 }
                 else{

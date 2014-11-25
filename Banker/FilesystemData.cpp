@@ -111,6 +111,19 @@ namespace Data {
         EXIT( "FilesystemData::storeAccount" );
     }
     
+    void FilesystemData::storeCreditLimit( User user, Account account) {
+        
+        ENTER("FilesystemData::storeCreditLimit");
+        Io::createFile(getAccountPath(user.Name,account.Type)+".creditlimit.dat",account.Balance);
+        EXIT("FilesystemData::storeCreditLimit");
+        
+    }
+    
+    void FilesystemData::storePin(User user, Account account, string pin){
+        ENTER("FilesystemData::storePin");
+        Io::createFile(getAccountPath(user.Name,account.Type)+".pin.dat", pin);
+    }
+    
     void FilesystemData::closeAccountForUser( User user, AccountType type ) {
         ENTER( "FilesystemData::closeAccountForUser" );
         

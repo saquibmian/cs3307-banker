@@ -66,6 +66,7 @@ namespace Operations{
                                 
                                 creditBalance = creditBalance*1.02; //2% interest.
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
+                                Io::createFile(user->Name+".creditcard.transactions.dat","");
                                 
                                 
                             }
@@ -87,6 +88,7 @@ namespace Operations{
                             
                                 creditBalance = creditBalance*1.02;
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
+                                Io::createFile(user->Name+".creditcard.transactions.dat","");
                             
                             }
                             
@@ -115,6 +117,7 @@ namespace Operations{
                                 
                                 creditBalance = (creditBalance+payment)*1.02;
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
+                                Io::createFile(user->Name+".creditcard.transactions.dat","");
                                 
                             }
                             else{
@@ -135,6 +138,7 @@ namespace Operations{
                                 
                                 creditBalance = (creditBalance+payment)*1.02;
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
+                                Io::createFile(user->Name+".creditcard.transactions.dat","");
                             }
                             
                         }
@@ -173,6 +177,7 @@ namespace Operations{
                                 
                                 creditBalance = creditBalance*1.02; //2% interest.
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
+                                Io::createFile(user->Name+".creditcard.transactions.dat","");
                                 
                                 
                             }
@@ -194,6 +199,7 @@ namespace Operations{
                                 
                                 creditBalance = creditBalance*1.02;
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
+                                Io::createFile(user->Name+".creditcard.transactions.dat","");
                                 
                             }
                             
@@ -222,6 +228,7 @@ namespace Operations{
                                 
                                 creditBalance = (creditBalance+payment)*1.02;
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
+                                Io::createFile(user->Name+".creditcard.transactions.dat","");
                                 
                             }
                             else{

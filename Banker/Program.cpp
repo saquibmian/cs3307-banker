@@ -13,6 +13,7 @@
 #include "AccountCreationOperation.h"
 #include "AccountDeletionOperation.h"
 #include "ViewTransactionsOperation.h"
+#include "MonthlyUpdateOperation.h"
 #include "DepositOperation.h"
 #include "WithdrawOperation.h"
 #include "TransferOperation.h"
@@ -100,6 +101,12 @@ void Program::addMenuOptions() {
     MenuOption allAccountBalanceMenuOp ( "Display all account balances", allAccountBalanceOp, Manager );
     _operations->push_back( allAccountBalanceOp );
     _menu->addMenuOption( allAccountBalanceMenuOp );
+    
+    //Monthly Update Operation
+    IOperation* monthlyUpOperation = new MonthlyUpdateOperation();
+    MenuOption monthlyUpMenuOperation ("Update all accounts for the month", monthlyUpOperation, Manager );
+    _operations->push_back( monthlyUpOperation );
+    _menu->addMenuOption( monthlyUpMenuOperation );
 
     // Total account balance operation
     IOperation* totalAccountBalanceOp = new AggregateBalanceOperation();

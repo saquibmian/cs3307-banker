@@ -28,6 +28,7 @@ namespace Operations{
                     
                     string paymentchoice;
                     double payment;
+                    double creditBalance;
                     
                     Io::initFromFile(user->Name + ".creditcard.dat.paymentchoice.dat", paymentchoice);
                     
@@ -35,10 +36,11 @@ namespace Operations{
                     //cout << Configuration::dataDirectory+user->Name +".creditcard.dat.paymentchoice.dat" << endl;
                     cout << paymentchoice << " debug" <<endl;
                     
-                    if (paymentchoice.compare("full")==0 || paymentchoice.compare("minimum")==0){
-                        Io::initFromFile(user->Name+".creditcard.dat", payment);
-                        payment = payment * -1; // Balance is stored as -ve.
+                    if (paymentchoice.compare("full")==0){
+                        Io::initFromFile(user->Name+".creditcard.dat", creditBalance);
+                        payment = creditBalance * -1; // Balance is stored as -ve.
                         
+                        //payment = creditBalance;
                         Account account = context.getData().getAccount(*user, Checking);
                         
                         if ( account.Balance - payment < 0 ){
@@ -62,6 +64,10 @@ namespace Operations{
                                 
                                 Io::appendLineToFile(user->Name+".creditcard.dat.payments.dat", inputString);
                                 
+                                creditBalance = creditBalance*1.02; //2% interest.
+                                Io::createFile(user->Name+".creditcard.dat",creditBalance);
+                                
+                                
                             }
                             else{
                                 
@@ -78,6 +84,10 @@ namespace Operations{
                                 inputString += " Failed Payment";
                                 
                                 Io::createFile(user->Name+".creditcard.dat.payments.dat", inputString);
+                            
+                                creditBalance = creditBalance*1.02;
+                                Io::createFile(user->Name+".creditcard.dat",creditBalance);
+                            
                             }
                             
                             
@@ -102,6 +112,10 @@ namespace Operations{
                                 
                                 Io::appendLineToFile(user->Name+".creditcard.dat.payments.dat", inputString);
                                 
+                                
+                                creditBalance = (creditBalance+payment)*1.02;
+                                Io::createFile(user->Name+".creditcard.dat",creditBalance);
+                                
                             }
                             else{
                                 
@@ -118,6 +132,9 @@ namespace Operations{
                                 inputString += " Successful Payment";
                                 
                                 Io::createFile(user->Name+".creditcard.dat.payments.dat", inputString);
+                                
+                                creditBalance = (creditBalance+payment)*1.02;
+                                Io::createFile(user->Name+".creditcard.dat",creditBalance);
                             }
                             
                         }
@@ -128,8 +145,113 @@ namespace Operations{
                         
                     }
                     else if (paymentchoice.compare("minimum")==0){
-                        Io::initFromFile(Configuration::dataDirectory+user->Name+".creditcard.dat",payment);
-                        payment = payment * -1 * 0.1; // Minimum payment is ten percent, hence 0.1
+                        Io::initFromFile(user->Name+".creditcard.dat",creditBalance);
+                        payment = creditBalance * -1 * 0.1; // Minimum payment is ten percent, hence 0.1
+                        
+                        Account account = context.getData().getAccount(*user, Checking);
+                        
+                        if ( account.Balance - payment < 0 ){
+                            
+                            Logger::error() << "Invalid. The balance will be less than 0. Overdraft is not enabled" << endl;
+                            
+                            if(Io::fileExists(user->Name+".creditcard.dat.payments.dat")){
+                                
+                                
+                                time_t timeVar;
+                                struct tm * timeinfo;
+                                char buffer[80];
+                                
+                                time(&timeVar);
+                                timeinfo = localtime(&timeVar);
+                                strftime(buffer,80,"%d-%m-%Y %I:%M:%S",timeinfo);
+                                string date (buffer);
+                                
+                                string inputString = buffer;
+                                inputString += " Failed Payment";
+                                
+                                Io::appendLineToFile(user->Name+".creditcard.dat.payments.dat", inputString);
+                                
+                                creditBalance = creditBalance*1.02; //2% interest.
+                                Io::createFile(user->Name+".creditcard.dat",creditBalance);
+                                
+                                
+                            }
+                            else{
+                                
+                                time_t timeVar;
+                                struct tm * timeinfo;
+                                char buffer[80];
+                                
+                                time(&timeVar);
+                                timeinfo = localtime(&timeVar);
+                                strftime(buffer,80,"%d-%m-%Y %I:%M:%S",timeinfo);
+                                string date (buffer);
+                                
+                                string inputString = buffer;
+                                inputString += " Failed Payment";
+                                
+                                Io::createFile(user->Name+".creditcard.dat.payments.dat", inputString);
+                                
+                                creditBalance = creditBalance*1.02;
+                                Io::createFile(user->Name+".creditcard.dat",creditBalance);
+                                
+                            }
+                            
+                            
+                        } else {
+                            account.withdraw( payment );
+                            context.getData().storeAccount( *user, account );
+                            
+                            if(Io::fileExists(user->Name+".creditcard.dat.payments.dat")){
+                                
+                                
+                                time_t timeVar;
+                                struct tm * timeinfo;
+                                char buffer[80];
+                                
+                                time(&timeVar);
+                                timeinfo = localtime(&timeVar);
+                                strftime(buffer,80,"%d-%m-%Y %I:%M:%S",timeinfo);
+                                string date (buffer);
+                                
+                                string inputString = buffer;
+                                inputString += " Successful Payment";
+                                
+                                Io::appendLineToFile(user->Name+".creditcard.dat.payments.dat", inputString);
+                                
+                                
+                                creditBalance = (creditBalance+payment)*1.02;
+                                Io::createFile(user->Name+".creditcard.dat",creditBalance);
+                                
+                            }
+                            else{
+                                
+                                time_t timeVar;
+                                struct tm * timeinfo;
+                                char buffer[80];
+                                
+                                time(&timeVar);
+                                timeinfo = localtime(&timeVar);
+                                strftime(buffer,80,"%d-%m-%Y %I:%M:%S",timeinfo);
+                                string date (buffer);
+                                
+                                string inputString = buffer;
+                                inputString += " Successful Payment";
+                                
+                                Io::createFile(user->Name+".creditcard.dat.payments.dat", inputString);
+                                
+                                creditBalance = (creditBalance+payment)*1.02;
+                                Io::createFile(user->Name+".creditcard.dat",creditBalance);
+                            }
+                            
+                        }
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     }
                     else{
                         cout << "Invalid payment choice on file"<< endl;

@@ -17,12 +17,21 @@ int main( int argc, const char * argv[] ) {
     ENTER( "main" );
     
     Vendor vendor;
-    Vendors::Vendor::purchaseSession();
-    vendor.loadPurchaseHistory();
+    
+    cout << "Enter Vendor or Banking [vendor/banking]: ";
+    string choice;
+    cin >> choice;
+    
+    if (choice.compare("vendor")==0){
+        Vendors::Vendor::purchaseSession();
+    }
+    else{
     
     Program init;
     init.intialize();
     init.run();
+        
+    }
     
     
     Logger::info() << "Goodbye!" << endl;

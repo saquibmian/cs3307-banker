@@ -57,9 +57,13 @@ namespace Vendors{
     bool Vendor::isCardFrozen (FilesystemData data, User customer){
         
         //Have to wait and see how the credit card is implemented.
-        int funny = 2;
+        if(Io::fileExists(customer.Name+".creditcard.frozen.dat")){
+            return true;
+        }
+        else{
+            return false;
+           }
         
-        return false;
     }
     
     string Vendor::loadPurchaseHistory(){

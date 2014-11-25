@@ -45,7 +45,7 @@ namespace Operations{
                         
                         if ( account.Balance - payment < 0 ){
                             
-                            Logger::error() << "Invalid. The balance will be less than 0. Overdraft is not enabled" << endl;
+                            Logger::error() << "Invalid. The balance will be less than 0. Overdraft is not enabled. Card Frozen." << endl;
                             
                             if(Io::fileExists(user->Name+".creditcard.dat.payments.dat")){
                                 
@@ -67,6 +67,7 @@ namespace Operations{
                                 creditBalance = creditBalance*1.02; //2% interest.
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
                                 Io::createFile(user->Name+".creditcard.transactions.dat","");
+                                Io::createFile(user->Name+".creditcard.frozen.dat","Frozen");
                                 
                                 
                             }
@@ -89,6 +90,7 @@ namespace Operations{
                                 creditBalance = creditBalance*1.02;
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
                                 Io::createFile(user->Name+".creditcard.transactions.dat","");
+                                Io::createFile(user->Name+".creditcard.frozen.dat","Frozen");
                             
                             }
                             
@@ -119,6 +121,12 @@ namespace Operations{
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
                                 Io::createFile(user->Name+".creditcard.transactions.dat","");
                                 
+                                if (Io::fileExists(user->Name+".creditcard.frozen.dat")){
+                                    string path = user->Name+".creditcard.frozen.dat";
+                                    const char* pathchar = path.c_str();
+                                    remove( pathchar );
+                                }
+                                
                             }
                             else{
                                 
@@ -139,6 +147,13 @@ namespace Operations{
                                 creditBalance = (creditBalance+payment)*1.02;
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
                                 Io::createFile(user->Name+".creditcard.transactions.dat","");
+                                
+                                if (Io::fileExists(user->Name+".creditcard.frozen.dat")){
+                                    string path = user->Name+".creditcard.frozen.dat";
+                                    const char* pathchar = path.c_str();
+                                    remove( pathchar );
+                                }
+                                
                             }
                             
                         }
@@ -178,6 +193,7 @@ namespace Operations{
                                 creditBalance = creditBalance*1.02; //2% interest.
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
                                 Io::createFile(user->Name+".creditcard.transactions.dat","");
+                                Io::createFile(user->Name+".creditcard.frozen.dat","Frozen");
                                 
                                 
                             }
@@ -200,6 +216,7 @@ namespace Operations{
                                 creditBalance = creditBalance*1.02;
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
                                 Io::createFile(user->Name+".creditcard.transactions.dat","");
+                                Io::createFile(user->Name+".creditcard.frozen.dat","Frozen");
                                 
                             }
                             
@@ -230,6 +247,13 @@ namespace Operations{
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
                                 Io::createFile(user->Name+".creditcard.transactions.dat","");
                                 
+                                if (Io::fileExists(user->Name+".creditcard.frozen.dat")){
+                                    string path = user->Name+".creditcard.frozen.dat";
+                                    const char* pathchar = path.c_str();
+                                    remove( pathchar );
+                                }
+                                
+                                
                             }
                             else{
                                 
@@ -249,6 +273,13 @@ namespace Operations{
                                 
                                 creditBalance = (creditBalance+payment)*1.02;
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
+                                
+                                if (Io::fileExists(user->Name+".creditcard.frozen.dat")){
+                                    string path = user->Name+".creditcard.frozen.dat";
+                                    const char* pathchar = path.c_str();
+                                    remove( pathchar );
+                                }
+                                
                             }
                             
                         }

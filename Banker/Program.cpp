@@ -12,6 +12,7 @@
 #include "AggregateBalanceOperation.h"
 #include "AccountCreationOperation.h"
 #include "AccountDeletionOperation.h"
+#include "ViewTransactionsOperation.h"
 #include "DepositOperation.h"
 #include "WithdrawOperation.h"
 #include "TransferOperation.h"
@@ -147,6 +148,12 @@ void Program::addMenuOptions() {
     MenuOption transferMenuOp ("Transfer funds", transferOp, Client);
     _operations ->push_back(transferOp);
     _menu->addMenuOption(transferMenuOp);
+    
+    //View Transactions
+    IOperation* viewTransOp = new ViewTransactionsOperation();
+    MenuOption viewTransferMenuOp ("View transactions", viewTransOp, Client);
+    _operations ->push_back(viewTransOp);
+    _menu->addMenuOption(viewTransferMenuOp);
     
     // Quit operation
     IOperation* quitOp = new QuitOperation();

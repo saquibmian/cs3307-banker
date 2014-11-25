@@ -38,6 +38,7 @@ namespace Data {
         virtual void storePin ( User user, Account account, string pin );
         virtual bool checkPin ( User user, string inputPin );
         virtual void storeCreditLimit ( User user, Account account );
+        virtual void storePaymentChoice (User user, Account account, string choice);
         virtual void closeAccountForUser( User user, AccountType type );
         virtual void storeTransaction ( string username, AccountType accountType, string transaction );
     };

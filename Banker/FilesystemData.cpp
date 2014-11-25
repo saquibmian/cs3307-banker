@@ -141,6 +141,13 @@ namespace Data {
         
     }
     
+    void FilesystemData::storePaymentChoice (User user, Account account, string choice){
+        ENTER("FilesystemData::storePaymentChoice");
+        Io::createFile(getAccountPath(user.Name,account.Type)+".paymentchoice.dat",choice);
+        EXIT("FilesystemData::storePaymentChoice");
+        
+    }
+    
     void FilesystemData::storePin(User user, Account account, string pin){
         ENTER("FilesystemData::storePin");
         Io::createFile(getAccountPath(user.Name,account.Type)+".pin.dat", pin);

@@ -236,7 +236,7 @@ namespace Vendors{
         }
         else{
         string location = Configuration::dataDirectory + "/" + "vendor.history.dat";
-            const char * locationchar = location.c_str();
+            //const char * locationchar = location.c_str();
        /* ofstream vendorFile (locationchar , ofstream::app);
         ofstream bankFile (locationchar, ofstream::app);
         
@@ -299,7 +299,7 @@ namespace Vendors{
         string date (buffer);
         
         string inputString = buffer;
-        inputString += " $";
+        inputString += " ";
         
         std::ostringstream appendingDouble;
         appendingDouble << purchasePrice;

@@ -90,11 +90,26 @@ namespace Operations {
                         }
                     }
                     
+                    bool validPayment = false;
+                    string paymentChoice;
+                    
+                    while (!validPayment){
+                        cout << "The payment will be deducted from your checking account at the end of the month" << endl << "Would you like to make the minimum payment (10% owing balance) or full payment? [full/minimum]: ";
+                        cin >> paymentChoice;
+                        
+                        if (paymentChoice.compare("full")==0 || paymentChoice.compare("minimum")==0){
+                            validPayment = true;
+                        }
+                    }
+                    
                     if (inputBalance >=0){
                         validBalance = true;
-                        Account tempAccount = Account (type,inputBalance);
+                        Account tempAccount = Account (type,0);
+                        Account tempAccountCreditLimit = Account(type,inputBalance);
                         data.storePin( user, tempAccount, pin1);
-                        data.storeCreditLimit(user, tempAccount);
+                        data.storeCreditLimit(user, tempAccountCreditLimit);
+                        data.storePaymentChoice(user, tempAccount, paymentChoice);
+                        data.storeAccount(user, tempAccount);
                     }
                 }
                 else{
@@ -103,11 +118,12 @@ namespace Operations {
                     
                     if (inputBalance >= 0){
                         validBalance = true;
+                        Account account = Account( type, inputBalance );
+                        data.storeAccount( user, account );
                     }
                 }
             }
-            Account account = Account( type, inputBalance );
-            data.storeAccount( user, account );
+            
             Logger::info() << "Account '" << Account::typeToString( type ) <<"' created!" << endl;
         }
 

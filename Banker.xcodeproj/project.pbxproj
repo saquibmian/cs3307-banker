@@ -33,6 +33,7 @@
 		9775EF0519CBD09F000709C9 /* DepositOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9775EF0419CBD09F000709C9 /* DepositOperation.cpp */; };
 		9775EF0819CBD34F000709C9 /* TransferOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9775EF0719CBD34F000709C9 /* TransferOperation.cpp */; };
 		97C7FD7F1A20D44C00FD95B1 /* Vendor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C7FD7E1A20D44C00FD95B1 /* Vendor.cpp */; };
+		97C7FD821A242C1500FD95B1 /* ViewTransactionsOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C7FD801A242C1500FD95B1 /* ViewTransactionsOperation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -100,6 +101,8 @@
 		9775EF0719CBD34F000709C9 /* TransferOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransferOperation.cpp; sourceTree = "<group>"; };
 		97C7FD7D1A20D22B00FD95B1 /* Vendor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vendor.h; sourceTree = "<group>"; };
 		97C7FD7E1A20D44C00FD95B1 /* Vendor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vendor.cpp; sourceTree = "<group>"; };
+		97C7FD801A242C1500FD95B1 /* ViewTransactionsOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewTransactionsOperation.cpp; sourceTree = "<group>"; };
+		97C7FD811A242C1500FD95B1 /* ViewTransactionsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewTransactionsOperation.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +174,8 @@
 				9775EF0619CBD33E000709C9 /* TransferOperation.h */,
 				9775EF0119CB38F4000709C9 /* WithdrawOperation.cpp */,
 				9775EF0019CB38E2000709C9 /* WithdrawOperation.h */,
+				97C7FD801A242C1500FD95B1 /* ViewTransactionsOperation.cpp */,
+				97C7FD811A242C1500FD95B1 /* ViewTransactionsOperation.h */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -334,6 +339,7 @@
 				389F35F919C29F1600841892 /* User.cpp in Sources */,
 				389F35EF19C29BFB00841892 /* main.cpp in Sources */,
 				38251ABC19C92BFE0010C3D4 /* AggregateBalanceOperation.cpp in Sources */,
+				97C7FD821A242C1500FD95B1 /* ViewTransactionsOperation.cpp in Sources */,
 				389DDC5E19C781190063CA4B /* AccountBalanceOperation.cpp in Sources */,
 				97C7FD7F1A20D44C00FD95B1 /* Vendor.cpp in Sources */,
 				3829118319C633050062440D /* MainMenu.cpp in Sources */,

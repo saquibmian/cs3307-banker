@@ -38,11 +38,12 @@ namespace Vendors{
         
     }
     
-    bool Vendor::checkPin (int inputPin ){ // Will need some way to access user's pin. Maybe do this
+    bool Vendor::checkPin (string inputPin, FilesystemData data, User customer ){ // Will need some way to access user's pin. Maybe do this
         // on account end?
         ENTER("Vendor::checkPin");
+       // User customer = context.getData().getUser(inputUsername);
         
-        if (inputPin == 2332 ) { // CHANGE THIS TO APPROPRIATE MODIFIER
+        if (data.checkPin(customer, inputPin) ) { // CHANGE THIS TO APPROPRIATE MODIFIER
         
             return true;
         }
@@ -53,7 +54,7 @@ namespace Vendors{
         EXIT("Vendor::checkPin"); //May not be reached.
     }
     
-    bool Vendor::isCardFrozen (){
+    bool Vendor::isCardFrozen (FilesystemData data, User customer){
         
         //Have to wait and see how the credit card is implemented.
         int funny = 2;
@@ -106,7 +107,7 @@ namespace Vendors{
          This chunk is for accessing and saving information to the User's account.
          
          */
-        IData* _transferData;
+        FilesystemData* _transferData;
         Options::OptionContext* _transferContext;
         Session* _transferSession;
         
@@ -129,8 +130,8 @@ namespace Vendors{
         
         
         //string inputUsername;
-        int inputPin;
-        int purchasePrice = (rand () % 10000 + 1)/100;
+        string inputPin;
+        double purchasePrice = (rand () % 10000 + 1)/100;
         
         //cout << "To simulate swiping a card, please enter the username of the person to be used";
         //cin >> inputUsername;
@@ -141,10 +142,11 @@ namespace Vendors{
         
         cout << "Please enter your pin (####): ";
         cin >> inputPin;
+        User customer = _transferContext->getData().getUser(inputUsername);
         
-        if (thisVendor.checkPin(inputPin)){
+        if (thisVendor.checkPin(inputPin, *_transferData, customer)){
             
-            if (thisVendor.isCardFrozen()){
+            if (thisVendor.isCardFrozen(*_transferData,customer)){
                 cout << "Sorry, but your card has been frozen. Please contact the bank for details" << endl;
             }
             else{
@@ -155,7 +157,7 @@ namespace Vendors{
             
             if (inputChoice == 'y'){
                 
-                User customer = _transferContext->getData().getUser(inputUsername);
+                
                 cout << inputUsername << " test." << endl;
                 Account creditAccount = _transferData->getAccount(customer, CreditCard);
                 

@@ -41,8 +41,8 @@ namespace Vendors{
         Vendor ( );
         
         static void purchaseSession(); // Could essentially be copied to a main.cpp file.
-        bool checkPin(int inputPin);
-        bool isCardFrozen();
+        bool checkPin(string inputPin, FilesystemData data, User user);
+        bool isCardFrozen(FilesystemData data, User user);
         string updateCustomer(double purchasePrice);
         void updateVendor(double purchasePrice, string clientName);
         string getPurchaseHistory();

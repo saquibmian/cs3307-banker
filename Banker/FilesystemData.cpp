@@ -103,6 +103,28 @@ namespace Data {
         return account;
     }
     
+    bool FilesystemData::checkPin( User user, string inputPin ) {
+        ENTER("Filesyste,Data::checkPin");
+        
+        if (!doesAccountExist(user,CreditCard)){
+            Logger::error() << "No credit card!" << endl;
+            throw std::exception();
+        }
+        string customerPin;
+        initFromFile(getAccountPath(user.Name, CreditCard)+".pin.dat", customerPin);
+        EXIT("FilesystemData::checkPin");
+        if (customerPin.compare(inputPin)==0){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+        
+        
+        
+    }
+    
     void FilesystemData::storeAccount( User user, Account account ) {
         ENTER( "FilesystemData::storeAccount" );
         

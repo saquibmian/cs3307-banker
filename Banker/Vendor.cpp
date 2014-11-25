@@ -45,9 +45,11 @@ namespace Vendors{
         
         if (data.checkPin(customer, inputPin) ) { // CHANGE THIS TO APPROPRIATE MODIFIER
         
+            EXIT("Vendor::checkPin-true");
             return true;
         }
         else{
+            EXIT("Vendor::checkPin-false");
             return false;
         }
         
@@ -55,12 +57,16 @@ namespace Vendors{
     }
     
     bool Vendor::isCardFrozen (FilesystemData data, User customer){
-        
+        ENTER("Vendor::isCardFrozen");
         //Have to wait and see how the credit card is implemented.
+        
+        
         if(Io::fileExists(customer.Name+".creditcard.frozen.dat")){
+            EXIT("Vendor::isCardFrozen-true");
             return true;
         }
         else{
+            EXIT("Vendor::isCardFrozen-false");
             return false;
            }
         
@@ -90,6 +96,8 @@ namespace Vendors{
     }
     
     void Vendor::purchaseSession (){
+        
+        ENTER("Vendor::purchaseSession");
         
         // You did a lot of -> without checking whether you should in this one.
         
@@ -198,6 +206,8 @@ namespace Vendors{
         }
         
        // -------------
+        
+        EXIT("Vendor::purchaseSession");
     }
     
     /**
@@ -206,6 +216,8 @@ namespace Vendors{
      
      */
     void Vendor::updateVendor (double purchasePrice, string clientName ){
+        
+        ENTER("Vendor::updateVendor");
         
         time_t timeVar;
         struct tm * timeinfo;
@@ -282,7 +294,7 @@ namespace Vendors{
         
         
         
-        
+        EXIT("Vendor::updateVendor");
         /*myfile.open ("example.txt");
         myfile << "Writing this to a file.\n";
         myfile.close(); */

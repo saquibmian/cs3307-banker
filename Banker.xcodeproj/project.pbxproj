@@ -35,6 +35,7 @@
 		97C7FD7F1A20D44C00FD95B1 /* Vendor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C7FD7E1A20D44C00FD95B1 /* Vendor.cpp */; };
 		97C7FD821A242C1500FD95B1 /* ViewTransactionsOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C7FD801A242C1500FD95B1 /* ViewTransactionsOperation.cpp */; };
 		97C7FD851A244C6100FD95B1 /* MonthlyUpdateOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C7FD831A244C6100FD95B1 /* MonthlyUpdateOperation.cpp */; };
+		97C7FD881A250A3C00FD95B1 /* ViewPaymentOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C7FD861A250A3C00FD95B1 /* ViewPaymentOperation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -106,6 +107,8 @@
 		97C7FD811A242C1500FD95B1 /* ViewTransactionsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewTransactionsOperation.h; sourceTree = "<group>"; };
 		97C7FD831A244C6100FD95B1 /* MonthlyUpdateOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MonthlyUpdateOperation.cpp; sourceTree = "<group>"; };
 		97C7FD841A244C6100FD95B1 /* MonthlyUpdateOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthlyUpdateOperation.h; sourceTree = "<group>"; };
+		97C7FD861A250A3C00FD95B1 /* ViewPaymentOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewPaymentOperation.cpp; sourceTree = "<group>"; };
+		97C7FD871A250A3C00FD95B1 /* ViewPaymentOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPaymentOperation.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +184,8 @@
 				9775EF0019CB38E2000709C9 /* WithdrawOperation.h */,
 				97C7FD801A242C1500FD95B1 /* ViewTransactionsOperation.cpp */,
 				97C7FD811A242C1500FD95B1 /* ViewTransactionsOperation.h */,
+				97C7FD861A250A3C00FD95B1 /* ViewPaymentOperation.cpp */,
+				97C7FD871A250A3C00FD95B1 /* ViewPaymentOperation.h */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -355,6 +360,7 @@
 				3838E8D319CAA3BA005AF9CB /* QuitOperation.cpp in Sources */,
 				38251AB919C92A540010C3D4 /* AllClientsBalanceOperation.cpp in Sources */,
 				97C7FD851A244C6100FD95B1 /* MonthlyUpdateOperation.cpp in Sources */,
+				97C7FD881A250A3C00FD95B1 /* ViewPaymentOperation.cpp in Sources */,
 				3810BDB019D27942003D2206 /* TraceDisplayOperation.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

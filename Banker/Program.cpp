@@ -12,6 +12,7 @@
 #include "AggregateBalanceOperation.h"
 #include "AccountCreationOperation.h"
 #include "AccountDeletionOperation.h"
+#include "ViewPaymentOperation.h"
 #include "ViewTransactionsOperation.h"
 #include "MonthlyUpdateOperation.h"
 #include "DepositOperation.h"
@@ -101,6 +102,12 @@ void Program::addMenuOptions() {
     MenuOption allAccountBalanceMenuOp ( "Display all account balances", allAccountBalanceOp, Manager );
     _operations->push_back( allAccountBalanceOp );
     _menu->addMenuOption( allAccountBalanceMenuOp );
+    
+    // Manager view payment history operation
+    IOperation* viewPayHistoryOp = new ViewPaymentOperation();
+    MenuOption viewPayHistoryMenuOp ("View payment history for a client", viewPayHistoryOp, Manager);
+    _operations->push_back( viewPayHistoryOp );
+    _menu->addMenuOption(viewPayHistoryMenuOp);
     
     //Monthly Update Operation
     IOperation* monthlyUpOperation = new MonthlyUpdateOperation();

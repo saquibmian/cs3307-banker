@@ -55,7 +55,9 @@ namespace Operations {
             cout << "Savings balance: $" << act.Balance << endl;
         }
         if ( data.doesAccountExist(user, CreditCard) ){
-            int puppy = 22;
+            hasAtLeastOneAccount = true;
+            Account act = context.getData().getAccount(user, CreditCard);
+            cout << "Credit Card Balance: $" << act.Balance << endl;
             
         }
         //ADD CREDIT CARD EXCEPTIONS

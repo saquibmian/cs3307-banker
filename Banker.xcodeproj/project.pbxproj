@@ -36,6 +36,8 @@
 		97C7FD821A242C1500FD95B1 /* ViewTransactionsOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C7FD801A242C1500FD95B1 /* ViewTransactionsOperation.cpp */; };
 		97C7FD851A244C6100FD95B1 /* MonthlyUpdateOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C7FD831A244C6100FD95B1 /* MonthlyUpdateOperation.cpp */; };
 		97C7FD881A250A3C00FD95B1 /* ViewPaymentOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C7FD861A250A3C00FD95B1 /* ViewPaymentOperation.cpp */; };
+		97C7FD8B1A254A1200FD95B1 /* VendorHistoryOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C7FD891A254A1200FD95B1 /* VendorHistoryOperation.cpp */; };
+		97C7FD8E1A256D4D00FD95B1 /* CreditLimitOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 97C7FD8C1A256D4D00FD95B1 /* CreditLimitOperation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -109,6 +111,10 @@
 		97C7FD841A244C6100FD95B1 /* MonthlyUpdateOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthlyUpdateOperation.h; sourceTree = "<group>"; };
 		97C7FD861A250A3C00FD95B1 /* ViewPaymentOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewPaymentOperation.cpp; sourceTree = "<group>"; };
 		97C7FD871A250A3C00FD95B1 /* ViewPaymentOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPaymentOperation.h; sourceTree = "<group>"; };
+		97C7FD891A254A1200FD95B1 /* VendorHistoryOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VendorHistoryOperation.cpp; sourceTree = "<group>"; };
+		97C7FD8A1A254A1200FD95B1 /* VendorHistoryOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorHistoryOperation.h; sourceTree = "<group>"; };
+		97C7FD8C1A256D4D00FD95B1 /* CreditLimitOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CreditLimitOperation.cpp; sourceTree = "<group>"; };
+		97C7FD8D1A256D4D00FD95B1 /* CreditLimitOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditLimitOperation.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +192,10 @@
 				97C7FD811A242C1500FD95B1 /* ViewTransactionsOperation.h */,
 				97C7FD861A250A3C00FD95B1 /* ViewPaymentOperation.cpp */,
 				97C7FD871A250A3C00FD95B1 /* ViewPaymentOperation.h */,
+				97C7FD891A254A1200FD95B1 /* VendorHistoryOperation.cpp */,
+				97C7FD8A1A254A1200FD95B1 /* VendorHistoryOperation.h */,
+				97C7FD8C1A256D4D00FD95B1 /* CreditLimitOperation.cpp */,
+				97C7FD8D1A256D4D00FD95B1 /* CreditLimitOperation.h */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -341,6 +351,7 @@
 				38251AB019C813460010C3D4 /* IOperation.cpp in Sources */,
 				9775EEFC19CA681C000709C9 /* AccountCreationOperation.cpp in Sources */,
 				3829116C19C568610062440D /* Configuration.cpp in Sources */,
+				97C7FD8B1A254A1200FD95B1 /* VendorHistoryOperation.cpp in Sources */,
 				38251AAE19C7E05A0010C3D4 /* Program.cpp in Sources */,
 				3829118819C6335F0062440D /* Logger.cpp in Sources */,
 				9775EEFF19CA88DB000709C9 /* AccountDeletionOperation.cpp in Sources */,
@@ -353,6 +364,7 @@
 				389DDC5E19C781190063CA4B /* AccountBalanceOperation.cpp in Sources */,
 				97C7FD7F1A20D44C00FD95B1 /* Vendor.cpp in Sources */,
 				3829118319C633050062440D /* MainMenu.cpp in Sources */,
+				97C7FD8E1A256D4D00FD95B1 /* CreditLimitOperation.cpp in Sources */,
 				3829117919C62C660062440D /* MenuOption.cpp in Sources */,
 				3845096919CBDB4D000073A7 /* FileIo.cpp in Sources */,
 				38251AB319C81A3F0010C3D4 /* TraceOperation.cpp in Sources */,

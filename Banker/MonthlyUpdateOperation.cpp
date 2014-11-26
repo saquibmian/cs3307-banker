@@ -34,7 +34,7 @@ namespace Operations{
                     
                     
                     //cout << Configuration::dataDirectory+user->Name +".creditcard.dat.paymentchoice.dat" << endl;
-                    cout << paymentchoice << " debug" <<endl;
+                   // cout << paymentchoice << " debug" <<endl;
                     
                     if (paymentchoice.compare("full")==0){
                         Io::initFromFile(user->Name+".creditcard.dat", creditBalance);
@@ -45,7 +45,7 @@ namespace Operations{
                         
                         if ( account.Balance - payment < 0 ){
                             
-                            Logger::error() << "Invalid. The balance will be less than 0. Overdraft is not enabled. Card Frozen." << endl;
+                            Logger::error() << "Card Frozen." << endl;
                             
                             if(Io::fileExists(user->Name+".creditcard.dat.payments.dat")){
                                 
@@ -64,7 +64,9 @@ namespace Operations{
                                 
                                 Io::appendLineToFile(user->Name+".creditcard.dat.payments.dat", inputString);
                                 
-                                creditBalance = creditBalance*1.02; //2% interest.
+                                creditBalance = (creditBalance+account.Balance)*1.02; //2% interest.
+                                account.withdraw(account.Balance);
+                                context.getData().storeAccount( *user, account );
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
                                 Io::createFile(user->Name+".creditcard.transactions.dat","");
                                 Io::createFile(user->Name+".creditcard.frozen.dat","Frozen");
@@ -87,7 +89,9 @@ namespace Operations{
                                 
                                 Io::createFile(user->Name+".creditcard.dat.payments.dat", inputString);
                             
-                                creditBalance = creditBalance*1.02;
+                                creditBalance = (creditBalance+account.Balance)*1.02;
+                                account.withdraw(account.Balance);
+                                context.getData().storeAccount( *user, account );
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
                                 Io::createFile(user->Name+".creditcard.transactions.dat","");
                                 Io::createFile(user->Name+".creditcard.frozen.dat","Frozen");
@@ -190,7 +194,10 @@ namespace Operations{
                                 
                                 Io::appendLineToFile(user->Name+".creditcard.dat.payments.dat", inputString);
                                 
-                                creditBalance = creditBalance*1.02; //2% interest.
+                                //creditBalance = creditBalance*1.02; //2% interest.
+                                creditBalance = (creditBalance+account.Balance)*1.02;
+                                account.withdraw(account.Balance);
+                                context.getData().storeAccount( *user, account );
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
                                 Io::createFile(user->Name+".creditcard.transactions.dat","");
                                 Io::createFile(user->Name+".creditcard.frozen.dat","Frozen");
@@ -213,7 +220,10 @@ namespace Operations{
                                 
                                 Io::createFile(user->Name+".creditcard.dat.payments.dat", inputString);
                                 
-                                creditBalance = creditBalance*1.02;
+                                //creditBalance = creditBalance*1.02;
+                                creditBalance = (creditBalance+account.Balance)*1.02;
+                                account.withdraw(account.Balance);
+                                context.getData().storeAccount( *user, account );
                                 Io::createFile(user->Name+".creditcard.dat",creditBalance);
                                 Io::createFile(user->Name+".creditcard.transactions.dat","");
                                 Io::createFile(user->Name+".creditcard.frozen.dat","Frozen");

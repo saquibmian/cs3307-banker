@@ -14,6 +14,7 @@
 #include "AccountDeletionOperation.h"
 #include "ViewPaymentOperation.h"
 #include "ViewTransactionsOperation.h"
+#include "VendorHistoryOperation.h"
 #include "MonthlyUpdateOperation.h"
 #include "DepositOperation.h"
 #include "WithdrawOperation.h"
@@ -22,6 +23,7 @@
 #include "TraceDisplayOperation.h"
 #include "QuitOperation.h"
 #include "Logger.h"
+#include "CreditLimitOperation.h"
 
 using namespace Operations;
 
@@ -108,6 +110,18 @@ void Program::addMenuOptions() {
     MenuOption viewPayHistoryMenuOp ("View payment history for a client", viewPayHistoryOp, Manager);
     _operations->push_back( viewPayHistoryOp );
     _menu->addMenuOption(viewPayHistoryMenuOp);
+    
+    // Manager view Vendor Transaction History
+    IOperation* vendorViewOp = new VendorHistoryOperation();
+    MenuOption vendorViewMenuOp ("View Vendor history", vendorViewOp, Manager);
+    _operations->push_back ( vendorViewOp );
+    _menu->addMenuOption(vendorViewMenuOp);
+    
+    // Manager set credit limit operation.
+    IOperation* creditLimitOp = new CreditLimitOperation();
+    MenuOption creditLimitMenuOp ("Set customer credit limit", creditLimitOp, Manager);
+    _operations->push_back (creditLimitOp);
+    _menu->addMenuOption(creditLimitMenuOp);
     
     //Monthly Update Operation
     IOperation* monthlyUpOperation = new MonthlyUpdateOperation();

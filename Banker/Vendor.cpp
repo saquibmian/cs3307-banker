@@ -208,6 +208,9 @@ namespace Vendors{
        // -------------
         
         EXIT("Vendor::purchaseSession");
+        
+        Logger::flushTrace( "vendor" );
+        
     }
     
     /**

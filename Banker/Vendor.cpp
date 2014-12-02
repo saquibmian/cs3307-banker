@@ -43,7 +43,7 @@ namespace Vendors{
         ENTER("Vendor::checkPin");
        // User customer = context.getData().getUser(inputUsername);
         
-        if (data.checkPin(customer, inputPin) ) { // CHANGE THIS TO APPROPRIATE MODIFIER
+        if (data.checkPin(customer, inputPin) ) {
         
             EXIT("Vendor::checkPin-true");
             return true;
@@ -53,7 +53,7 @@ namespace Vendors{
             return false;
         }
         
-        EXIT("Vendor::checkPin"); //May not be reached.
+        //EXIT("Vendor::checkPin");  not reached.
     }
     
     bool Vendor::isCardFrozen (FilesystemData data, User customer){
@@ -62,6 +62,9 @@ namespace Vendors{
         
         
         if(Io::fileExists(customer.Name+".creditcard.frozen.dat")){
+            ENTER("customer::isNotifiedOfFrozen");
+            EXIT("customer::isNotifiedOfFrozen");
+            
             EXIT("Vendor::isCardFrozen-true");
             return true;
         }
@@ -99,7 +102,6 @@ namespace Vendors{
         
         ENTER("Vendor::purchaseSession");
         
-        // You did a lot of -> without checking whether you should in this one.
         
         /* Real date function adapted from http://stackoverflow.com/questions/16357999/current-date-and-time-as-string . This one suited my purpose by providing a simple, streamlined way to get the real date. I didn't feel it should be controlled by the vendor. */
         
@@ -182,7 +184,10 @@ namespace Vendors{
                     creditAccount.withdraw( purchasePrice );
                    
                     // Collectively, these three statements will add a transaction history.
+                    //ENTER("Vendor::updateCustomer");
                     _transferData->storeAccount( customer, creditAccount );
+                   // EXIT("Vendor::updateCustomer");
+                  //  ENTER("Vendor::notifyBank");
                     _transferData->storeTransaction ( inputUsername, CreditCard, thisVendor.updateCustomer(purchasePrice) );
                     thisVendor.updateVendor(purchasePrice, inputUsername);
                     
@@ -221,6 +226,7 @@ namespace Vendors{
     void Vendor::updateVendor (double purchasePrice, string clientName ){
         
         ENTER("Vendor::updateVendor");
+        ENTER("Vendor::notifyBank");
         
         time_t timeVar;
         struct tm * timeinfo;
@@ -296,7 +302,7 @@ namespace Vendors{
         
         
         
-        
+        EXIT("Vendor::notifyBank");
         EXIT("Vendor::updateVendor");
         /*myfile.open ("example.txt");
         myfile << "Writing this to a file.\n";

@@ -45,6 +45,8 @@ namespace Operations{
                         
                         if ( account.Balance - payment < 0 ){
                             
+                            
+                            ENTER("Bank::FailedPayment&freezingCustomerCard");
                             Logger::error() << "Card Frozen." << endl;
                             
                             if(Io::fileExists(user->Name+".creditcard.dat.payments.dat")){
@@ -99,9 +101,14 @@ namespace Operations{
                             }
                             
                             
+                            EXIT("Bank::FailedPayment&freezingCustomerCard");
+                            
+                            
                         } else {
                             account.withdraw( payment );
                             context.getData().storeAccount( *user, account );
+                            
+                            ENTER("customer::SuccessfulPayment");
                             
                             if(Io::fileExists(user->Name+".creditcard.dat.payments.dat")){
                                 
@@ -159,7 +166,7 @@ namespace Operations{
                                 }
                                 
                             }
-                            
+                         EXIT("customer::SuccessfulPayment");
                         }
                         
                         
@@ -175,7 +182,10 @@ namespace Operations{
                         
                         if ( account.Balance - payment < 0 ){
                             
-                            Logger::error() << "Invalid. The balance will be less than 0. Overdraft is not enabled" << endl;
+                            
+                            ENTER("Bank::FailedPayment&freezingCustomerCard");
+                            
+                            Logger::error() << "Card frozen." << endl;
                             
                             if(Io::fileExists(user->Name+".creditcard.dat.payments.dat")){
                                 
@@ -230,10 +240,14 @@ namespace Operations{
                                 
                             }
                             
+                            EXIT("Bank::FailedPayment&freezingCustomerCard");
+                            
                             
                         } else {
                             account.withdraw( payment );
                             context.getData().storeAccount( *user, account );
+                            
+                            ENTER("customer::SuccessfulPayment");
                             
                             if(Io::fileExists(user->Name+".creditcard.dat.payments.dat")){
                                 
@@ -292,6 +306,8 @@ namespace Operations{
                                 
                             }
                             
+                            EXIT("customer::SuccessfulPayment");
+                            
                         }
                         
                         
@@ -313,6 +329,8 @@ namespace Operations{
             }
             
         }
+        
+        EXIT("MonthlyUpdateOperation::Execute");
         
     }
     
